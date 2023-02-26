@@ -1,0 +1,7 @@
+﻿comenzar:Palabra reservada de inicio
+cadena:Variable de tipo string
+entero:Variable de tipo int
+decimal:Variable de tipo decimal
+fin:Palabra reservada de Final
+ifi:Condicion If
+para:Ciclo For
