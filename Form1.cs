@@ -15,14 +15,13 @@ namespace AnalisisLexico
    
     public partial class Form1 : Form
     {
-       // int enumeracion = 0;
+      
       
 
         public Form1()
         {
             InitializeComponent();
-            timer1.Interval = 10; // se va actualizando el picturebox
-            timer1.Start();
+            
         }
 
         public string Descomponer(string palabra)
@@ -172,11 +171,24 @@ namespace AnalisisLexico
         }
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-            // borrar();// si quitas los comentarios explota
-            // Analisis();
-            //personalizado(); //pruebas
-
            
+            //ESTO ES PARA LA NUMERACION DE EDITOR DE PIZARRA
+
+            // Obtiene la primera línea visible del RichTextBox llamado pizarra.
+            int Primeralinea = Pizarra.GetLineFromCharIndex(Pizarra.GetCharIndexFromPosition(new Point(0, 0)));
+
+            // Calcula el número total de líneas del RichTextBox llamado pizarra.
+            int numerodelineas = Pizarra.Lines.Length;
+
+            // Construye un string que contiene los números de línea.
+            string cadenanumerolinea = "";
+            for (int i = Primeralinea + 1; i <= numerodelineas; i++)
+            {
+                cadenanumerolinea += i.ToString() + "\n";
+            }
+
+            // Establece el texto del control Label llamado lblnumero para mostrar los números de línea.
+            lblnumero.Text = cadenanumerolinea;
 
         }
 
@@ -275,73 +287,14 @@ namespace AnalisisLexico
 
         }
 
-        private void Lineas1_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+        private void lblnumero_Click(object sender, EventArgs e)
         {
+
+        }
+
        
-            
-        }
-
-        private void timer1_Tick(System.Object sender, System.EventArgs e)
-        {
-            
-                PictureBox1.Refresh(); // se actualiza el picturebox  
-            
-        }
-
-        private void PictureBox1_Paint(object sender, PaintEventArgs e)
-        {
-            //enumeracion = 0; // SE INICIALIZA A 0 EN CADA REPINTADO
-
-            //int ALTURA = Pizarra.GetPositionFromCharIndex(0).Y; // COORDENADA Y DEL PRIMER CARACTER
-
-            //if (Pizarra.Lines.Length > 0)
-            //{
-            //    for (int I = 0; I <= Pizarra.Lines.Length - 1; I++)
-            //    {
-            //        e.Graphics.DrawString((I + 1).ToString(), Pizarra.Font, Brushes.Blue, Pizarra.Width - (Convert.ToInt32(e.Graphics.MeasureString((I + 1).ToString(), Pizarra.Font).Width) + 10), ALTURA);
-            //        enumeracion += Pizarra.Lines.Length + 1; // INDICE DEL PRIMER CARACTER DE LA LINEA SIGUIENTE
-            //        ALTURA = Pizarra.GetPositionFromCharIndex(enumeracion).Y; // POSICION EN Y DEL PRIMER CARACTER DE LA LINEA SIGUIENTE
-            //    }
-            //}
-            //else
-            //    e.Graphics.DrawString("2", Pizarra.Font, Brushes.Blue, PictureBox1.Width - Convert.ToInt32(e.Graphics.MeasureString("1", Pizarra.Font).Width) - 10, ALTURA);
-
-
-
-            // Obtener la posición del primer carácter del control RichTextBox
-            int index = Pizarra.GetCharIndexFromPosition(new Point(0, 0));
-            int firstLine = Pizarra.GetLineFromCharIndex(index);
-        
-
-            // Obtener la altura de cada línea del control RichTextBox
-            double lineHeight = Pizarra.Font.Height * 1.25;
-
-            // Obtener el número de líneas del control RichTextBox
-            int lineCount = Pizarra.Lines.Length;
-
-            // Dibujar el número de línea para cada línea del control RichTextBox
-            for (int i = 0; i < lineCount; i++)
-            {
-                // Obtener la posición del primer carácter de la línea actual
-                int lineStart = Pizarra.GetFirstCharIndexFromLine(i);
-
-                // Obtener el número de línea actual
-                double lineNumber = i + 1;
-
-                // Dibujar el número de línea en el PictureBox
-                e.Graphics.DrawString(lineNumber.ToString(), Pizarra.Font, Brushes.Black, PictureBox1.Width - e.Graphics.MeasureString(lineNumber.ToString(), Pizarra.Font).Width - 10, Convert.ToInt32(lineHeight) * i);
-
-                // Añadir el ancho de la línea actual al índice para obtener el índice de la primera línea siguiente
-                index += Pizarra.Lines[i].Length + 1;
-            }
-
-        }
-
-        private void Fill(object sender, EventArgs e)
-        {
-
-        }
     }
     }
+    
     
 
