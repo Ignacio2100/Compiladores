@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO; 
 
 
+
 namespace AnalisisLexico
 {
    
@@ -27,9 +28,13 @@ namespace AnalisisLexico
         public string Descomponer(string palabra)
         {
             // Ruta del archivo de texto
+            //Actualizar el archivo de PalabrasReservadas.txt en ambos directorios --Arauz
             string filePath = @"C:\Users\Anthony Ernesto Lang\Desktop\AnalizadorC#\PalabrasReservadas.txt";
+            //El directorio de esta ruta se escuentra en la carpeta bin/Debug dentro del proyecto --Arauz
+            string filePath2 = @"PalabrasReservadas.txt";
             // Crear un objeto StreamReader para leer el archivo
-            StreamReader reader = new StreamReader(filePath);
+            //Cambiar a filePath2 por si no jalara el filePath normarl -- Arauz
+            StreamReader reader = new StreamReader(filePath2);
 
             // Crear un diccionario para almacenar las claves y valores
             Dictionary<string, string> dict = new Dictionary<string, string>();
@@ -228,7 +233,7 @@ namespace AnalisisLexico
         {
             this.dgvtabladatos.Rows.Clear(); 
         }
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        public void richTextBox1_TextChanged(object sender, EventArgs e)
         {
            
             //ESTO ES PARA LA NUMERACION DE EDITOR DE PIZARRA
@@ -265,7 +270,8 @@ namespace AnalisisLexico
         {
             borrar();
             Analisis();
-            personalizado(); 
+            personalizado();
+           // salvartexto();
 
         }
 
@@ -351,7 +357,28 @@ namespace AnalisisLexico
 
         }
 
-       
+
+
+        //Guardar texto ingresado en la pizzara, pense que si se iba a usar pero creo que no -- Arauz
+        public void salvartexto()
+        {
+            SaveFileDialog save = new SaveFileDialog();
+            save.Filter = "Codigo|*.txt";
+            save.Title = "codigo";
+            save.FileName = "Codigo 1";
+            var resultado = save.ShowDialog();
+            if (resultado == DialogResult.OK)
+            {
+                StreamWriter escribir = new StreamWriter(save.FileName);
+                foreach (object line in Pizarra.Lines)
+                {
+                    escribir.WriteLine(line);
+                }
+                escribir.Close();
+            }
+
+        }
+
     }
     }
     
