@@ -3,5 +3,26 @@ cadena:Variable de tipo string
 entero:Variable de tipo int
 decimal:Variable de tipo decimal
 fin:Palabra reservada de Final
-ifi:Condicion If
+si:Condicion If
 para:Ciclo For
+flotante:Variable tipo float 
+caracter:Variable tipo char
+bool:Varibale tipo booleano
+entonces:Condision else
+mientras:Ciclo while
+caso:case
+predeterminado:default
+romper:break
+continuar:continue
+retornar:return
+verdadero:true
+falso:false
+vacio:void
+principal:main
+imprimir:print
+imprimirln:println
+leer:read
+leerln:readln
+clase:class
+publico:public
+privado:private
