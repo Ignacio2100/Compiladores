@@ -18,6 +18,8 @@ namespace AnalisisLexico
     {
       
       
+        
+
 
         public Form1()
         {
@@ -91,109 +93,7 @@ namespace AnalisisLexico
 
             }
 
-            //switch (palabra) // aqui agregamos cualquier palabra
-            //{
-            //    case "comenzar":
-            //        caracterRerpresentado = "Palabra reservada de inicio";
-            //        break;
-            //    case "cadena":
-            //        caracterRerpresentado = "Variable de tipo string";
-            //        break;
-            //    case "entero":
-            //        caracterRerpresentado = "Variable de tipo int";
-            //        break;
-            //    case "decimal":
-            //        caracterRerpresentado = "Variable de tipo decimal";
-            //        break;
-            //    case ";":
-            //        caracterRerpresentado = "Signo de cierre de sentencia";
-            //        break;
-            //    case "=":
-            //        caracterRerpresentado = "Signo de asignación";
-            //        break;
-            //    case "==":
-            //        caracterRerpresentado = "Signo de comparación";
-            //        break;
-            //    case "+":
-            //        caracterRerpresentado = "Signo de suma";
-            //        break;
-            //    case "-":
-            //        caracterRerpresentado = "Signo de resta";
-            //        break;
-            //    case ">":
-            //        caracterRerpresentado = "Signo mayor";
-            //        break;
-            //    case "<":
-            //        caracterRerpresentado = "Signo menor";
-            //        break;
-            //    case "=<":
-            //        caracterRerpresentado = "Menor igual que";
-            //        break;
-            //    case "=>":
-            //        caracterRerpresentado = "Mayor igual que";
-            //        break;
-            //    case "(":
-            //        caracterRerpresentado = "Parentesis izquierdo";
-            //        break;
-            //    case ")":
-            //        caracterRerpresentado = "Parentesis derecho";
-            //        break;
-            //    case "{":
-            //        caracterRerpresentado = "Llave derecho";
-            //        break;
-            //    case "}":
-            //        caracterRerpresentado = "Llave izquierdo";
-            //        break;
-            //    case "[":
-            //        caracterRerpresentado = "Corchete izquierdo";
-            //        break;
-            //    case "]":
-            //        caracterRerpresentado = "Corchete derecho";
-            //        break;
-            //    case "&":
-            //        caracterRerpresentado = "Operador AND";
-            //        break;
-            //    case "||":
-            //        caracterRerpresentado = "Operador OR";
-            //        break;
-            //    case "fin":
-            //        caracterRerpresentado = "Palabra reservada de Final";
-            //        break;
-            //    case "ifi":
-            //        caracterRerpresentado = "Condicion If";
-            //        break;
-            //    case "para":
-            //        caracterRerpresentado = "Ciclo For";
-            //        break;
-            //    default:
-            //        int val = 0;
-            //        float decimall ;
-            //        int validacion = 0;
-            //            //validamos si es un numero o no
-            //        if (int.TryParse(palabra, out val))
-            //        {
-            //            caracterRerpresentado = "Es un número";
-            //            validacion = 1;
-            //        }else
-            //        //validamos si es un numero decimal o no
-            //        if (float.TryParse(palabra, out decimall))
-            //        {
-            //            caracterRerpresentado = "Es un número decimal";
-            //            validacion = 1;
-            //        }
-            //        //validamos si es una variable o no
-            //        if (palabra.StartsWith("'") && palabra.EndsWith("'"))
-            //        {
-            //            caracterRerpresentado = "Es un nombre de variable";
-            //            validacion = 1;
-            //        }
-            //        //validamos si es identificador o no
-            //        if (validacion == 0)
-            //        {
-            //            caracterRerpresentado = "Nombre de Variable";
-            //        }
-            //        break;
-            //}
+           
             return caracterRerpresentado;
         }
         public void Analisis()
@@ -249,16 +149,31 @@ namespace AnalisisLexico
             for (int i = Primeralinea + 1; i <= numerodelineas; i++)
             {
                 cadenanumerolinea += i.ToString() + "\n";
+
             }
+
+            //Cambiar de color a las palabras reservadas
+          
+            personalizado();
+         
+            
 
             // Establece el texto del control Label llamado lblnumero para mostrar los números de línea.
             lblnumero.Text = cadenanumerolinea;
+
+           
+
+
+            
 
         }
 
         private void Form1_Load(System.Object sender, EventArgs e)
         {
+
             
+
+
         }
 
         private void dgvInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -277,76 +192,63 @@ namespace AnalisisLexico
 
         // Establece el color de la palabra "ejemplo" en el control RichTextBox1
         public void personalizado()
-        {
-            // Busca la palabra "comenzar" en el control RichTextBox1
-            int uno = Pizarra.Find("comenzar");
 
+        {
+            
+     
+
+            int uno = Pizarra.Find("comenzar");
+            string color = "SkyBlue";
             // Si se encuentra la palabra, establece su color
             if (uno != -1)
             {
                 Pizarra.Select(uno, "comenzar".Length);
-                Pizarra.SelectionColor = Color.Red;
+                Pizarra.SelectionColor = Color.FromName(color);
+                Pizarra.SelectionStart = Pizarra.Text.Length;
+            }
+            else
+            {
+                Pizarra.SelectionColor = Color.White;
             }
 
-            // Busca la palabra "entero" en el control RichTextBox1
-            int dos = Pizarra.Find("entero");
 
+            // Busca la palabra "comenzar" en el control RichTextBox1
+
+
+              
+            
+            // Si se encuentra la palabra, establece su color
+           
+            // Busca la palabra "fin" en el control RichTextBox1
+            int dos = Pizarra.Find("fin");
+            string color2 = "HotPink";
             // Si se encuentra la palabra, establece su color
             if (dos != -1)
             {
-                Pizarra.Select(dos, "entero".Length);
-                Pizarra.SelectionColor = Color.Red;
+                Pizarra.Select(dos, "fin".Length);
+                Pizarra.SelectionColor = Color.FromName(color2);
+                Pizarra.SelectionStart = Pizarra.Text.Length;
+            }
+            else
+            {
+                Pizarra.SelectionColor = Color.White;
             }
 
-            // Busca la palabra "fin" en el control RichTextBox1
-            int tres = Pizarra.Find("fin");
-
+            // Busca la palabra "leer" en el control RichTextBox1
+            int tres = Pizarra.Find("leer");
+            string color3 = "Orange";
             // Si se encuentra la palabra, establece su color
             if (tres != -1)
             {
-                Pizarra.Select(tres, "fin".Length);
-                Pizarra.SelectionColor = Color.Red;
+                Pizarra.Select(tres, "leer".Length);
+                Pizarra.SelectionColor = Color.FromName(color3);
+                Pizarra.SelectionStart = Pizarra.Text.Length;
             }
-
-            // Busca la palabra "cadena" en el control RichTextBox1
-            int cuatro = Pizarra.Find("cadena");
-
-            // Si se encuentra la palabra, establece su color
-            if (cuatro != -1)
+            else
             {
-                Pizarra.Select(cuatro, "cadena".Length);
-                Pizarra.SelectionColor = Color.Red;
+                Pizarra.SelectionColor = Color.White;
             }
 
-            // Busca la palabra "cadena" en el control RichTextBox1
-            int cinco = Pizarra.Find("decimal");
-
-            // Si se encuentra la palabra, establece su color
-            if (cinco != -1)
-            {
-                Pizarra.Select(cinco, "decimal".Length);
-                Pizarra.SelectionColor = Color.Red;
-            }
-
-            // Busca la palabra "ifi" en el control RichTextBox1
-            int seis = Pizarra.Find("ifi");
-
-            // Si se encuentra la palabra, establece su color
-            if (seis != -1)
-            {
-                Pizarra.Select(seis, "ifi".Length);
-                Pizarra.SelectionColor = Color.Red;
-            }
-
-            // Busca la palabra "fore" en el control RichTextBox1
-            int siete = Pizarra.Find("fore");
-
-            // Si se encuentra la palabra, establece su color
-            if (siete != -1)
-            {
-                Pizarra.Select(siete, "fore".Length);
-                Pizarra.SelectionColor = Color.Red;
-            }
 
            
 
@@ -355,6 +257,7 @@ namespace AnalisisLexico
         private void lblnumero_Click(object sender, EventArgs e)
         {
 
+   
         }
 
 
