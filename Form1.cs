@@ -31,7 +31,6 @@ namespace AnalisisLexico
         {
             // Ruta del archivo de texto
             //Actualizar el archivo de PalabrasReservadas.txt en ambos directorios --Arauz
-            string filePath = @"C:\Users\Anthony Ernesto Lang\Desktop\AnalizadorC#\PalabrasReservadas.txt";
             //El directorio de esta ruta se escuentra en la carpeta bin/Debug dentro del proyecto --Arauz
             string filePath2 = @"PalabrasReservadas.txt";
             // Crear un objeto StreamReader para leer el archivo
@@ -70,7 +69,9 @@ namespace AnalisisLexico
                 if (item.Key == palabra)
                 {
                     caracterRerpresentado = item.Value;
+                    break; 
                 }
+              
                 else if (int.TryParse(palabra, out val))
                 {
                     caracterRerpresentado = "Es un número";
@@ -86,10 +87,10 @@ namespace AnalisisLexico
                         caracterRerpresentado = "Es un valor de variable string";
                         validacion = 1;
                     }
-                //else if (validacion == 0)
-                //{
-                //    caracterRerpresentado = "nombre de variable";
-                //}
+                else if (validacion == 0)
+                {
+                    caracterRerpresentado = "nombre de variable";
+                }
 
             }
 
