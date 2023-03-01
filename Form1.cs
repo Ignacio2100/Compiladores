@@ -31,6 +31,7 @@ namespace AnalisisLexico
         {
             // Ruta del archivo de texto
             //Actualizar el archivo de PalabrasReservadas.txt en ambos directorios --Arauz
+            string filePath = @"C:\Users\Anthony Ernesto Lang\Desktop\AnalizadorC#\PalabrasReservadas.txt";
             //El directorio de esta ruta se escuentra en la carpeta bin/Debug dentro del proyecto --Arauz
             string filePath2 = @"PalabrasReservadas.txt";
             // Crear un objeto StreamReader para leer el archivo
@@ -69,9 +70,7 @@ namespace AnalisisLexico
                 if (item.Key == palabra)
                 {
                     caracterRerpresentado = item.Value;
-                    break; 
                 }
-              
                 else if (int.TryParse(palabra, out val))
                 {
                     caracterRerpresentado = "Es un número";
@@ -87,10 +86,10 @@ namespace AnalisisLexico
                         caracterRerpresentado = "Es un valor de variable string";
                         validacion = 1;
                     }
-                else if (validacion == 0)
-                {
-                    caracterRerpresentado = "nombre de variable";
-                }
+                //else if (validacion == 0)
+                //{
+                //    caracterRerpresentado = "nombre de variable";
+                //}
 
             }
 
@@ -186,7 +185,7 @@ namespace AnalisisLexico
         {
             borrar();
             Analisis();
-            //personalizado();
+            personalizado();
            // salvartexto();
 
         }
@@ -270,67 +269,32 @@ namespace AnalisisLexico
                         }
                     }
              }
+
+             
+             string [] palabras4 = {"//","/*","*/"};
+             foreach(string palabra in palabras4)
+             {
+                    int startIndex = 0;
+                    while (startIndex < Pizarra.TextLength)
+                    {
+                        int wordstartIndex = Pizarra.Find(palabra, startIndex, RichTextBoxFinds.None);
+                        if (wordstartIndex != -1)
+                        {
+                            Pizarra.SelectionStart = wordstartIndex;
+                            Pizarra.SelectionLength = palabra.Length;
+                            Pizarra.SelectionColor = Color.GreenYellow;
+                            startIndex += wordstartIndex + palabra.Length;
+                            Pizarra.SelectionStart = Pizarra.Text.Length;
+                            
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+             }
         }
-                
-        
 
-            // int uno = Pizarra.Find("comenzar");
-            // string color = "SkyBlue";
-            // // Si se encuentra la palabra, establece su color
-            // if (uno != -1)
-            // {
-            //     Pizarra.Select(uno, "comenzar".Length);
-            //     Pizarra.SelectionColor = Color.FromName(color);
-            //     Pizarra.SelectionStart = Pizarra.Text.Length;
-            // }
-            // else
-            // {
-            //     Pizarra.SelectionColor = Color.White;
-            // }
-
-
-            // Busca la palabra "comenzar" en el control RichTextBox1
-
-
-              
-            
-            // Si se encuentra la palabra, establece su color
-           
-            // Busca la palabra "fin" en el control RichTextBox1
-            // int dos = Pizarra.Find("fin");
-            // string color2 = "HotPink";
-            // // Si se encuentra la palabra, establece su color
-            // if (dos != -1)
-            // {
-            //     Pizarra.Select(dos, "fin".Length);
-            //     Pizarra.SelectionColor = Color.FromName(color2);
-            //     Pizarra.SelectionStart = Pizarra.Text.Length;
-            // }
-            // else
-            // {
-            //     Pizarra.SelectionColor = Color.White;
-            // }
-
-            // // Busca la palabra "leer" en el control RichTextBox1
-            // int tres = Pizarra.Find("leer");
-            // string color3 = "Orange";
-            // // Si se encuentra la palabra, establece su color
-            // if (tres != -1)
-            // {
-            //     Pizarra.Select(tres, "leer".Length);
-            //     Pizarra.SelectionColor = Color.FromName(color3);
-            //     Pizarra.SelectionStart = Pizarra.Text.Length;
-            // }
-            // else
-            // {
-            //     Pizarra.SelectionColor = Color.White;
-            // }
-
-
-           
-
-        
-        
 
         private void lblnumero_Click(object sender, EventArgs e)
         {
@@ -360,6 +324,48 @@ namespace AnalisisLexico
 
         }
 
+        private void btnBorrar_Click(object sender, EventArgs e)
+        {
+            borrar();
+            Pizarra.Clear();
+        }
+
+        private void btnTema_Click(object sender, EventArgs e)
+        {
+            //cambia de tema
+            if (this.BackColor == Color.FromArgb(57, 48, 83))
+            {
+                this.BackColor = Color.FromArgb(83, 97, 98);
+                Pizarra.BackColor = Color.FromArgb(66, 70, 66);
+                Pizarra.ForeColor = Color.FromArgb(238, 238, 238);
+                lblnumero.ForeColor = Color.FromArgb(24, 18, 43);
+                dgvtabladatos.BackgroundColor = Color.FromArgb(66, 70, 66);
+                dgvtabladatos.ForeColor = Color.FromArgb(24, 18, 43);
+                btnProcesar.BackColor = Color.FromArgb(66, 70, 66);
+                btnProcesar.ForeColor = Color.FromArgb(243, 244, 237);
+                btnBorrar.BackColor = Color.FromArgb(66, 70, 66);
+                btnBorrar.ForeColor = Color.FromArgb(243, 244, 237);
+                btnTema.BackColor = Color.FromArgb(66, 70, 66);
+                btnTema.ForeColor = Color.FromArgb(243, 244, 237);
+                btnTema.Text = "Tema Oscuro";
+            }
+            else
+            {
+                this.BackColor = Color.FromArgb(57, 48, 83);
+                Pizarra.BackColor = Color.FromArgb(24, 18, 43);
+                Pizarra.ForeColor = Color.FromArgb(238, 238, 238);
+                lblnumero.ForeColor = Color.FromArgb(238, 238, 238);
+                dgvtabladatos.BackgroundColor = Color.FromArgb(24, 18, 43);
+                dgvtabladatos.ForeColor = Color.FromArgb(83, 97, 98);
+                btnProcesar.BackColor = Color.FromArgb(24, 18, 43);
+                btnProcesar.ForeColor = Color.FromArgb(243, 244, 237);
+                btnBorrar.BackColor = Color.FromArgb(24, 18, 43);
+                btnBorrar.ForeColor = Color.FromArgb(243, 244, 237);
+                btnTema.BackColor = Color.FromArgb(24, 18, 43);
+                btnTema.ForeColor = Color.FromArgb(243, 244, 237);
+                btnTema.Text = "Tema Claro";
+            }
+        }
     }
     }
     
