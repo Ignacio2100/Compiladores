@@ -31,9 +31,9 @@ namespace AnalisisLexico
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnProcesar = new System.Windows.Forms.Button();
             this.lblnumero = new System.Windows.Forms.Label();
             this.Pizarra = new System.Windows.Forms.RichTextBox();
+            this.btnProcesar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgvtabladatos = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,19 +49,46 @@ namespace AnalisisLexico
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.lblnumero);
             this.groupBox1.Controls.Add(this.Pizarra);
             this.groupBox1.Font = new System.Drawing.Font("Trebuchet MS", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(219)))), ((int)(((byte)(187)))));
-            this.groupBox1.Location = new System.Drawing.Point(11, 11);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Location = new System.Drawing.Point(15, 14);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(953, 551);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Size = new System.Drawing.Size(1271, 678);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Introduce Codigo:";
+            // 
+            // lblnumero
+            // 
+            this.lblnumero.BackColor = System.Drawing.Color.Transparent;
+            this.lblnumero.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblnumero.Location = new System.Drawing.Point(8, 27);
+            this.lblnumero.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblnumero.Name = "lblnumero";
+            this.lblnumero.Size = new System.Drawing.Size(43, 614);
+            this.lblnumero.TabIndex = 1;
+            this.lblnumero.Click += new System.EventHandler(this.lblnumero_Click);
+            // 
+            // Pizarra
+            // 
+            this.Pizarra.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Pizarra.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(70)))), ((int)(((byte)(66)))));
+            this.Pizarra.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.Pizarra.Location = new System.Drawing.Point(57, 23);
+            this.Pizarra.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Pizarra.Name = "Pizarra";
+            this.Pizarra.Size = new System.Drawing.Size(1191, 628);
+            this.Pizarra.TabIndex = 0;
+            this.Pizarra.Text = "";
+            this.Pizarra.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // btnProcesar
             // 
@@ -70,35 +97,14 @@ namespace AnalisisLexico
             this.btnProcesar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnProcesar.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProcesar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(237)))));
-            this.btnProcesar.Location = new System.Drawing.Point(690, 586);
+            this.btnProcesar.Location = new System.Drawing.Point(920, 721);
+            this.btnProcesar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnProcesar.Name = "btnProcesar";
-            this.btnProcesar.Size = new System.Drawing.Size(119, 51);
+            this.btnProcesar.Size = new System.Drawing.Size(159, 63);
             this.btnProcesar.TabIndex = 3;
             this.btnProcesar.Text = "Procesar";
             this.btnProcesar.UseVisualStyleBackColor = false;
             this.btnProcesar.Click += new System.EventHandler(this.btnProcesar_Click);
-            // 
-            // lblnumero
-            // 
-            this.lblnumero.BackColor = System.Drawing.Color.Transparent;
-            this.lblnumero.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblnumero.Location = new System.Drawing.Point(6, 22);
-            this.lblnumero.Name = "lblnumero";
-            this.lblnumero.Size = new System.Drawing.Size(32, 499);
-            this.lblnumero.TabIndex = 1;
-            this.lblnumero.Click += new System.EventHandler(this.lblnumero_Click);
-            // 
-            // Pizarra
-            // 
-            this.Pizarra.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(70)))), ((int)(((byte)(66)))));
-            this.Pizarra.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.Pizarra.Location = new System.Drawing.Point(43, 19);
-            this.Pizarra.Margin = new System.Windows.Forms.Padding(2);
-            this.Pizarra.Name = "Pizarra";
-            this.Pizarra.Size = new System.Drawing.Size(894, 511);
-            this.Pizarra.TabIndex = 0;
-            this.Pizarra.Text = "";
-            this.Pizarra.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // groupBox2
             // 
@@ -106,9 +112,11 @@ namespace AnalisisLexico
             this.groupBox2.Controls.Add(this.dgvtabladatos);
             this.groupBox2.Font = new System.Drawing.Font("Trebuchet MS", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.OldLace;
-            this.groupBox2.Location = new System.Drawing.Point(12, 567);
+            this.groupBox2.Location = new System.Drawing.Point(16, 698);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(655, 154);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Size = new System.Drawing.Size(873, 190);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Distribucion";
@@ -123,13 +131,13 @@ namespace AnalisisLexico
             this.Column3,
             this.Column4});
             this.dgvtabladatos.GridColor = System.Drawing.SystemColors.AppWorkspace;
-            this.dgvtabladatos.Location = new System.Drawing.Point(43, 19);
-            this.dgvtabladatos.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvtabladatos.Location = new System.Drawing.Point(57, 23);
+            this.dgvtabladatos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvtabladatos.Name = "dgvtabladatos";
             this.dgvtabladatos.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dgvtabladatos.RowHeadersWidth = 51;
             this.dgvtabladatos.RowTemplate.Height = 24;
-            this.dgvtabladatos.Size = new System.Drawing.Size(580, 99);
+            this.dgvtabladatos.Size = new System.Drawing.Size(773, 122);
             this.dgvtabladatos.TabIndex = 1;
             this.dgvtabladatos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInfo_CellContentClick);
             // 
@@ -168,9 +176,10 @@ namespace AnalisisLexico
             this.btnBorrar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnBorrar.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBorrar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(237)))));
-            this.btnBorrar.Location = new System.Drawing.Point(690, 652);
+            this.btnBorrar.Location = new System.Drawing.Point(920, 802);
+            this.btnBorrar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnBorrar.Name = "btnBorrar";
-            this.btnBorrar.Size = new System.Drawing.Size(119, 51);
+            this.btnBorrar.Size = new System.Drawing.Size(159, 63);
             this.btnBorrar.TabIndex = 4;
             this.btnBorrar.Text = "Borrar";
             this.btnBorrar.UseVisualStyleBackColor = false;
@@ -183,9 +192,10 @@ namespace AnalisisLexico
             this.btnTema.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnTema.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTema.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(237)))));
-            this.btnTema.Location = new System.Drawing.Point(831, 586);
+            this.btnTema.Location = new System.Drawing.Point(1108, 721);
+            this.btnTema.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnTema.Name = "btnTema";
-            this.btnTema.Size = new System.Drawing.Size(117, 51);
+            this.btnTema.Size = new System.Drawing.Size(156, 63);
             this.btnTema.TabIndex = 5;
             this.btnTema.Text = "Tema Oscuro";
             this.btnTema.UseVisualStyleBackColor = false;
@@ -193,19 +203,17 @@ namespace AnalisisLexico
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(97)))), ((int)(((byte)(98)))));
-            this.ClientSize = new System.Drawing.Size(975, 733);
+            this.ClientSize = new System.Drawing.Size(1300, 902);
             this.Controls.Add(this.btnTema);
             this.Controls.Add(this.btnBorrar);
             this.Controls.Add(this.btnProcesar);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2);
-            this.MaximizeBox = false;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Compilador UMG";

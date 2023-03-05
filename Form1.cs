@@ -16,11 +16,6 @@ namespace AnalisisLexico
    
     public partial class Form1 : Form
     {
-      
-      
-        
-
-
         public Form1()
         {
             InitializeComponent();
@@ -128,7 +123,6 @@ namespace AnalisisLexico
 
         }
 
-
        public void borrar()
         {
             this.dgvtabladatos.Rows.Clear(); 
@@ -156,23 +150,12 @@ namespace AnalisisLexico
           
             personalizado();
          
-            
-
             // Establece el texto del control Label llamado lblnumero para mostrar los números de línea.
             lblnumero.Text = cadenanumerolinea;
-
-           
-
-
-            
-
         }
 
         private void Form1_Load(System.Object sender, EventArgs e)
         {
-
-            
-
 
         }
 
