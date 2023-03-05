@@ -128,7 +128,7 @@ namespace AnalisisLexico
         }
         public void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-           
+            SignosNoValidos();
             //ESTO ES PARA LA NUMERACION DE EDITOR DE PIZARRA
 
             // Obtiene la primera línea visible del RichTextBox llamado pizarra.
@@ -168,6 +168,7 @@ namespace AnalisisLexico
             borrar();
             Analisis();
             personalizado();
+            
            // salvartexto();
 
         }
@@ -348,6 +349,124 @@ namespace AnalisisLexico
                 btnTema.Text = "Tema Claro";
             }
         }
+        private void SignosNoValidos()
+        {
+
+            // Verificar si el RichTextBox contiene caracteres no válidos
+            if (Pizarra.Text.Contains("#"))
+            {
+                // Mostrar mensaje de error con MessageBox
+                MessageBox.Show("La Sintaxis no puede contener el símbolo '#'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Establecer el foco en el RichTextBox
+                Pizarra.Focus();
+            }
+            else if (Pizarra.Text.Contains("?"))
+            {
+                // Mostrar mensaje de error con MessageBox
+                MessageBox.Show("La Sintaxis no puede contener el símbolo '?'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Establecer el foco en el RichTextBox
+                Pizarra.Focus();
+            }
+            else if (Pizarra.Text.Contains("$"))
+            {
+                // Mostrar mensaje de error con MessageBox
+                MessageBox.Show("La Sintaxis no puede contener el símbolo '$'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Establecer el foco en el RichTextBox
+                Pizarra.Focus();
+            }
+            else if (Pizarra.Text.Contains("¡"))
+            {
+                // Mostrar mensaje de error con MessageBox
+                MessageBox.Show("La Sintaxis no puede contener el símbolo '¡'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Establecer el foco en el RichTextBox
+                Pizarra.Focus();
+            }
+            else if (Pizarra.Text.Contains("¿"))
+            {
+                // Mostrar mensaje de error con MessageBox
+                MessageBox.Show("La Sintaxis no puede contener el símbolo '¿'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Establecer el foco en el RichTextBox
+                Pizarra.Focus();
+            }
+            else if (Pizarra.Text.Contains("."))
+            {
+                // Mostrar mensaje de error con MessageBox
+                MessageBox.Show("La Sintaxis no puede contener el símbolo '.'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Establecer el foco en el RichTextBox
+                Pizarra.Focus();
+            }
+            else if (Pizarra.Text.Contains("^"))
+            {
+                // Mostrar mensaje de error con MessageBox
+                MessageBox.Show("La Sintaxis no puede contener el símbolo '^'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Establecer el foco en el RichTextBox
+                Pizarra.Focus();
+            }
+            else if (Pizarra.Text.Contains("@"))
+            {
+                // Mostrar mensaje de error con MessageBox
+                MessageBox.Show("La Sintaxis no puede contener el símbolo '@'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Establecer el foco en el RichTextBox
+                Pizarra.Focus();
+            }
+            else if (Pizarra.Text.Contains("%"))
+            {
+                // Mostrar mensaje de error con MessageBox
+                MessageBox.Show("La Sintaxis no puede contener el símbolo '%'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Establecer el foco en el RichTextBox
+                Pizarra.Focus();
+            }
+            else if (Pizarra.Text.Contains("!"))
+            {
+                // Mostrar mensaje de error con MessageBox
+                MessageBox.Show("La Sintaxis no puede contener el símbolo '!'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Establecer el foco en el RichTextBox
+                Pizarra.Focus();
+            }
+            else if (Pizarra.Text.Contains("_"))
+            {
+                // Mostrar mensaje de error con MessageBox
+                MessageBox.Show("La Sintaxis no puede contener el símbolo '_'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Establecer el foco en el RichTextBox
+                Pizarra.Focus();
+            }
+            else if (Pizarra.Text.Contains("¬"))
+            {
+                // Mostrar mensaje de error con MessageBox
+                MessageBox.Show("La Sintaxis no puede contener el símbolo '¬'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Establecer el foco en el RichTextBox
+                Pizarra.Focus();
+            }
+            else if (Pizarra.Text.Contains("ª"))
+            {
+                // Mostrar mensaje de error con MessageBox
+                MessageBox.Show("La Sintaxis no puede contener el símbolo 'ª'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Establecer el foco en el RichTextBox
+                Pizarra.Focus();
+            }
+            else if (Pizarra.Text.Contains("º"))
+            {
+                // Mostrar mensaje de error con MessageBox
+                MessageBox.Show("La Sintaxis no puede contener el símbolo 'º'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Establecer el foco en el RichTextBox
+                Pizarra.Focus();
+            }
+            else if (Pizarra.Text.Contains("Ç"))
+            {
+                // Mostrar mensaje de error con MessageBox
+                MessageBox.Show("La Sintaxis no puede contener el símbolo 'Ç'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Establecer el foco en el RichTextBox
+                Pizarra.Focus();
+            }
+            else if (Pizarra.Text.Contains("~"))
+            {
+                // Mostrar mensaje de error con MessageBox
+                MessageBox.Show("La Sintaxis no puede contener el símbolo '~'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Establecer el foco en el RichTextBox
+                Pizarra.Focus();
+            }
+        }
+
     }
     }
     
