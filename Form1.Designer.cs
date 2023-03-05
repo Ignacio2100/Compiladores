@@ -74,7 +74,6 @@ namespace AnalisisLexico
             this.lblnumero.Name = "lblnumero";
             this.lblnumero.Size = new System.Drawing.Size(43, 614);
             this.lblnumero.TabIndex = 1;
-            this.lblnumero.Click += new System.EventHandler(this.lblnumero_Click);
             // 
             // Pizarra
             // 
@@ -139,7 +138,6 @@ namespace AnalisisLexico
             this.dgvtabladatos.RowTemplate.Height = 24;
             this.dgvtabladatos.Size = new System.Drawing.Size(773, 122);
             this.dgvtabladatos.TabIndex = 1;
-            this.dgvtabladatos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInfo_CellContentClick);
             // 
             // Column1
             // 

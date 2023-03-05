@@ -1,0 +1,20 @@
+{:LLave inicio bloque
+}:Llave cierre bloque
+(:parentesis inicio bloque
+):parentesis cierre bloque
+=:signo de asignacion
+==:signo de comparacion
++:signo de suma
+-:signo de resta
+/:signo de division
+*:signo de multiplicacion
+>:signo mayor que
+<:signo menor que
+;:fin de linea
+!=:diferente de
+>=:mayor igual
+<=:menor igual
+++:incremento
+--:decremento
+&&:AND
+||:OR
