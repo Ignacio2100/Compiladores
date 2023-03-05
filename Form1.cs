@@ -25,10 +25,9 @@ namespace AnalisisLexico
         public string Descomponer(string palabra)
         {
             // Ruta del archivo de texto
-            //Actualizar el archivo de PalabrasReservadas.txt en ambos directorios --Arauz
-            string filePath = @"C:\Users\Anthony Ernesto Lang\Desktop\AnalizadorC#\PalabrasReservadas.txt";
             //El directorio de esta ruta se escuentra en la carpeta bin/Debug dentro del proyecto --Arauz
             string filePath2 = @"PalabrasReservadas.txt";
+            string hola;
             // Crear un objeto StreamReader para leer el archivo
             //Cambiar a filePath2 por si no jalara el filePath normarl -- Arauz
             StreamReader reader = new StreamReader(filePath2);
