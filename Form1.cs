@@ -13,7 +13,6 @@ using System.IO;
 
 namespace AnalisisLexico
 {
-
     public partial class Form1 : Form
     {
         public Form1()
@@ -150,8 +149,6 @@ namespace AnalisisLexico
             validacionvariable(); //funcion de validacion de variable 
             personalizado();// funcion del color de la variable 
             enumeracion();//funcion de la enumeracion 
-
-
         }
 
         private void Form1_Load(System.Object sender, EventArgs e)
@@ -170,120 +167,240 @@ namespace AnalisisLexico
         // Establece el color de la palabra "ejemplo" en el control RichTextBox1
         public void personalizado()
         {
-            // Busca la palabra "comenzar" en el control RichTextBox1
-            string[] palabras = { "comenzar", "fin" };
-            foreach (string palabra in palabras)
+            if (sbtnTema.Checked == false)
             {
-                int startIndex = 0;
-                while (startIndex < Pizarra.TextLength)
+                // Busca la palabra "comenzar" en el control RichTextBox1
+                string[] palabras = { "comenzar", "fin" };
+                foreach (string palabra in palabras)
                 {
-                    int wordstartIndex = Pizarra.Find(palabra, startIndex, RichTextBoxFinds.None);
-                    if (wordstartIndex != -1)
+                    int startIndex = 0;
+                    while (startIndex < Pizarra.TextLength)
                     {
-                        Pizarra.SelectionStart = wordstartIndex;
-                        Pizarra.SelectionLength = palabra.Length;
-                        Pizarra.SelectionColor = Color.HotPink;
-                        startIndex += wordstartIndex + palabra.Length;
-                        Pizarra.SelectionStart = Pizarra.Text.Length;
-                        Pizarra.SelectionColor = Color.White;
-                    }
-                    else
-                    {
-                        break;
+                        int wordstartIndex = Pizarra.Find(palabra, startIndex, RichTextBoxFinds.None);
+                        if (wordstartIndex != -1)
+                        {
+                            Pizarra.SelectionStart = wordstartIndex;
+                            Pizarra.SelectionLength = palabra.Length;
+                            Pizarra.SelectionColor = Color.DeepPink;
+                            startIndex += wordstartIndex + palabra.Length;
+                            Pizarra.SelectionStart = Pizarra.Text.Length;
+                            Pizarra.SelectionColor = Color.Black;
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
-            }
 
-            string[] palabras1 = { "entero", "decimal", "cadena" };
-            foreach (string palabra in palabras1)
-            {
-                int startIndex = 0;
-                while (startIndex < Pizarra.TextLength)
+                string[] palabras1 = { "entero", "decimal", "cadena" };
+                foreach (string palabra in palabras1)
                 {
-                    int wordstartIndex = Pizarra.Find(palabra, startIndex, RichTextBoxFinds.None);
-                    if (wordstartIndex != -1)
+                    int startIndex = 0;
+                    while (startIndex < Pizarra.TextLength)
                     {
-                        Pizarra.SelectionStart = wordstartIndex;
-                        Pizarra.SelectionLength = palabra.Length;
-                        Pizarra.SelectionColor = Color.SkyBlue;
-                        startIndex += wordstartIndex + palabra.Length;
-                        Pizarra.SelectionStart = Pizarra.Text.Length;
-                        Pizarra.SelectionColor = Color.White;
-                    }
-                    else
-                    {
-                        break;
+                        int wordstartIndex = Pizarra.Find(palabra, startIndex, RichTextBoxFinds.None);
+                        if (wordstartIndex != -1)
+                        {
+                            Pizarra.SelectionStart = wordstartIndex;
+                            Pizarra.SelectionLength = palabra.Length;
+                            Pizarra.SelectionColor = Color.DarkBlue;
+                            startIndex += wordstartIndex + palabra.Length;
+                            Pizarra.SelectionStart = Pizarra.Text.Length;
+                            Pizarra.SelectionColor = Color.Black;
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
-            }
 
-            string[] palabras3 = { "si", "entonces", "para" };
-            foreach (string palabra in palabras3)
-            {
-                int startIndex = 0;
-                while (startIndex < Pizarra.TextLength)
+                string[] palabras3 = { "si", "entonces", "para" };
+                foreach (string palabra in palabras3)
                 {
-                    int wordstartIndex = Pizarra.Find(palabra, startIndex, RichTextBoxFinds.None);
-                    if (wordstartIndex != -1)
+                    int startIndex = 0;
+                    while (startIndex < Pizarra.TextLength)
                     {
-                        Pizarra.SelectionStart = wordstartIndex;
-                        Pizarra.SelectionLength = palabra.Length;
-                        Pizarra.SelectionColor = Color.Orange;
-                        startIndex += wordstartIndex + palabra.Length;
-                        Pizarra.SelectionStart = Pizarra.Text.Length;
-                        Pizarra.SelectionColor = Color.White;
-                    }
-                    else
-                    {
-                        break;
+                        int wordstartIndex = Pizarra.Find(palabra, startIndex, RichTextBoxFinds.None);
+                        if (wordstartIndex != -1)
+                        {
+                            Pizarra.SelectionStart = wordstartIndex;
+                            Pizarra.SelectionLength = palabra.Length;
+                            Pizarra.SelectionColor = Color.DarkOliveGreen;
+                            startIndex += wordstartIndex + palabra.Length;
+                            Pizarra.SelectionStart = Pizarra.Text.Length;
+                            Pizarra.SelectionColor = Color.Black;
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
-            }
 
-            string[] palabras5 = { "imprimir", "imprimirln", "leer", "leerln" };
-            foreach (string palabra in palabras5)
-            {
-                int startIndex = 0;
-                while (startIndex < Pizarra.TextLength)
+                string[] palabras5 = { "imprimir", "imprimirln", "leer", "leerln" };
+                foreach (string palabra in palabras5)
                 {
-                    int wordstartIndex = Pizarra.Find(palabra, startIndex, RichTextBoxFinds.None);
-                    if (wordstartIndex != -1)
+                    int startIndex = 0;
+                    while (startIndex < Pizarra.TextLength)
                     {
-                        Pizarra.SelectionStart = wordstartIndex;
-                        Pizarra.SelectionLength = palabra.Length;
-                        Pizarra.SelectionColor = Color.IndianRed;
-                        startIndex += wordstartIndex + palabra.Length;
-                        Pizarra.SelectionStart = Pizarra.Text.Length;
-                        Pizarra.SelectionColor = Color.White;
-                    }
-                    else
-                    {
-                        break;
+                        int wordstartIndex = Pizarra.Find(palabra, startIndex, RichTextBoxFinds.None);
+                        if (wordstartIndex != -1)
+                        {
+                            Pizarra.SelectionStart = wordstartIndex;
+                            Pizarra.SelectionLength = palabra.Length;
+                            Pizarra.SelectionColor = Color.IndianRed;
+                            startIndex += wordstartIndex + palabra.Length;
+                            Pizarra.SelectionStart = Pizarra.Text.Length;
+                            Pizarra.SelectionColor = Color.Black;
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
-            }
 
-            string[] palabras4 = { "[", "]" };
-            foreach (string palabra in palabras4)
-            {
-                int startIndex = 0;
-                while (startIndex < Pizarra.TextLength)
+                string[] palabras4 = { "[", "]" };
+                foreach (string palabra in palabras4)
                 {
-                    int wordstartIndex = Pizarra.Find(palabra, startIndex, RichTextBoxFinds.None);
-                    if (wordstartIndex != -1)
+                    int startIndex = 0;
+                    while (startIndex < Pizarra.TextLength)
                     {
-                        Pizarra.SelectionStart = wordstartIndex;
-                        Pizarra.SelectionLength = palabra.Length;
-                        Pizarra.SelectionColor = Color.GreenYellow;
-                        startIndex += wordstartIndex + palabra.Length;
-                        Pizarra.SelectionStart = Pizarra.Text.Length;
+                        int wordstartIndex = Pizarra.Find(palabra, startIndex, RichTextBoxFinds.None);
+                        if (wordstartIndex != -1)
+                        {
+                            Pizarra.SelectionStart = wordstartIndex;
+                            Pizarra.SelectionLength = palabra.Length;
+                            Pizarra.SelectionColor = Color.GreenYellow;
+                            startIndex += wordstartIndex + palabra.Length;
+                            Pizarra.SelectionStart = Pizarra.Text.Length;
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
-                    else
+                }
+            } else
+            {
+                // Busca la palabra "comenzar" en el control RichTextBox1
+                string[] palabras = { "comenzar", "fin" };
+                foreach (string palabra in palabras)
+                {
+                    int startIndex = 0;
+                    while (startIndex < Pizarra.TextLength)
                     {
-                        break;
+                        int wordstartIndex = Pizarra.Find(palabra, startIndex, RichTextBoxFinds.None);
+                        if (wordstartIndex != -1)
+                        {
+                            Pizarra.SelectionStart = wordstartIndex;
+                            Pizarra.SelectionLength = palabra.Length;
+                            Pizarra.SelectionColor = Color.LightPink;
+                            startIndex += wordstartIndex + palabra.Length;
+                            Pizarra.SelectionStart = Pizarra.Text.Length;
+                            Pizarra.SelectionColor = Color.White;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+
+                string[] palabras1 = { "entero", "decimal", "cadena" };
+                foreach (string palabra in palabras1)
+                {
+                    int startIndex = 0;
+                    while (startIndex < Pizarra.TextLength)
+                    {
+                        int wordstartIndex = Pizarra.Find(palabra, startIndex, RichTextBoxFinds.None);
+                        if (wordstartIndex != -1)
+                        {
+                            Pizarra.SelectionStart = wordstartIndex;
+                            Pizarra.SelectionLength = palabra.Length;
+                            Pizarra.SelectionColor = Color.SkyBlue;
+                            startIndex += wordstartIndex + palabra.Length;
+                            Pizarra.SelectionStart = Pizarra.Text.Length;
+                            Pizarra.SelectionColor = Color.White;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+
+                string[] palabras3 = { "si", "entonces", "para" };
+                foreach (string palabra in palabras3)
+                {
+                    int startIndex = 0;
+                    while (startIndex < Pizarra.TextLength)
+                    {
+                        int wordstartIndex = Pizarra.Find(palabra, startIndex, RichTextBoxFinds.None);
+                        if (wordstartIndex != -1)
+                        {
+                            Pizarra.SelectionStart = wordstartIndex;
+                            Pizarra.SelectionLength = palabra.Length;
+                            Pizarra.SelectionColor = Color.GreenYellow;
+                            startIndex += wordstartIndex + palabra.Length;
+                            Pizarra.SelectionStart = Pizarra.Text.Length;
+                            Pizarra.SelectionColor = Color.White;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+
+                string[] palabras5 = { "imprimir", "imprimirln", "leer", "leerln" };
+                foreach (string palabra in palabras5)
+                {
+                    int startIndex = 0;
+                    while (startIndex < Pizarra.TextLength)
+                    {
+                        int wordstartIndex = Pizarra.Find(palabra, startIndex, RichTextBoxFinds.None);
+                        if (wordstartIndex != -1)
+                        {
+                            Pizarra.SelectionStart = wordstartIndex;
+                            Pizarra.SelectionLength = palabra.Length;
+                            Pizarra.SelectionColor = Color.LightGray;
+                            startIndex += wordstartIndex + palabra.Length;
+                            Pizarra.SelectionStart = Pizarra.Text.Length;
+                            Pizarra.SelectionColor = Color.White;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+
+                string[] palabras4 = { "[", "]" };
+                foreach (string palabra in palabras4)
+                {
+                    int startIndex = 0;
+                    while (startIndex < Pizarra.TextLength)
+                    {
+                        int wordstartIndex = Pizarra.Find(palabra, startIndex, RichTextBoxFinds.None);
+                        if (wordstartIndex != -1)
+                        {
+                            Pizarra.SelectionStart = wordstartIndex;
+                            Pizarra.SelectionLength = palabra.Length;
+                            Pizarra.SelectionColor = Color.GreenYellow;
+                            startIndex += wordstartIndex + palabra.Length;
+                            Pizarra.SelectionStart = Pizarra.Text.Length;
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
             }
+            
         }
 
         //Guardar texto ingresado en la pizzara, pense que si se iba a usar pero creo que no -- Arauz
@@ -311,42 +428,6 @@ namespace AnalisisLexico
             Pizarra.Clear();
         }
 
-        private void btnTema_Click(object sender, EventArgs e)
-        {
-            //cambia de tema
-            if (this.BackColor == Color.FromArgb(57, 48, 83))
-            {
-                this.BackColor = Color.FromArgb(83, 97, 98);
-                Pizarra.BackColor = Color.FromArgb(66, 70, 66);
-                Pizarra.ForeColor = Color.FromArgb(238, 238, 238);
-                lblnumero.ForeColor = Color.FromArgb(24, 18, 43);
-                dgvtabladatos.BackgroundColor = Color.FromArgb(66, 70, 66);
-                dgvtabladatos.ForeColor = Color.FromArgb(24, 18, 43);
-                btnProcesar.BackColor = Color.FromArgb(66, 70, 66);
-                btnProcesar.ForeColor = Color.FromArgb(243, 244, 237);
-                btnBorrar.BackColor = Color.FromArgb(66, 70, 66);
-                btnBorrar.ForeColor = Color.FromArgb(243, 244, 237);
-                btnTema.BackColor = Color.FromArgb(66, 70, 66);
-                btnTema.ForeColor = Color.FromArgb(243, 244, 237);
-                btnTema.Text = "Tema Oscuro";
-            }
-            else
-            {
-                this.BackColor = Color.FromArgb(57, 48, 83);
-                Pizarra.BackColor = Color.FromArgb(24, 18, 43);
-                Pizarra.ForeColor = Color.FromArgb(238, 238, 238);
-                lblnumero.ForeColor = Color.FromArgb(238, 238, 238);
-                dgvtabladatos.BackgroundColor = Color.FromArgb(24, 18, 43);
-                dgvtabladatos.ForeColor = Color.FromArgb(83, 97, 98);
-                btnProcesar.BackColor = Color.FromArgb(24, 18, 43);
-                btnProcesar.ForeColor = Color.FromArgb(243, 244, 237);
-                btnBorrar.BackColor = Color.FromArgb(24, 18, 43);
-                btnBorrar.ForeColor = Color.FromArgb(243, 244, 237);
-                btnTema.BackColor = Color.FromArgb(24, 18, 43);
-                btnTema.ForeColor = Color.FromArgb(243, 244, 237);
-                btnTema.Text = "Tema Claro";
-            }
-        }
         private void SignosNoValidos()
         {
             // Verificar si el RichTextBox contiene caracteres no válidos
@@ -534,6 +615,40 @@ namespace AnalisisLexico
 
             // Establece el texto del control Label llamado lblnumero para mostrar los números de línea.
             lblnumero.Text = cadenanumerolinea;
+        }
+
+        private void sbtnTema_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sbtnTema.Checked == false)
+            {
+                gboxCodigo.ForeColor = Color.Black;
+                gboxTabla.ForeColor = Color.Black;
+                this.BackColor = Color.White;
+                Pizarra.BackColor = Color.WhiteSmoke;
+                Pizarra.ForeColor = Color.Black;
+                lblnumero.ForeColor = Color.Black;
+                dgvtabladatos.BackgroundColor = Color.WhiteSmoke;
+                dgvtabladatos.ForeColor = Color.Black;
+                btnProcesar.BackColor = Color.WhiteSmoke;
+                btnProcesar.ForeColor = Color.Black;
+                btnBorrar.BackColor = Color.WhiteSmoke;
+                btnBorrar.ForeColor = Color.Black;
+            }
+            else
+            {
+                gboxCodigo.ForeColor = Color.White;
+                gboxTabla.ForeColor = Color.White;
+                this.BackColor = Color.FromArgb(50, 50, 50);
+                Pizarra.BackColor = Color.FromArgb(80, 80, 80);
+                Pizarra.ForeColor = Color.White;
+                lblnumero.ForeColor = Color.White;
+                dgvtabladatos.BackgroundColor = Color.FromArgb(80, 80, 80);
+                dgvtabladatos.ForeColor = Color.White;
+                btnProcesar.BackColor = Color.FromArgb(80, 80, 80);
+                btnProcesar.ForeColor = Color.White;
+                btnBorrar.BackColor = Color.FromArgb(80, 80, 80);
+                btnBorrar.ForeColor = Color.White;
+            }
         }
     }
 }
