@@ -146,27 +146,12 @@ namespace AnalisisLexico
 
         public void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-            SignosNoValidos();
-            //ESTO ES PARA LA NUMERACION DE EDITOR DE PIZARRA
+            SignosNoValidos();//funcion de signos no validos
+            validacionvariable(); //funcion de validacion de variable 
+            personalizado();// funcion del color de la variable 
+            enumeracion();//funcion de la enumeracion 
 
-            // Obtiene la primera línea visible del RichTextBox llamado pizarra.
-            int Primeralinea = Pizarra.GetLineFromCharIndex(Pizarra.GetCharIndexFromPosition(new Point(0, 0)));
 
-            // Calcula el número total de líneas del RichTextBox llamado pizarra.
-            int numerodelineas = Pizarra.Lines.Length;
-
-            // Construye un string que contiene los números de línea.
-            string cadenanumerolinea = "";
-            for (int i = Primeralinea + 1; i <= numerodelineas; i++)
-            {
-                cadenanumerolinea += i.ToString() + "\n";
-            }
-
-            //Cambiar de color a las palabras reservadas
-            personalizado();
-
-            // Establece el texto del control Label llamado lblnumero para mostrar los números de línea.
-            lblnumero.Text = cadenanumerolinea;
         }
 
         private void Form1_Load(System.Object sender, EventArgs e)
@@ -179,7 +164,7 @@ namespace AnalisisLexico
             borrar();
             Analisis();
             personalizado();
-            salvartexto();
+         //   salvartexto();
         }
 
         // Establece el color de la palabra "ejemplo" en el control RichTextBox1
@@ -400,13 +385,7 @@ namespace AnalisisLexico
                 // Establecer el foco en el RichTextBox
                 Pizarra.Focus();
             }
-            //else if (Pizarra.Text.Contains("."))
-            //{
-            //    // Mostrar mensaje de error con MessageBox
-            //    MessageBox.Show("La Sintaxis no puede contener el símbolo '.'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    // Establecer el foco en el RichTextBox
-            //    Pizarra.Focus();
-            //}
+            
             else if (Pizarra.Text.Contains("^"))
             {
                 // Mostrar mensaje de error con MessageBox
@@ -477,6 +456,84 @@ namespace AnalisisLexico
                 // Establecer el foco en el RichTextBox
                 Pizarra.Focus();
             }
+        }
+        private void validacionvariable()
+        {
+            string letras = "abcdefghijklmnopqrstuvwxyz";
+            for (int i = 0; i < letras.Length; i++)
+            {
+                if (Pizarra.Text.Contains("1" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains("2" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains("3" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains("4" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains("5" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains("6" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains("7" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains("8" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains("9" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains("0" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+            }
+
+        }
+        private void enumeracion()
+        {
+            //ESTO ES PARA LA NUMERACION DE EDITOR DE PIZARRA
+
+            // Obtiene la primera línea visible del RichTextBox llamado pizarra.
+            int Primeralinea = Pizarra.GetLineFromCharIndex(Pizarra.GetCharIndexFromPosition(new Point(0, 0)));
+
+            // Calcula el número total de líneas del RichTextBox llamado pizarra.
+            int numerodelineas = Pizarra.Lines.Length;
+
+            // Construye un string que contiene los números de línea.
+            string cadenanumerolinea = "";
+            for (int i = Primeralinea + 1; i <= numerodelineas; i++)
+            {
+                cadenanumerolinea += i.ToString() + "\n";
+            }
+
+            // Establece el texto del control Label llamado lblnumero para mostrar los números de línea.
+            lblnumero.Text = cadenanumerolinea;
         }
     }
 }
