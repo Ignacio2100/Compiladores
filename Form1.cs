@@ -92,10 +92,12 @@ namespace AnalisisLexico
                     caracterRerpresentado = "Es un valor de variable string";
                     validacion = 1;
                 }
-                //else if (validacion == 0)
-                //{
-                //    caracterRerpresentado = "nombre de variable";
-                //}
+                else if (palabra.StartsWith("_") && palabra.EndsWith(""))
+                {
+                    caracterRerpresentado = "Es un Nombre de Variable";
+                    validacion = 1;
+                }
+
             }
 
             foreach (KeyValuePair<string, string> itemSimbolo in dictSimbolos)
@@ -495,13 +497,7 @@ namespace AnalisisLexico
                 // Establecer el foco en el RichTextBox
                 Pizarra.Focus();
             }
-            else if (Pizarra.Text.Contains("_"))
-            {
-                // Mostrar mensaje de error con MessageBox
-                MessageBox.Show("La Sintaxis no puede contener el símbolo '_'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                // Establecer el foco en el RichTextBox
-                Pizarra.Focus();
-            }
+          
             else if (Pizarra.Text.Contains("¬"))
             {
                 // Mostrar mensaje de error con MessageBox
@@ -593,9 +589,75 @@ namespace AnalisisLexico
                     MessageBox.Show("Error de Inicializacion de Variable.");
                     break;
                 }
+                else if (Pizarra.Text.Contains(")" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains("(" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains("{" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains("}" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains("[" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains("]" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains("-" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains("+" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains("/" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains("*" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains(">" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains("<" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
+                else if (Pizarra.Text.Contains("=" + letras[i]))
+                {
+                    MessageBox.Show("Error de Inicializacion de Variable.");
+                    break;
+                }
             }
-
         }
+
+        
         private void enumeracion()
         {
             //ESTO ES PARA LA NUMERACION DE EDITOR DE PIZARRA
