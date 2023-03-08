@@ -19,15 +19,17 @@ namespace AnalisisLexico
         {
             InitializeComponent();
         }
-
-        public string Descomponer(string palabra)
+        int com = 1; //creamos una variable para diferenciar si el texto es un comentario o no
+        int id = 0; //creamos una variable para diferenciar si estamos agregando el nombre de una variable
+        public string Descomponer(string palabra) //iniciamos el metodo descomponer xd 
         {
+            com = 1; //reseteamos la variable para comentarios
+            id = 0; //reseteamos la variable para id de variables 
             // Ruta del archivo de texto
             //El directorio de esta ruta se escuentra en la carpeta bin/Debug dentro del proyecto --Arauz
             string filePath2 = @"PalabrasReservadas.txt";
             string filePath3 = @"Simbolos.txt";
             // Crear un objeto StreamReader para leer el archivo
-            //Cambiar a filePath2 por si no jalara el filePath normarl -- Arauz
             StreamReader reader = new StreamReader(filePath2);
             StreamReader readerSimbolos = new StreamReader(filePath3);
 
@@ -61,53 +63,59 @@ namespace AnalisisLexico
                     dictSimbolos.Add(parts[0], parts[1]);
                 }
             }
-
-            // Cerrar el objeto StreamReader
+            
+            // Cerrar el objeto StreamReader para evitar el cuello de botella xd 
             reader.Close();
             readerSimbolos.Close();
-            //variable que me guardaara el token o valor de la clave que se va a ir a buscar al diccionario
-            string caracterRerpresentado = "";
-            int val = 0;
-            float decimall;
+            
+            string caracterRerpresentado = ""; //variable que me guardara el token o valor de la clave que se va a ir a buscar al diccionario
+            int val = 0; //para comprobar si el texto ingresado es un numero
+            float decimall; //para comprobar si el texto ingresado es un decimal
             int validacion = 0;
 
-            foreach (KeyValuePair<string, string> item in dict)
+            foreach (KeyValuePair<string, string> item in dict) //recorre el diccionario con las palabras que se obtuvieron del archivo txt
             {
-                if (item.Key == palabra)
+                if (item.Key == palabra) //si palabra está en el diccionario entra al if 
                 {
-                    caracterRerpresentado = item.Value;
+                    caracterRerpresentado = item.Value; //guarda en esta string lo que se obtuvo del diccionario
                 }
-                else if (int.TryParse(palabra, out val))
+                else if (int.TryParse(palabra, out val)) //si no, si el valor se puede guardar en una variable entera es un numero
                 {
                     caracterRerpresentado = "Es un número";
                     validacion = 1;
                 }
-                else if (float.TryParse(palabra, out decimall))
+                else if (float.TryParse(palabra, out decimall)) //si no, si el valor se puede guardar en una variable tipo float es un decimal
                 {
                     caracterRerpresentado = "Es un número decimal";
                     validacion = 1;
                 }
-                else if (palabra.StartsWith("'") && palabra.EndsWith("'"))
+                else if (palabra.StartsWith("'") && palabra.EndsWith("'")) //todas las palabras que esten entre comillas simples, es el valor de una variable tipo cadena
                 {
                     caracterRerpresentado = "Es un valor de variable string";
                     validacion = 1;
                 }
-                else if (palabra.StartsWith("_") && palabra.EndsWith(""))
+                else if (palabra.StartsWith("_") && palabra.EndsWith("")) //si empieza con guion bajo, el texto representa el nombre de una variable
                 {
                     caracterRerpresentado = "Es un Nombre de Variable";
+                    id = 1; //cambia el valor de la variable id, para ingresar el id de la variable en la tabla
                     validacion = 1;
+                }
+                else if (palabra.StartsWith("//") && palabra.EndsWith("//")) //si el texto está entre diagonales es un comentario
+                {
+                    com = 0; //cambia el valor de la variable com, para no guardar los datos en la tabla
+
                 }
 
             }
 
-            foreach (KeyValuePair<string, string> itemSimbolo in dictSimbolos)
+            foreach (KeyValuePair<string, string> itemSimbolo in dictSimbolos) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
             {
                 if (itemSimbolo.Key == palabra)
                 {
-                    caracterRerpresentado = itemSimbolo.Value;
+                    caracterRerpresentado = itemSimbolo.Value; //ya se sabe
                 }
             }
-            return caracterRerpresentado;
+            return caracterRerpresentado; //retorna el significado del texto que se analizó
         }
         public void Analisis()
         {
@@ -115,26 +123,46 @@ namespace AnalisisLexico
 
             char[] jump = { '\n' }; // salto de linea
 
-            char[] delimitador = { ' ' };
+            char[] delimitador = { ' ' }; //espacio
 
-            string[] lineas = codigo.Split(jump); // se pasa a una arrays
+            string[] lineas = codigo.Split(jump); // se pasa a una array por linea con el delimitador del enter
+            int idv = 1; //variable para el id de las variables
 
-            for (int i = 0; i < lineas.Length; i++)
+            for (int i = 0; i < lineas.Length; i++) //lee por lineas el codigo
             {
-                string[] words = lineas[i].Split(delimitador);
+                string[] words = lineas[i].Split(delimitador); //guarda en otra array las palabras con el delimitador del espacio 
 
-                for (int z = 0; z < words.Length; z++)
+                for (int z = 0; z < words.Length; z++) //se recorre cada plabra 
                 {
-                    words[z] = words[z].Replace("\n", "");
+                    words[z] = words[z].Replace("\n", ""); //remplaza un salto de linea de la palabra por un salto vacio 
 
-                    if (words[z] != "")
+                    if (words[z] != "") //si la palabra es diferente a vacio entra al fin
                     {
-                        DataGridViewRow fila = (DataGridViewRow)dgvtabladatos.Rows[0].Clone();
-                        fila.Cells[0].Value = Descomponer(words[z]);
-                        fila.Cells[1].Value = words[z];
-                        fila.Cells[2].Value = z + 1;
-                        fila.Cells[3].Value = i + 1;
-                        dgvtabladatos.Rows.Add(fila);
+                        string lexema = Descomponer(words[z]); // se guarda en una string el valor del siguiente metodo
+                        if (com == 1) // si la variable com = 1 el texto no es un comentario
+                        {
+                            if (id == 1) // si la variable id = 1 el texto que trae es el nombre de una variable
+                            {
+                                DataGridViewRow fila = (DataGridViewRow)dgvtabladatos.Rows[0].Clone(); //crea una lista 
+                                fila.Cells[0].Value = lexema; //guarda el texto del metodo descomponer en la columna componente lexico
+                                fila.Cells[1].Value = words[z]; //guarda la palabra que estamos analizando en la columna palabra ingresada
+                                fila.Cells[2].Value = idv; //guarda el id del nombre de las variables
+                                fila.Cells[3].Value = z + 1; //guarda el numero de columna en la que esta la palabra que estamos analiznando
+                                fila.Cells[4].Value = i + 1; //guarda el numero de fila
+                                dgvtabladatos.Rows.Add(fila); //añade la lista a la data griv view
+                                idv++; //suma 1 a la variable de id para variables xd
+                            }
+                          
+                            else //si no es el nombre de una variable, ejecuta todo menos el id variable
+                            {
+                                DataGridViewRow fila = (DataGridViewRow)dgvtabladatos.Rows[0].Clone();
+                                fila.Cells[0].Value = lexema;
+                                fila.Cells[1].Value = words[z];
+                                fila.Cells[3].Value = z + 1;
+                                fila.Cells[4].Value = i + 1;
+                                dgvtabladatos.Rows.Add(fila);
+                            }
+                        }
                     }
                 }
             }
@@ -142,7 +170,7 @@ namespace AnalisisLexico
 
         public void borrar()
         {
-            this.dgvtabladatos.Rows.Clear();
+            this.dgvtabladatos.Rows.Clear(); //se limpia la tabla xd
         }
 
         public void richTextBox1_TextChanged(object sender, EventArgs e)
@@ -160,9 +188,9 @@ namespace AnalisisLexico
 
         private void btnProcesar_Click(object sender, EventArgs e)
         {
-            borrar();
-            Analisis();
-            personalizado();
+            borrar(); //funcion que limpia la tabla
+            Analisis(); //llamamos la funcion que analiza el codigo de la pizarra
+            personalizado(); //funcion que agrega los colores 
          //   salvartexto();
         }
 
@@ -380,7 +408,7 @@ namespace AnalisisLexico
                     }
                 }
 
-                string[] palabras4 = { "[", "]" };
+                string[] palabras4 = { "//", "//" };
                 foreach (string palabra in palabras4)
                 {
                     int startIndex = 0;
@@ -424,7 +452,7 @@ namespace AnalisisLexico
             }
         }
 
-        private void btnBorrar_Click(object sender, EventArgs e)
+        private void btnBorrar_Click(object sender, EventArgs e) //limpia todo xd
         {
             borrar();
             Pizarra.Clear();
@@ -536,8 +564,8 @@ namespace AnalisisLexico
         }
         private void validacionvariable()
         {
-            string letras = "abcdefghijklmnopqrstuvwxyz";
-            for (int i = 0; i < letras.Length; i++)
+            string letras = "abcdefghijklmnopqrstuvwxyz"; //crea un string de nombre letras y guarda todo el abecedario
+            for (int i = 0; i < letras.Length; i++) //recorre el string
             {
                 if (Pizarra.Text.Contains("1" + letras[i]))
                 {
@@ -619,21 +647,13 @@ namespace AnalisisLexico
                     MessageBox.Show("Error de Inicializacion de Variable.");
                     break;
                 }
-                else if (Pizarra.Text.Contains("-" + letras[i]))
-                {
-                    MessageBox.Show("Error de Inicializacion de Variable.");
-                    break;
-                }
+
                 else if (Pizarra.Text.Contains("+" + letras[i]))
                 {
                     MessageBox.Show("Error de Inicializacion de Variable.");
                     break;
                 }
-                else if (Pizarra.Text.Contains("/" + letras[i]))
-                {
-                    MessageBox.Show("Error de Inicializacion de Variable.");
-                    break;
-                }
+
                 else if (Pizarra.Text.Contains("*" + letras[i]))
                 {
                     MessageBox.Show("Error de Inicializacion de Variable.");
