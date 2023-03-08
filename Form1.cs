@@ -9,8 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-
-
 namespace AnalisisLexico
 {
     public partial class Form1 : Form
@@ -119,7 +117,7 @@ namespace AnalisisLexico
         }
         public void Analisis()
         {
-            string codigo = Pizarra.Text; // variable que identifica al cuadro blanco
+            string codigo = Pizarra.Text.ToLower(); // variable que identifica al cuadro blanco
 
             char[] jump = { '\n' }; // salto de linea
 
@@ -197,32 +195,32 @@ namespace AnalisisLexico
         // Establece el color de la palabra "ejemplo" en el control RichTextBox1
         public void personalizado()
         {
-            if (sbtnTema.Checked == false)
+            if (sbtnTema.Checked == false) // si la interfaz de usuario es modo claro se agregan esos colores a las palabras reservadas
             {
                 // Busca la palabra "comenzar" en el control RichTextBox1
-                string[] palabras = { "comenzar", "fin" };
-                foreach (string palabra in palabras)
+                string[] palabras = { "comenzar", "fin" }; // se guardan las palabras que se van a colorear en el array
+                foreach (string palabra in palabras) // se recorre el array palabras y se guarda en el string palabra por cada palabra
                 {
-                    int startIndex = 0;
-                    while (startIndex < Pizarra.TextLength)
+                    int startIndex = 0; // se crea la variable tipo int que asigna la posicion inicial donde va a empezar a recorrer
+                    while (startIndex < Pizarra.TextLength) // recorrer desde el inicio hasta a la ultima palabra que esta escrita en el richTextBox
                     {
-                        int wordstartIndex = Pizarra.Find(palabra, startIndex, RichTextBoxFinds.None);
-                        if (wordstartIndex != -1)
+                        int wordstartIndex = Pizarra.Find(palabra, startIndex, RichTextBoxFinds.None); // si encuentra la palabra se va a guardar en el wordStartIndex y entrar a la condicion if
+                        if (wordstartIndex != -1) // valida si la palabra la encontro va a entrar en el if
                         {
-                            Pizarra.SelectionStart = wordstartIndex;
-                            Pizarra.SelectionLength = palabra.Length;
-                            Pizarra.SelectionColor = Color.DeepPink;
-                            startIndex += wordstartIndex + palabra.Length;
-                            Pizarra.SelectionStart = Pizarra.Text.Length;
-                            Pizarra.SelectionColor = Color.Black;
+                            Pizarra.SelectionStart = wordstartIndex; // seleccionar desde el primer caracter que tiene la palabra
+                            Pizarra.SelectionLength = palabra.Length; // seleccionar hasta donde termina la palabra
+                            Pizarra.SelectionColor = Color.DeepPink; // hace el cambio de color de la palabra
+                            startIndex += wordstartIndex + palabra.Length; // va a seguir en la posicion en la que se quedo para seguir recorriendo
+                            Pizarra.SelectionStart = Pizarra.Text.Length; // deselecciona la palabra
+                            Pizarra.SelectionColor = Color.Black; // cambio el color de la palabra al color normal
                         }
                         else
                         {
-                            break;
+                            break; // si no encontro la palabra reservada se termina la condicion
                         }
                     }
                 }
-
+                // los siguientes hace lo mismo solo que con diferentes palabras
                 string[] palabras1 = { "entero", "decimal", "cadena" };
                 foreach (string palabra in palabras1)
                 {
@@ -313,9 +311,9 @@ namespace AnalisisLexico
                         }
                     }
                 }
-            } else
+            }
+            else // si la interfaz es modo oscuro se agregan esos colores a las palabras reservadas
             {
-                // Busca la palabra "comenzar" en el control RichTextBox1
                 string[] palabras = { "comenzar", "fin" };
                 foreach (string palabra in palabras)
                 {
@@ -454,7 +452,7 @@ namespace AnalisisLexico
 
         private void btnBorrar_Click(object sender, EventArgs e) //limpia todo xd
         {
-            borrar();
+            borrar(); // Se llama la funcion para limpiar toda la interfaz
             Pizarra.Clear();
         }
 
@@ -495,8 +493,7 @@ namespace AnalisisLexico
                 MessageBox.Show("La Sintaxis no puede contener el símbolo '¿'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 // Establecer el foco en el RichTextBox
                 Pizarra.Focus();
-            }
-            
+            }            
             else if (Pizarra.Text.Contains("^"))
             {
                 // Mostrar mensaje de error con MessageBox
@@ -524,8 +521,7 @@ namespace AnalisisLexico
                 MessageBox.Show("La Sintaxis no puede contener el símbolo '!'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 // Establecer el foco en el RichTextBox
                 Pizarra.Focus();
-            }
-          
+            }        
             else if (Pizarra.Text.Contains("¬"))
             {
                 // Mostrar mensaje de error con MessageBox
@@ -562,17 +558,18 @@ namespace AnalisisLexico
                 Pizarra.Focus();
             }
         }
+        
         private void validacionvariable()
         {
             string letras = "abcdefghijklmnopqrstuvwxyz"; //crea un string de nombre letras y guarda todo el abecedario
             for (int i = 0; i < letras.Length; i++) //recorre el string
             {
-                if (Pizarra.Text.Contains("1" + letras[i]))
+                if (Pizarra.Text.Contains("1" + letras[i])) // si encuentra un numero antes de una letra envia un mensage de error
                 {
                     MessageBox.Show("Error de Inicializacion de Variable.");
                     break;
                 }
-                else if (Pizarra.Text.Contains("2" + letras[i]))
+                else if (Pizarra.Text.Contains("2" + letras[i])) // se hace lo mismo con los demas
                 {
                     MessageBox.Show("Error de Inicializacion de Variable.");
                     break;
@@ -701,8 +698,9 @@ namespace AnalisisLexico
 
         private void sbtnTema_CheckedChanged(object sender, EventArgs e)
         {
-            if (sbtnTema.Checked == false)
+            if (sbtnTema.Checked == false) // si el boton = falso cambia la interfaz a modo claro
             {
+                Image imagen = Image.FromFile(@"luna.png");
                 gboxCodigo.ForeColor = Color.Black;
                 gboxTabla.ForeColor = Color.Black;
                 this.BackColor = Color.White;
@@ -715,9 +713,12 @@ namespace AnalisisLexico
                 btnProcesar.ForeColor = Color.Black;
                 btnBorrar.BackColor = Color.WhiteSmoke;
                 btnBorrar.ForeColor = Color.Black;
+                PBIcono.Image = imagen;
+
             }
-            else
+            else // si el boton = true cambia la interfaz a modo oscuro
             {
+                Image imagen = Image.FromFile(@"dom.png");
                 gboxCodigo.ForeColor = Color.White;
                 gboxTabla.ForeColor = Color.White;
                 this.BackColor = Color.FromArgb(50, 50, 50);
@@ -730,7 +731,9 @@ namespace AnalisisLexico
                 btnProcesar.ForeColor = Color.White;
                 btnBorrar.BackColor = Color.FromArgb(80, 80, 80);
                 btnBorrar.ForeColor = Color.White;
+                PBIcono.Image = imagen;
             }
         }
+
     }
 }

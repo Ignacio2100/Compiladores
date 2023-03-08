@@ -87,6 +87,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PalabrasReservadas.txt" />
+    <None Include="Resources\dom.png" />
+    <None Include="Resources\luna.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
