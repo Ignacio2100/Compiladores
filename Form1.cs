@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using static System.Net.WebRequestMethods;
 
 namespace AnalisisLexico
 {
@@ -115,6 +116,10 @@ namespace AnalisisLexico
             }
             return caracterRerpresentado; //retorna el significado del texto que se analizó
         }
+
+
+        int idv = 1; //variable para el id de las variables
+
         public void Analisis()
         {
             string codigo = Pizarra.Text.ToLower(); // variable que identifica al cuadro blanco
@@ -124,7 +129,7 @@ namespace AnalisisLexico
             char[] delimitador = { ' ' }; //espacio
 
             string[] lineas = codigo.Split(jump); // se pasa a una array por linea con el delimitador del enter
-            int idv = 1; //variable para el id de las variables
+
 
             for (int i = 0; i < lineas.Length; i++) //lee por lineas el codigo
             {
@@ -134,32 +139,23 @@ namespace AnalisisLexico
                 {
                     words[z] = words[z].Replace("\n", ""); //remplaza un salto de linea de la palabra por un salto vacio 
 
-                    if (words[z] != "") //si la palabra es diferente a vacio entra al fin
+                    if (words[z] != "") //si la palabra es diferente a vacio entra al if
                     {
                         string lexema = Descomponer(words[z]); // se guarda en una string el valor del siguiente metodo
+
                         if (com == 1) // si la variable com = 1 el texto no es un comentario
                         {
+                            DataGridViewRow fila = (DataGridViewRow)dgvtabladatos.Rows[0].Clone(); //crea una lista 
+                            fila.Cells[0].Value = lexema; //guarda el texto del metodo descomponer en la columna componente lexico
+                            fila.Cells[1].Value = words[z]; //guarda la palabra que estamos analizando en la columna palabra ingresada
                             if (id == 1) // si la variable id = 1 el texto que trae es el nombre de una variable
                             {
-                                DataGridViewRow fila = (DataGridViewRow)dgvtabladatos.Rows[0].Clone(); //crea una lista 
-                                fila.Cells[0].Value = lexema; //guarda el texto del metodo descomponer en la columna componente lexico
-                                fila.Cells[1].Value = words[z]; //guarda la palabra que estamos analizando en la columna palabra ingresada
-                                fila.Cells[2].Value = idv; //guarda el id del nombre de las variables
-                                fila.Cells[3].Value = z + 1; //guarda el numero de columna en la que esta la palabra que estamos analiznando
-                                fila.Cells[4].Value = i + 1; //guarda el numero de fila
-                                dgvtabladatos.Rows.Add(fila); //añade la lista a la data griv view
-                                idv++; //suma 1 a la variable de id para variables xd
+                                fila.Cells[2].Value = idv ;
+                                idv++;
                             }
-                          
-                            else //si no es el nombre de una variable, ejecuta todo menos el id variable
-                            {
-                                DataGridViewRow fila = (DataGridViewRow)dgvtabladatos.Rows[0].Clone();
-                                fila.Cells[0].Value = lexema;
-                                fila.Cells[1].Value = words[z];
-                                fila.Cells[3].Value = z + 1;
-                                fila.Cells[4].Value = i + 1;
-                                dgvtabladatos.Rows.Add(fila);
-                            }
+                            fila.Cells[3].Value = z + 1; //guarda el numero de columna en la que esta la palabra que estamos analiznando
+                            fila.Cells[4].Value = i + 1; //guarda el numero de fila
+                            dgvtabladatos.Rows.Add(fila); //añade la lista a la data griv view                                
                         }
                     }
                 }
@@ -169,6 +165,7 @@ namespace AnalisisLexico
         public void borrar()
         {
             this.dgvtabladatos.Rows.Clear(); //se limpia la tabla xd
+            idv = 1;
         }
 
         public void richTextBox1_TextChanged(object sender, EventArgs e)
@@ -186,6 +183,7 @@ namespace AnalisisLexico
 
         private void btnProcesar_Click(object sender, EventArgs e)
         {
+            idv = 1;
             borrar(); //funcion que limpia la tabla
             Analisis(); //llamamos la funcion que analiza el codigo de la pizarra
             personalizado(); //funcion que agrega los colores 
