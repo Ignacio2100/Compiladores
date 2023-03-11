@@ -760,6 +760,5 @@ namespace AnalisisLexico
                 PBIcono.Image = imagen;
             }
         }
-
     }
 }
