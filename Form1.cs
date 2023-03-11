@@ -153,6 +153,10 @@ namespace AnalisisLexico
                                 fila.Cells[2].Value = idv ;
                                 idv++;
                             }
+                            else
+                            {
+                                fila.Cells[2].Value = " ";
+                            }
                             fila.Cells[3].Value = z + 1; //guarda el numero de columna en la que esta la palabra que estamos analiznando
                             fila.Cells[4].Value = i + 1; //guarda el numero de fila
                             dgvtabladatos.Rows.Add(fila); //añade la lista a la data griv view                                
@@ -160,6 +164,30 @@ namespace AnalisisLexico
                     }
                 }
             }
+
+            varrepetidas(); //manda a llamar metodo para verificar variables repetidos
+        }
+
+        private void varrepetidas() //metodo para ver si hay varibales que se usan varias veces 
+        {
+            int numfilas = dgvtabladatos.RowCount - 1; //cuenta el numeor de filas que en el datagrivview
+
+            for (int i = 0; i < numfilas; i++)
+            {
+                string datocell = dgvtabladatos.Rows[i].Cells[1].Value.ToString(); //guarda el contenido de la celda 2, fila i en esta variable
+
+                for (int j = 0; j < numfilas; j++)
+                {
+                    string datocelll = dgvtabladatos.Rows[j].Cells[1].Value.ToString(); //guarda el contenido de la celda 2, fila j en esta variable
+
+                    if (datocelll == datocell) //compara variables para cambiar id
+                    {
+                        dgvtabladatos.Rows[j].Cells[2].Value = dgvtabladatos.Rows[i].Cells[2].Value.ToString(); //sustituye el valor del valor id en la fila j por el dato de la fila i
+                    }
+
+                }
+            }
+
         }
 
         public void borrar()
