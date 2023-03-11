@@ -6,7 +6,5 @@ fin:Palabra reservada de Final
 si:Condicion If
 para:Ciclo For
 entonces:Condision else
-imprimir:print
-imprimirln:println
-leer:read
-leerln:readln
+imprimir:cin
+leer:cout

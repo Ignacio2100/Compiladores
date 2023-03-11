@@ -18,3 +18,4 @@
 --:decremento
 &&:AND
 ||:OR
+,:separacion 
