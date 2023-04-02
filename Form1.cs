@@ -28,13 +28,16 @@ namespace AnalisisLexico
             //El directorio de esta ruta se escuentra en la carpeta bin/Debug dentro del proyecto --Arauz
             string filePath2 = @"PalabrasReservadas.txt";
             string filePath3 = @"Simbolos.txt";
+            
             // Crear un objeto StreamReader para leer el archivo
             StreamReader reader = new StreamReader(filePath2);
             StreamReader readerSimbolos = new StreamReader(filePath3);
+            
 
             // Crear un diccionario para almacenar las claves y valores
             Dictionary<string, string> dict = new Dictionary<string, string>();
             Dictionary<string, string> dictSimbolos = new Dictionary<string, string>();
+            
 
             // Leer el archivo línea por línea
             string line;
@@ -114,6 +117,7 @@ namespace AnalisisLexico
                     caracterRerpresentado = itemSimbolo.Value; //ya se sabe
                 }
             }
+
             return caracterRerpresentado; //retorna el significado del texto que se analizó
         }
 
@@ -166,6 +170,7 @@ namespace AnalisisLexico
             }
 
             varrepetidas(); //manda a llamar metodo para verificar variables repetidos
+            Reglas();
         }
 
         private void varrepetidas() //metodo para ver si hay varibales que se usan varias veces 
@@ -176,23 +181,140 @@ namespace AnalisisLexico
             {
                 string datocell = dgvtabladatos.Rows[i].Cells[1].Value.ToString(); //guarda el contenido de la celda 2, fila i en esta variable
 
-                for (int j = 0; j < numfilas; j++)
-                {
-                    string datocelll = dgvtabladatos.Rows[j].Cells[1].Value.ToString(); //guarda el contenido de la celda 2, fila j en esta variable
-
-                    if (datocelll == datocell) //compara variables para cambiar id
+                    for (int j = 0; j < numfilas; j++)
                     {
-                        dgvtabladatos.Rows[j].Cells[2].Value = dgvtabladatos.Rows[i].Cells[2].Value.ToString(); //sustituye el valor del valor id en la fila j por el dato de la fila i
-                    }
+                        string datocelll = dgvtabladatos.Rows[j].Cells[1].Value.ToString(); //guarda el contenido de la celda 2, fila j en esta variable
 
+                        if (datocell == datocelll) //compara variables para cambiar id
+                        {
+                            dgvtabladatos.Rows[j].Cells[2].Value = dgvtabladatos.Rows[i].Cells[2].Value.ToString(); //sustituye el valor del valor id en la fila j por el dato de la fila i
+                            idv--;
+                        
+                            if (datocelll.StartsWith("_"))
+                            {
+                                 
+                                if (j != i && i<j)
+                                {
+                                string datocellx = dgvtabladatos.Rows[j].Cells[0].Value.ToString(); //guarda el contenido de la celda 2, fila i en esta variable
+
+                                    if (datocellx == "Es un Nombre de Variable")
+                                    {
+                                        string datocelly = dgvtabladatos.Rows[j - 1].Cells[0].Value.ToString();
+                                        switch (datocelly)
+                                        {
+                                            case "Variable de tipo string":
+                                                DataGridViewRow fila = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista para imprimir el error en la tabla 
+                                                fila.Cells[0].Value = "Error: No se puede repetir nombre de variables";
+                                                fila.Cells[1].Value = dgvtabladatos.Rows[j - 1].Cells[4].Value.ToString();
+                                                dgvErrores.Rows.Add(fila);
+                                                break;
+                                            case "Variable de tipo int":
+                                                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista  para imprimir el error en la tabla 
+                                            fila1.Cells[0].Value = "Error: No se puede repetir nombre de variables";
+                                                fila1.Cells[1].Value = dgvtabladatos.Rows[j - 1].Cells[4].Value.ToString();
+                                                dgvErrores.Rows.Add(fila1);
+                                                break;
+                                            case "Variable de tipo decimal":
+                                                DataGridViewRow fila2 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista  para imprimir el error en la tabla 
+                                            fila2.Cells[0].Value = "Error: No se puede repetir nombre de variables";
+                                                fila2.Cells[1].Value = dgvtabladatos.Rows[j - 1].Cells[4].Value.ToString();
+                                                dgvErrores.Rows.Add(fila2);
+                                                break;
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+
+                    }
+                
+            }
+            
+
+        }
+        private void Reglas ()
+        {
+            string filePath4 = @"Reglas.txt";
+            StreamReader readerReglas = new StreamReader(filePath4);
+            Dictionary<string, string> reglas = new Dictionary<string, string>(); //creamos un diccionario con las reglas que tenemos en el yxy reglas
+
+            string linreglas;
+            while ((linreglas = readerReglas.ReadLine()) != null)
+            {
+                // Separar la línea en clave y valor utilizando un separador (por ejemplo, ":")
+                string[] parts = linreglas.Split(':');
+
+                // Agregar la clave y valor al diccionario segun la separación anterior
+                if (parts.Length == 2)
+                {
+                    reglas.Add(parts[0], parts[1]);
                 }
             }
 
-        }
+            int filas = dgvtabladatos.RowCount - 1; //contamos el numero de filas que tiene el data griv view de los datos
+            string valorcolm = "";
+            string erro;
+            int erros = 0;
+            string inicio = dgvtabladatos.Rows[0].Cells[1].Value.ToString(); //insertamos el valor de la fila 0 
+            string fin = dgvtabladatos.Rows[filas-1].Cells[1].Value.ToString(); //insertamos el valor de la ultima fila que haya en el data griv view
+          
+            if (inicio != "comenzar") //comparamos y verificamos que en la fila 1 de la pizarra, este la inicializacion del sistema
+            {
+                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista e imprimimos el error de falta de la palabra comenzar
+                fila1.Cells[0].Value = "Error: Se Esperaba inicializacion de sistema 'comenzar' ";
+                fila1.Cells[1].Value = 1;
+                dgvErrores.Rows.Add(fila1);
+            }
+            if (fin != "fin") //comparamos y verificamos que en la ultima fila de la pizarra se encuentre el valor fin, que da fin al programa
+            {
+                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista para imprimir el error que falta la palabra fin, al final del codigo
+                fila1.Cells[0].Value = "Error: Se Esperaba finalizacion de sistema 'fin' ";
+                fila1.Cells[1].Value = filas;
+                dgvErrores.Rows.Add(fila1);
+            }
 
+            for (int i = 1; i < filas; i++)
+            {
+                        string columna = dgvtabladatos.Rows[i].Cells[1].Value.ToString(); //ingresamos la palabra ingresada en el data griv view de los datos
+                        if (columna != ";") //si es indiferente al ;
+                        {
+                            valorcolm += "<" + dgvtabladatos.Rows[i].Cells[0].Value.ToString() + ">"; //me lo guarda entre < > y me sigue concatenando el componente lexico de la palabra ingresada
+                        }
+                        else //hasta que encuentre un ;
+                        { //y analiza si la cadena de texto se encuentra entre nuestras reglas sintacticas 
+                            foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
+                            {
+                                if (rulle.Key == valorcolm)
+                                {
+                                    erro = rulle.Value;
+                                    erros = int.Parse(erro);//si, si esta me devuelve el valor 1 como repsuesta de la busqueda
+                                }
+                            }
+                            if (erros == 0) //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
+                            {
+                                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
+                                fila1.Cells[0].Value = "Error: Sintactico";
+                                fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                dgvErrores.Rows.Add(fila1);
+                            }
+                            else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
+                            {
+                                erros = 0;
+                            }
+                            valorcolm = "";
+                        }
+            }
+                
+                
+            
+            
+
+        }
         public void borrar()
         {
             this.dgvtabladatos.Rows.Clear(); //se limpia la tabla xd
+            this.dgvErrores.Rows.Clear();
             idv = 1;
         }
 

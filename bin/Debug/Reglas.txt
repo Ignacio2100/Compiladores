@@ -1,0 +1,9 @@
+<Variable de tipo string><Es un Nombre de Variable>: 1
+<Variable de tipo string><Es un Nombre de Variable><signo de asignacion><Es un valor de variable string>: 1
+<Es un Nombre de Variable><signo de asignacion><Es un valor de variable string>: 1
+<Variable de tipo int><Es un Nombre de Variable>: 1
+<Variable de tipo int><Es un Nombre de Variable><signo de asignacion><Es un número>: 1
+<Es un Nombre de Variable><signo de asignacion><Es un número>: 1
+<Variable de tipo decimal><Es un Nombre de Variable>: 1
+<Variable de tipo decimal><Es un Nombre de Variable><signo de asignacion><Es un número decimal>: 1
+<Es un Nombre de Variable><signo de asignacion><Es un número decimal>: 1
