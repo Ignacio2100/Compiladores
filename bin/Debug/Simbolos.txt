@@ -19,3 +19,5 @@
 &&:AND
 ||:OR
 ,:separacion 
+[:Inicio de if o else
+]:fin de if o else

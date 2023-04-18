@@ -7,3 +7,10 @@
 <Variable de tipo decimal><Es un Nombre de Variable>: 1
 <Variable de tipo decimal><Es un Nombre de Variable><signo de asignacion><Es un número decimal>: 1
 <Es un Nombre de Variable><signo de asignacion><Es un número decimal>: 1
+<Condicion If><parentesis inicio bloque><parentesis cierre bloque><Inicio de if o else><fin de if o else>: 1
+<Condicion If><parentesis inicio bloque><parentesis cierre bloque><Inicio de if o else><fin de if o else><Condision else><Inicio de if o else><fin de if o else>: 1
+<cout><Es un Nombre de Variable>: 1
+<cout><Es un valor de variable string>: 1
+<cout><Es un número>: 1
+<cout><Es un número decimal>: 1
+<cin><Es un Nombre de Variable>: 1

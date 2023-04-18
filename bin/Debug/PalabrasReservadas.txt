@@ -8,3 +8,4 @@ para:Ciclo For
 entonces:Condision else
 imprimir:cin
 leer:cout
+finsi:fin de condicion si
