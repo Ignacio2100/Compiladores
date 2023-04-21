@@ -1,9 +1,15 @@
 <Variable de tipo string><Es un Nombre de Variable>: 1
 <Variable de tipo string><Es un Nombre de Variable><signo de asignacion><Es un valor de variable string>: 1
 <Es un Nombre de Variable><signo de asignacion><Es un valor de variable string>: 1
+<Es un Nombre de Variable><signo de comparacion><Es un valor de variable string>: 1
 <Variable de tipo int><Es un Nombre de Variable>: 1
 <Variable de tipo int><Es un Nombre de Variable><signo de asignacion><Es un número>: 1
 <Es un Nombre de Variable><signo de asignacion><Es un número>: 1
+<Es un Nombre de Variable><signo mayor que><Es un número>: 1
+<Es un Nombre de Variable><signo menor que><Es un número>: 1
+<Es un Nombre de Variable><mayor igual><Es un número>: 1
+<Es un Nombre de Variable><menor igual><Es un número>: 1
+<Es un Nombre de Variable><incremento>: 1
 <Variable de tipo decimal><Es un Nombre de Variable>: 1
 <Variable de tipo decimal><Es un Nombre de Variable><signo de asignacion><Es un número decimal>: 1
 <Es un Nombre de Variable><signo de asignacion><Es un número decimal>: 1
@@ -14,3 +20,8 @@
 <cout><Es un número>: 1
 <cout><Es un número decimal>: 1
 <cin><Es un Nombre de Variable>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable><signo de asignacion><Es un número><separacion><Es un Nombre de Variable><signo mayor que><Es un número><separacion><Es un Nombre de Variable><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable><signo de asignacion><Es un número><separacion><Es un Nombre de Variable><signo menor que><Es un número><separacion><Es un Nombre de Variable><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable><signo de asignacion><Es un número><separacion><Es un Nombre de Variable><menor igual><Es un número><separacion><Es un Nombre de Variable><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable><signo de asignacion><Es un número><separacion><Es un Nombre de Variable><mayor igual><Es un número><separacion><Es un Nombre de Variable><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable><signo de asignacion><Es un número><separacion><Es un Nombre de Variable><signo de comparacion><Es un número><separacion><Es un Nombre de Variable><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1

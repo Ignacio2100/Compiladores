@@ -9,3 +9,4 @@ entonces:Condision else
 imprimir:cin
 leer:cout
 finsi:fin de condicion si
+finfor:fin del for
