@@ -46,9 +46,9 @@ namespace AnalisisLexico
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvErrores = new System.Windows.Forms.DataGridView();
+            this.sbtnTema = new AnalisisLexico.Clases.SlideButton();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sbtnTema = new AnalisisLexico.Clases.SlideButton();
             this.gboxCodigo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBIcono)).BeginInit();
             this.gboxTabla.SuspendLayout();
@@ -223,19 +223,8 @@ namespace AnalisisLexico
             this.dgvErrores.Location = new System.Drawing.Point(39, 304);
             this.dgvErrores.Name = "dgvErrores";
             this.dgvErrores.RowHeadersWidth = 20;
-            this.dgvErrores.Size = new System.Drawing.Size(476, 120);
+            this.dgvErrores.Size = new System.Drawing.Size(500, 120);
             this.dgvErrores.TabIndex = 3;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "ERRORES";
-            this.Column6.Name = "Column6";
-            this.Column6.Width = 300;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "FILAS";
-            this.Column7.Name = "Column7";
             // 
             // sbtnTema
             // 
@@ -251,6 +240,18 @@ namespace AnalisisLexico
             this.sbtnTema.TabIndex = 6;
             this.sbtnTema.UseVisualStyleBackColor = true;
             this.sbtnTema.CheckedChanged += new System.EventHandler(this.sbtnTema_CheckedChanged);
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "ERRORES";
+            this.Column6.Name = "Column6";
+            this.Column6.Width = 375;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "FILAS";
+            this.Column7.Name = "Column7";
+            this.Column7.Width = 110;
             // 
             // Form1
             // 

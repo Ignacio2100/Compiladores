@@ -11,13 +11,10 @@
 >:signo mayor que
 <:signo menor que
 ;:fin de linea
-!=:diferente de
 >=:mayor igual
 <=:menor igual
 ++:incremento
 --:decremento
-&&:AND
-||:OR
 ,:separacion
 [:Inicio de if o else
 ]:fin de if o else
