@@ -14,7 +14,6 @@
 >=:mayor igual
 <=:menor igual
 ++:incremento
---:decremento
 ,:separacion
 [:Inicio de if o else
 ]:fin de if o else

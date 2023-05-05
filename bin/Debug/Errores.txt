@@ -1,0 +1,12 @@
+E001:Nombre de variable repetida
+E002:Se esperaba Inicializacion
+E003:Se esperaba Finalizacion
+E004:Error Sintactico
+E005:Falto Finalizar la linea
+E006:No se puede almacenar el valor en la variable
+E007:Falto nombrar la variable
+E008:Solo se puede comparar con un numero
+E009:Error al comparar
+E010:No se puede mostrar ese contenido
+E011:Solo se puede imprimir en una variable
+E012:Ciclo Para mal estructurado 

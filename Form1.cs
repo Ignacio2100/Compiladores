@@ -178,57 +178,71 @@ namespace AnalisisLexico
         {
             int numfilas = dgvtabladatos.RowCount - 1; //cuenta el numeor de filas que en el datagrivview
 
-            for (int i = 0; i < numfilas; i++)
+            for (int i = 1; i < numfilas; i++)
             {
                 string datocell = dgvtabladatos.Rows[i].Cells[1].Value.ToString(); //guarda el contenido de la celda 2, fila i en esta variable
 
-                    for (int j = 0; j < numfilas; j++)
+                    for (int j = 1; j < numfilas; j++)
                     {
                         string datocelll = dgvtabladatos.Rows[j].Cells[1].Value.ToString(); //guarda el contenido de la celda 2, fila j en esta variable
-
+                        string ant1 = dgvtabladatos.Rows[j - 1].Cells[1].Value.ToString();
+                        string ant2 = dgvtabladatos.Rows[i - 1].Cells[1].Value.ToString();
+                        
                         if (datocell == datocelll) //compara variables para cambiar id
                         {
                             dgvtabladatos.Rows[j].Cells[2].Value = dgvtabladatos.Rows[i].Cells[2].Value.ToString(); //sustituye el valor del valor id en la fila j por el dato de la fila i
-                            idv--;
-                        
-                            if (datocelll.StartsWith("_"))
+
+                            if (datocelll.StartsWith("_") && datocell.StartsWith("_"))
                             {
-                                 
-                                if (j != i && i<j)
-                                {
-                                string datocellx = dgvtabladatos.Rows[j].Cells[0].Value.ToString(); //guarda el contenido de la celda 2, fila i en esta variable
 
-                                    if (datocellx == "Es un Nombre de Variable")
+                                    if (j != i && i < j)
                                     {
-                                        string datocelly = dgvtabladatos.Rows[j - 1].Cells[0].Value.ToString();
-                                        switch (datocelly)
+                                        string datocellx = dgvtabladatos.Rows[j].Cells[0].Value.ToString(); //guarda el contenido de la celda 2, fila i en esta variable
+                                        
+                                        if (datocellx == "Es un Nombre de Variable")
                                         {
-                                            case "Variable de tipo string":
-                                                DataGridViewRow fila = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista para imprimir el error en la tabla 
-                                                fila.Cells[0].Value = "Error: No se puede repetir nombre de variables";
-                                                fila.Cells[1].Value = dgvtabladatos.Rows[j - 1].Cells[4].Value.ToString();
-                                                dgvErrores.Rows.Add(fila);
-                                                break;
-                                            case "Variable de tipo int":
-                                                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista  para imprimir el error en la tabla 
-                                            fila1.Cells[0].Value = "Error: No se puede repetir nombre de variables";
-                                                fila1.Cells[1].Value = dgvtabladatos.Rows[j - 1].Cells[4].Value.ToString();
-                                                dgvErrores.Rows.Add(fila1);
-                                                break;
-                                            case "Variable de tipo decimal":
-                                                DataGridViewRow fila2 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista  para imprimir el error en la tabla 
-                                            fila2.Cells[0].Value = "Error: No se puede repetir nombre de variables";
-                                                fila2.Cells[1].Value = dgvtabladatos.Rows[j - 1].Cells[4].Value.ToString();
-                                                dgvErrores.Rows.Add(fila2);
-                                                break;
+                                            string datocelly = dgvtabladatos.Rows[j - 1].Cells[0].Value.ToString();
+                                            switch (datocelly)
+                                            {
+                                                case "Variable de tipo string":
+                                                    
+                                                    string f = dgvtabladatos.Rows[j - 1].Cells[4].Value.ToString();
+                                                    ManejoErrores("E001", f);
+                                                    break;
+                                                case "Variable de tipo int":
+                                                    string ff = dgvtabladatos.Rows[j - 1].Cells[4].Value.ToString();
+                                                    ManejoErrores("E001", ff);
+                                                    break;
+                                                case "Variable de tipo decimal":
+                                                    string fg = dgvtabladatos.Rows[j - 1].Cells[4].Value.ToString();
+                                                    ManejoErrores("E001", fg);
+                                                    break;
+                                            }
                                         }
-                                    }
 
-                                }
+                                    }
+                                
                             }
                         }
 
                     }
+                
+            }
+            int numf = dgvErrores.Rows.Count - 1;
+            for (int l = 0; l < numf - 1; l++)
+            {
+                string a = dgvErrores.Rows[l].Cells[0].Value.ToString() + dgvErrores.Rows[l].Cells[1].Value.ToString();
+                for (int r = 0; r < numf - 1; r++)
+                {
+                    string aa = dgvErrores.Rows[r].Cells[0].Value.ToString() + dgvErrores.Rows[r].Cells[1].Value.ToString();
+                    if (r != l && l < r)
+                    {
+                        if (a == aa)
+                        {
+                            dgvErrores.Rows.RemoveAt(l + 1);
+                        }
+                    }
+                }
                 
             }
             
@@ -265,17 +279,12 @@ namespace AnalisisLexico
           
             if (inicio != "comenzar") //comparamos y verificamos que en la fila 1 de la pizarra, este la inicializacion del sistema
             {
-                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista e imprimimos el error de falta de la palabra comenzar
-                fila1.Cells[0].Value = "Error: Se Esperaba inicializacion de sistema 'comenzar' ";
-                fila1.Cells[1].Value = 1;
-                dgvErrores.Rows.Add(fila1);
+
+                ManejoErrores("E002", "1");
             }
             if (fin != "fin") //comparamos y verificamos que en la ultima fila de la pizarra se encuentre el valor fin, que da fin al programa
             {
-                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista para imprimir el error que falta la palabra fin, al final del codigo
-                fila1.Cells[0].Value = "Error: Se Esperaba finalizacion de sistema 'fin' ";
-                fila1.Cells[1].Value = " ";
-                dgvErrores.Rows.Add(fila1);
+                ManejoErrores("E002", "");
             }
 
 
@@ -304,10 +313,8 @@ namespace AnalisisLexico
                             }
                             if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
                             {
-                                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                fila1.Cells[0].Value = "Error: Sintactico";
-                                fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                dgvErrores.Rows.Add(fila1);
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E004", f);
                             }
 
                             else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
@@ -345,10 +352,8 @@ namespace AnalisisLexico
 
                                         if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
                                         {
-                                            DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                            fila1.Cells[0].Value = "Error: Sintactico";
-                                            fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                            dgvErrores.Rows.Add(fila1);
+                                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                            ManejoErrores("E004", f);
                                         }
 
                                         else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
@@ -360,20 +365,16 @@ namespace AnalisisLexico
                                     }
                                     else
                                     {
-                                        DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                        fila1.Cells[0].Value = "Error: falto ; ";
-                                        fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                        dgvErrores.Rows.Add(fila1);
+                                        string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                        ManejoErrores("E005", f);
                                         erro = "0";
                                         cadena = "";
                                     }
                                 }
                                 else
                                 {
-                                    DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                    fila1.Cells[0].Value = "Error: No puede ingresar este valor a una cadena";
-                                    fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                    dgvErrores.Rows.Add(fila1);
+                                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                    ManejoErrores("E006", f);
                                     i++;
                                     i++;
                                     erro = "0";
@@ -382,10 +383,8 @@ namespace AnalisisLexico
                             }
                             else
                             {
-                                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                fila1.Cells[0].Value = "Error: falto ; ";
-                                fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                dgvErrores.Rows.Add(fila1);
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E005", f);
                                 erro = "0";
                                 cadena = "";
                             }
@@ -393,10 +392,8 @@ namespace AnalisisLexico
                     }
                     else
                     {
-                        DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                        fila1.Cells[0].Value = "Error: falto nombrar la variable";
-                        fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                        dgvErrores.Rows.Add(fila1);
+                        string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                        ManejoErrores("E007", f);
                         i++;
                         i++;
                         i++;
@@ -426,10 +423,8 @@ namespace AnalisisLexico
                             }
                             if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
                             {
-                                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                fila1.Cells[0].Value = "Error: Sintactico";
-                                fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                dgvErrores.Rows.Add(fila1);
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E004", f);
                             }
 
                             else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
@@ -467,10 +462,8 @@ namespace AnalisisLexico
 
                                         if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
                                         {
-                                            DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                            fila1.Cells[0].Value = "Error: Sintactico";
-                                            fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                            dgvErrores.Rows.Add(fila1);
+                                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                            ManejoErrores("E004", f);
                                         }
 
                                         else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
@@ -485,20 +478,16 @@ namespace AnalisisLexico
                                     }
                                     else
                                     {
-                                        DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                        fila1.Cells[0].Value = "Error: falto ; o , ";
-                                        fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                        dgvErrores.Rows.Add(fila1);
+                                        string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                        ManejoErrores("E005", f);
                                         erro = "0";
                                         entero = "";
                                     }
                                 }
                                 else
                                 {
-                                        DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                        fila1.Cells[0].Value = "Error: Este valor no se le puede ingresar a un entero";
-                                        fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                        dgvErrores.Rows.Add(fila1);
+                                        string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                        ManejoErrores("E006", f);
                                         i++;
                                         i++;
                                         erro = "0";
@@ -507,10 +496,8 @@ namespace AnalisisLexico
                             }
                             else
                             {
-                                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                fila1.Cells[0].Value = "Error: falto ; o , ";
-                                fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                dgvErrores.Rows.Add(fila1);
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E005", f);
                                 erro = "0";
                                 cadena = "";
                             }
@@ -519,10 +506,8 @@ namespace AnalisisLexico
                     }
                     else
                     {
-                        DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                        fila1.Cells[0].Value = "Error: falto nombrar la variable";
-                        fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                        dgvErrores.Rows.Add(fila1);
+                        string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                        ManejoErrores("E007", f);
                         i++;
                         i++;
                         i++;
@@ -551,10 +536,8 @@ namespace AnalisisLexico
                             }
                             if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
                             {
-                                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                fila1.Cells[0].Value = "Error: Sintactico";
-                                fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                dgvErrores.Rows.Add(fila1);
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E004", f);
                             }
 
                             else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
@@ -592,10 +575,8 @@ namespace AnalisisLexico
 
                                         if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
                                         {
-                                            DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                            fila1.Cells[0].Value = "Error: Sintactico";
-                                            fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                            dgvErrores.Rows.Add(fila1);
+                                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                            ManejoErrores("E004", f);
                                         }
 
                                         else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
@@ -610,20 +591,16 @@ namespace AnalisisLexico
                                     }
                                     else
                                     {
-                                        DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                        fila1.Cells[0].Value = "Error: falto ; ";
-                                        fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                        dgvErrores.Rows.Add(fila1);
+                                        string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                        ManejoErrores("E005", f);
                                         erro = "0";
                                         decima = "";
                                     }
                                 }
                                 else
                                 {
-                                    DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                    fila1.Cells[0].Value = "Error: Esta variable solo permite valores decimales";
-                                    fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                    dgvErrores.Rows.Add(fila1);
+                                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                    ManejoErrores("E006", f);
                                     i++;
                                     i++;
                                     erro = "0";
@@ -633,10 +610,8 @@ namespace AnalisisLexico
                             }
                             else
                             {
-                                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                fila1.Cells[0].Value = "Error: falto ; ";
-                                fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                dgvErrores.Rows.Add(fila1);
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E005", f);
                                 erro = "0";
                                 cadena = "";
                             }
@@ -644,10 +619,8 @@ namespace AnalisisLexico
                     }
                     else
                     {
-                        DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                        fila1.Cells[0].Value = "Error: falto nombrar la variable";
-                        fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                        dgvErrores.Rows.Add(fila1);
+                        string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                        ManejoErrores("E007", f);
                         i++;
                         i++;
                         i++;
@@ -661,7 +634,6 @@ namespace AnalisisLexico
                 else if (celda == "Es un Nombre de Variable")
                 {
                     cadena += "<" + celda + ">";
-
                     celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
                     if (celda == "signo de asignacion")
                     {
@@ -673,7 +645,7 @@ namespace AnalisisLexico
                             i++;
                             cadena += "<" + celda + ">";
                             celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                            if (celda == ";" || celda == ",")
+                            if (celda == ";" || celda == "," || celda == ")")
                             {
                                 i++;
                                 foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
@@ -686,10 +658,8 @@ namespace AnalisisLexico
 
                                 if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
                                 {
-                                    DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                    fila1.Cells[0].Value = "Error: Sintactico";
-                                    fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                    dgvErrores.Rows.Add(fila1);
+                                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                    ManejoErrores("E004", f);
                                 }
 
                                 else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
@@ -701,20 +671,16 @@ namespace AnalisisLexico
                             }
                             else
                             {
-                                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                fila1.Cells[0].Value = "Error: falto ; ";
-                                fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                dgvErrores.Rows.Add(fila1);
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E005", f);
                                 erro = "0";
                                 cadena = "";
                             }
                         }
                         else
                         {
-                            DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                            fila1.Cells[0].Value = "Error: valor no valido";
-                            fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                            dgvErrores.Rows.Add(fila1);
+                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                            ManejoErrores("E006", f);
                             i++;
                             i++;
                             erro = "0";
@@ -731,7 +697,7 @@ namespace AnalisisLexico
                             i++;
                             cadena += "<" + celda + ">";
                             celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                            if (celda == ";" || celda == ",")
+                            if (celda == ";" || celda == "," || celda == ")")
                             {
                                 i++;
                                 foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
@@ -744,10 +710,8 @@ namespace AnalisisLexico
 
                                 if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
                                 {
-                                    DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                    fila1.Cells[0].Value = "Error: Sintactico";
-                                    fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                    dgvErrores.Rows.Add(fila1);
+                                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                    ManejoErrores("E004", f);
                                 }
 
                                 else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
@@ -759,20 +723,16 @@ namespace AnalisisLexico
                             }
                             else
                             {
-                                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                fila1.Cells[0].Value = "Error: falto ; ";
-                                fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                dgvErrores.Rows.Add(fila1);
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E005", f);
                                 erro = "0";
                                 cadena = "";
                             }
                         }
                         else
                         {
-                            DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                            fila1.Cells[0].Value = "Error: valor no valido";
-                            fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                            dgvErrores.Rows.Add(fila1);
+                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                            ManejoErrores("E008", f);
                             i++;
                             i++;
                             erro = "0";
@@ -789,7 +749,7 @@ namespace AnalisisLexico
                             i++;
                             cadena += "<" + celda + ">";
                             celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                            if (celda == ";" || celda == ",")
+                            if (celda == ";" || celda == "," || celda == ")")
                             {
                                 i++;
                                 foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
@@ -802,10 +762,8 @@ namespace AnalisisLexico
 
                                 if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
                                 {
-                                    DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                    fila1.Cells[0].Value = "Error: Sintactico";
-                                    fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                    dgvErrores.Rows.Add(fila1);
+                                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                    ManejoErrores("E004", f);
                                 }
 
                                 else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
@@ -817,20 +775,16 @@ namespace AnalisisLexico
                             }
                             else
                             {
-                                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                fila1.Cells[0].Value = "Error: falto ; ";
-                                fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                dgvErrores.Rows.Add(fila1);
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E005", f);
                                 erro = "0";
                                 cadena = "";
                             }
                         }
                         else
                         {
-                            DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                            fila1.Cells[0].Value = "Error: valor no valido";
-                            fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                            dgvErrores.Rows.Add(fila1);
+                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                            ManejoErrores("E008", f);
                             i++;
                             i++;
                             erro = "0";
@@ -847,7 +801,7 @@ namespace AnalisisLexico
                             i++;
                             cadena += "<" + celda + ">";
                             celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                            if (celda == ";" || celda == ",")
+                            if (celda == ";" || celda == "," || celda == ")" )
                             {
                                 i++;
                                 foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
@@ -860,10 +814,8 @@ namespace AnalisisLexico
 
                                 if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
                                 {
-                                    DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                    fila1.Cells[0].Value = "Error: Sintactico";
-                                    fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                    dgvErrores.Rows.Add(fila1);
+                                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                    ManejoErrores("E004", f);
                                 }
 
                                 else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
@@ -875,20 +827,16 @@ namespace AnalisisLexico
                             }
                             else
                             {
-                                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                fila1.Cells[0].Value = "Error: falto ; ";
-                                fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                dgvErrores.Rows.Add(fila1);
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E005", f);
                                 erro = "0";
                                 cadena = "";
                             }
                         }
                         else
                         {
-                            DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                            fila1.Cells[0].Value = "Error: valor no valido";
-                            fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                            dgvErrores.Rows.Add(fila1);
+                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                            ManejoErrores("E008", f);
                             i++;
                             i++;
                             erro = "0";
@@ -905,7 +853,7 @@ namespace AnalisisLexico
                             i++;
                             cadena += "<" + celda + ">";
                             celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                            if (celda == ";" || celda == ",")
+                            if (celda == ";" || celda == "," || celda == ")")
                             {
                                 i++;
                                 foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
@@ -918,10 +866,8 @@ namespace AnalisisLexico
 
                                 if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
                                 {
-                                    DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                    fila1.Cells[0].Value = "Error: Sintactico";
-                                    fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                    dgvErrores.Rows.Add(fila1);
+                                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                    ManejoErrores("E004", f);
                                 }
 
                                 else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
@@ -933,20 +879,16 @@ namespace AnalisisLexico
                             }
                             else
                             {
-                                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                fila1.Cells[0].Value = "Error: falto ; ";
-                                fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                dgvErrores.Rows.Add(fila1);
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E005", f);
                                 erro = "0";
                                 cadena = "";
                             }
                         }
                         else
                         {
-                            DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                            fila1.Cells[0].Value = "Error: valor no valido";
-                            fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                            dgvErrores.Rows.Add(fila1);
+                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                            ManejoErrores("E008", f);
                             i++;
                             i++;
                             erro = "0";
@@ -971,10 +913,8 @@ namespace AnalisisLexico
 
                             if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
                             {
-                                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                fila1.Cells[0].Value = "Error: Sintactico";
-                                fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                dgvErrores.Rows.Add(fila1);
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E004", f);
                             }
 
                             else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
@@ -986,10 +926,8 @@ namespace AnalisisLexico
                         }
                         else
                         {
-                            DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                            fila1.Cells[0].Value = "Error: falto ; ";
-                            fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                            dgvErrores.Rows.Add(fila1);
+                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                            ManejoErrores("E005", f);
                             erro = "0";
                             cadena = "";
                         }
@@ -1004,7 +942,7 @@ namespace AnalisisLexico
                             i++;
                             cadena += "<" + celda + ">";
                             celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                            if (celda == ";" || celda == ")")
+                            if (celda == ";" || celda == ")" || celda == ")")
                             {
                                 i++;
                                 foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
@@ -1017,10 +955,8 @@ namespace AnalisisLexico
 
                                 if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
                                 {
-                                    DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                    fila1.Cells[0].Value = "Error: Sintactico";
-                                    fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                    dgvErrores.Rows.Add(fila1);
+                                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                    ManejoErrores("E004", f);
                                 }
 
                                 else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
@@ -1032,20 +968,16 @@ namespace AnalisisLexico
                             }
                             else
                             {
-                                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                fila1.Cells[0].Value = "Error: falto ; ";
-                                fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                dgvErrores.Rows.Add(fila1);
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E005", f);
                                 erro = "0";
                                 cadena = "";
                             }
                         }
                         else
                         {
-                            DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                            fila1.Cells[0].Value = "Error: valor no valido";
-                            fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                            dgvErrores.Rows.Add(fila1);
+                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                            ManejoErrores("E009", f);
                             i++;
                             i++;
                             erro = "0";
@@ -1075,10 +1007,8 @@ namespace AnalisisLexico
 
                             if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
                             {
-                                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                fila1.Cells[0].Value = "Error: Sintactico";
-                                fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                dgvErrores.Rows.Add(fila1);
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E004", f);
                             }
 
                             else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
@@ -1089,20 +1019,16 @@ namespace AnalisisLexico
                         }
                         else
                         {
-                            DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                            fila1.Cells[0].Value = "Error:  falta ; ";
-                            fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                            dgvErrores.Rows.Add(fila1);
+                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                            ManejoErrores("E005", f);
                             erro = "0";
 
                         }
                     }
                     else
                     {
-                        DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                        fila1.Cells[0].Value = "Error: No se puede leer eso";
-                        fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                        dgvErrores.Rows.Add(fila1);
+                        string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                        ManejoErrores("E010", f);
                     }
                 }
                 else if (celda == "cin")
@@ -1127,10 +1053,8 @@ namespace AnalisisLexico
 
                             if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
                             {
-                                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                fila1.Cells[0].Value = "Error: Sintactico";
-                                fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                dgvErrores.Rows.Add(fila1);
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E004", f);
                             }
 
                             else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
@@ -1141,25 +1065,36 @@ namespace AnalisisLexico
                         }
                         else
                         {
-                            DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                            fila1.Cells[0].Value = "Error: falto ; ";
-                            fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                            dgvErrores.Rows.Add(fila1);
+                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                            ManejoErrores("E005", f);
                             erro = "0";
 
                         }
                     }
                     else
                     {
-                        DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                        fila1.Cells[0].Value = "Error: No se puede imprimir eso";
-                        fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                        dgvErrores.Rows.Add(fila1);
+                        string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                        ManejoErrores("E011", f);
                     }
                 }
                 else if (celda == "Ciclo For")
                 {
                     Validarfor();
+                }
+                else if (celda == "Palabra reservada de inicio")
+                {
+                    DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
+                    fila1.Cells[0].Value = "Error: Hay 2 comenzar";
+                    fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                    dgvErrores.Rows.Add(fila1);
+
+                }
+                else if (celda == "Palabra reservada de Final")
+                {
+                    DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
+                    fila1.Cells[0].Value = "Error: Porque hay 2 Fin ???? xd";
+                    fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                    dgvErrores.Rows.Add(fila1);
                 }
             
             }
@@ -1211,10 +1146,8 @@ namespace AnalisisLexico
                     }
                     if (error == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
                     {
-                        DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                        fila1.Cells[0].Value = "Error: 'si' mal estructurado";
-                        fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                        dgvErrores.Rows.Add(fila1);
+                        string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                        ManejoErrores("E004", f);
                     }
                     else
                     {
@@ -1331,65 +1264,60 @@ namespace AnalisisLexico
                                                                         {
                                                                             i++;
                                                                             varlorc += "<" + datocell + ">"; //me lo guarda entre < > y me sigue concatenando el componente lexico de la palabra ingresada                    
-                                                                            datocell = dgvtabladatos.Rows[i].Cells[0].Value.ToString();
-
-                                                                            if (datocell == "Llave cierre bloque")
+                                                                            for (int o = i; o <= filas-1; o++)
                                                                             {
-                                                                                i++;
-                                                                                varlorc += "<" + datocell + ">"; //me lo guarda entre < > y me sigue concatenando el componente lexico de la palabra ingresada                    
-                                                                                datocell = dgvtabladatos.Rows[i].Cells[0].Value.ToString();
-                                                                                gg = 1;
+                                                                                datocell = dgvtabladatos.Rows[o].Cells[0].Value.ToString();
 
-                                                                                foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
+                                                                                if (datocell == "Llave cierre bloque")
                                                                                 {
-                                                                                    if (rulle.Key == varlorc)
+                                                                                    i++;
+                                                                                    varlorc += "<" + datocell + ">"; //me lo guarda entre < > y me sigue concatenando el componente lexico de la palabra ingresada                    
+                                                                                    
+                                                                                    foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
                                                                                     {
-                                                                                        error = rulle.Value;
-                                                                                    }
+                                                                                        if (rulle.Key == varlorc)
+                                                                                        {
+                                                                                            error = rulle.Value;
+                                                                                        }
 
+                                                                                    }
+                                                                                    if (error == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
+                                                                                    {
+                                                                                        string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                                                                        ManejoErrores("E012", f);
+                                                                                        
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        error = "0";
+                                                                                        varlorc = "";
+                                                                                    }
                                                                                 }
-                                                                                if (error == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
-                                                                                {
-                                                                                    DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                                                                    fila1.Cells[0].Value = "Error: 'para' mal estructurado";
-                                                                                    dgvErrores.Rows.Add(fila1);
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                    error = "0";
-                                                                                    varlorc = "";
-                                                                                    gg = 0;
-                                                                                }
+
                                                                             }
-                                                                            else
-                                                                            {
-                                                                                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                                                                fila1.Cells[0].Value = "Error: Le falto signo } ";
-                                                                                fila1.Cells[1].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString();
-                                                                                dgvErrores.Rows.Add(fila1);
-                                                                            }
+                                                                            
                                                                         }
                                                                         else
                                                                         {
                                                                             DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                                                            fila1.Cells[0].Value = "Error: Le falto signo { ";
-                                                                            fila1.Cells[1].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString();
+                                                                            fila1.Cells[1].Value = "Error: Le falto signo { ";
+                                                                            fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
                                                                             dgvErrores.Rows.Add(fila1);
                                                                         }
                                                                     }
                                                                     else
                                                                     {
                                                                         DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                                                        fila1.Cells[0].Value = "Error: Falto signo >> ";
-                                                                        fila1.Cells[1].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString();
+                                                                        fila1.Cells[1].Value = "Error: Falto signo >> ";
+                                                                        fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
                                                                         dgvErrores.Rows.Add(fila1);
                                                                     }
                                                                 }
                                                                 else
                                                                 {
                                                                     DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                                                    fila1.Cells[0].Value = "Error: ???";
-                                                                    fila1.Cells[1].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString();
+                                                                    fila1.Cells[1].Value = "Error: tiene que incrementar la variable";
+                                                                    fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
                                                                     dgvErrores.Rows.Add(fila1);
                                                                 }
                                                             }
@@ -1397,24 +1325,24 @@ namespace AnalisisLexico
                                                         else
                                                         {
                                                             DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                                            fila1.Cells[0].Value = "Error: Le falto coma";
-                                                            fila1.Cells[1].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString();
+                                                            fila1.Cells[1].Value = "Error: Le falto coma";
+                                                            fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
                                                             dgvErrores.Rows.Add(fila1);
                                                         }
                                                     }
                                                     else
                                                     {
                                                         DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                                        fila1.Cells[0].Value = "Error: Solo se puede compara con numeros enteros";
-                                                        fila1.Cells[1].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString();
+                                                        fila1.Cells[1].Value = "Error: Solo se puede compara con numeros enteros";
+                                                        fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
                                                         dgvErrores.Rows.Add(fila1);
                                                     }
                                                 }
                                                 else
                                                 {
                                                     DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                                    fila1.Cells[0].Value = "Error: Comparacion no valida";
-                                                    fila1.Cells[1].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString();
+                                                    fila1.Cells[1].Value = "Error: Comparacion no valida";
+                                                    fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
                                                     dgvErrores.Rows.Add(fila1);
                                                 }
                                             }
@@ -1422,62 +1350,91 @@ namespace AnalisisLexico
                                         else
                                         {
                                             DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                            fila1.Cells[0].Value = "Error: Le falta la coma ";
-                                            fila1.Cells[1].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString();
+                                            fila1.Cells[1].Value = "Error: Le falta la coma ";
+                                            fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
                                             dgvErrores.Rows.Add(fila1);
                                         }
                                     }
                                     else
                                     {
                                         DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                        fila1.Cells[0].Value = "Error: Valor no valido";
-                                        fila1.Cells[1].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString();
+                                        fila1.Cells[1].Value = "Error: Valor no valido";
+                                        fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
                                         dgvErrores.Rows.Add(fila1);
                                     }
                                 }
                                 else
                                 {
                                     DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                    fila1.Cells[0].Value = "Error: Debe asiganarle un valor al entero";
-                                    fila1.Cells[1].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString();
+                                    fila1.Cells[1].Value = "Error: Debe asiganarle un valor al entero";
+                                    fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
                                     dgvErrores.Rows.Add(fila1);
                                 }
                             }
                             else
                             {
                                 DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                fila1.Cells[0].Value = "Error: Le falto nombrar la variable";
-                                fila1.Cells[1].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString();
+                                fila1.Cells[1].Value = "Error: Le falto nombrar la variable";
+                                fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
                                 dgvErrores.Rows.Add(fila1);
                             }
                         }
                         else
                         {
                             DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                            fila1.Cells[0].Value = "Error: Solamente se pueden crear variables de tipo entero ";
-                            fila1.Cells[1].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString();
+                            fila1.Cells[1].Value = "Error: Solamente se pueden crear variables de tipo entero ";
+                            fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
                             dgvErrores.Rows.Add(fila1);
                         }
                     }
                     else
                     {
                         DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                        fila1.Cells[0].Value = "Error: Le falto << ";
-                        fila1.Cells[1].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString();
+                        fila1.Cells[1].Value = "Error: Le falto << ";
+                        fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
                         dgvErrores.Rows.Add(fila1);
                     }
 
                 }
             }
-
-                if (gg == 0)
-                {
-
-                    DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                    fila1.Cells[0].Value = "Error: 'para' mal estructurado";
-                    dgvErrores.Rows.Add(fila1);
-                }
             
+
+        }
+
+        public string ManejoErrores(string rulles, string fila)
+        {
+            string filePath4 = @"Errores.txt";
+            StreamReader readerE = new StreamReader(filePath4);
+            Dictionary<string, string> Errores = new Dictionary<string, string>();
+            string resultado = "";
+            string linerrors;
+            while ((linerrors = readerE.ReadLine()) != null)
+            {
+                
+                string[] parts = linerrors.Split(':');
+
+                
+                if (parts.Length == 2)
+                {
+                    Errores.Add(parts[0], parts[1]);
+                }
+            }
+
+            foreach (KeyValuePair<string, string> itemregla in Errores) 
+            {
+                if (itemregla.Key == rulles)
+                {
+                    resultado =  itemregla.Value;
+                }
+            }
+            DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone();
+            fila1.Cells[0].Value = rulles;
+            fila1.Cells[1].Value = resultado;
+            fila1.Cells[2].Value = "Fila " + fila;
+            dgvErrores.Rows.Add(fila1);
+
+            return resultado;
+
 
         }
 
@@ -1507,7 +1464,7 @@ namespace AnalisisLexico
             borrar(); //funcion que limpia la tabla
             Analisis(); //llamamos la funcion que analiza el codigo de la pizarra
             //personalizado(); //funcion que agrega los colores 
-         //   salvartexto();
+            //salvartexto();
         }
 
         // Establece el color de la palabra "ejemplo" en el control RichTextBox1
