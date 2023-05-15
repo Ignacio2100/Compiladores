@@ -159,10 +159,11 @@ namespace AnalisisLexico
             this.gboxTabla.ForeColor = System.Drawing.Color.Black;
             this.gboxTabla.Location = new System.Drawing.Point(12, 430);
             this.gboxTabla.Name = "gboxTabla";
-            this.gboxTabla.Size = new System.Drawing.Size(796, 176);
+            this.gboxTabla.Size = new System.Drawing.Size(130, 64);
             this.gboxTabla.TabIndex = 2;
             this.gboxTabla.TabStop = false;
             this.gboxTabla.Text = "Distribucion";
+            this.gboxTabla.Visible = false;
             // 
             // dgvtabladatos
             // 
@@ -186,7 +187,7 @@ namespace AnalisisLexico
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
             this.dgvtabladatos.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvtabladatos.RowTemplate.Height = 24;
-            this.dgvtabladatos.Size = new System.Drawing.Size(790, 154);
+            this.dgvtabladatos.Size = new System.Drawing.Size(124, 42);
             this.dgvtabladatos.TabIndex = 1;
             // 
             // Column1
@@ -281,9 +282,9 @@ namespace AnalisisLexico
             this.dgvTraduccion.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column9,
             this.Column10});
-            this.dgvTraduccion.Location = new System.Drawing.Point(849, 443);
+            this.dgvTraduccion.Location = new System.Drawing.Point(289, 430);
             this.dgvTraduccion.Name = "dgvTraduccion";
-            this.dgvTraduccion.Size = new System.Drawing.Size(110, 150);
+            this.dgvTraduccion.Size = new System.Drawing.Size(343, 150);
             this.dgvTraduccion.TabIndex = 9;
             // 
             // Column9
