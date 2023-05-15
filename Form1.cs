@@ -169,9 +169,11 @@ namespace AnalisisLexico
                     }
                 }
             }
-
+            //Traduccion();
+            VarCreada();
             varrepetidas(); //manda a llamar metodo para verificar variables repetidos
             Reglas();
+
         }
 
         private void varrepetidas() //metodo para ver si hay varibales que se usan varias veces 
@@ -181,65 +183,66 @@ namespace AnalisisLexico
             for (int i = 1; i < numfilas; i++)
             {
                 string datocell = dgvtabladatos.Rows[i].Cells[1].Value.ToString(); //guarda el contenido de la celda 2, fila i en esta variable
-
-                    for (int j = 1; j < numfilas; j++)
+                string dato = dgvtabladatos.Rows[i].Cells[0].Value.ToString();
+                for (int j = i; j < numfilas; j++)
                     {
                         string datocelll = dgvtabladatos.Rows[j].Cells[1].Value.ToString(); //guarda el contenido de la celda 2, fila j en esta variable
-                        string ant1 = dgvtabladatos.Rows[j - 1].Cells[1].Value.ToString();
-                        string ant2 = dgvtabladatos.Rows[i - 1].Cells[1].Value.ToString();
-                        
+                    if (dato.EndsWith("ca") || dato.EndsWith("en") || dato.EndsWith("de"))
+                    {
                         if (datocell == datocelll) //compara variables para cambiar id
                         {
                             dgvtabladatos.Rows[j].Cells[2].Value = dgvtabladatos.Rows[i].Cells[2].Value.ToString(); //sustituye el valor del valor id en la fila j por el dato de la fila i
+                            dgvtabladatos.Rows[j].Cells[0].Value = dgvtabladatos.Rows[i].Cells[0].Value.ToString();
 
                             if (datocelll.StartsWith("_") && datocell.StartsWith("_"))
                             {
 
-                                    if (j != i && i < j)
-                                    {
-                                        string datocellx = dgvtabladatos.Rows[j].Cells[0].Value.ToString(); //guarda el contenido de la celda 2, fila i en esta variable
-                                        
-                                        if (datocellx == "Es un Nombre de Variable")
-                                        {
-                                            string datocelly = dgvtabladatos.Rows[j - 1].Cells[0].Value.ToString();
-                                            switch (datocelly)
-                                            {
-                                                case "Variable de tipo string":
-                                                    
-                                                    string f = dgvtabladatos.Rows[j - 1].Cells[4].Value.ToString();
-                                                    ManejoErrores("E001", f);
-                                                    break;
-                                                case "Variable de tipo int":
-                                                    string ff = dgvtabladatos.Rows[j - 1].Cells[4].Value.ToString();
-                                                    ManejoErrores("E001", ff);
-                                                    break;
-                                                case "Variable de tipo decimal":
-                                                    string fg = dgvtabladatos.Rows[j - 1].Cells[4].Value.ToString();
-                                                    ManejoErrores("E001", fg);
-                                                    break;
-                                            }
-                                        }
+                                if (j != i && i < j)
+                                {
+                                    string datocellx = dgvtabladatos.Rows[j].Cells[0].Value.ToString(); //guarda el contenido de la celda 2, fila i en esta variable
 
+                                    if (datocellx.StartsWith("Es un Nombre de Variable"))
+                                    {
+                                        string datocelly = dgvtabladatos.Rows[j - 1].Cells[0].Value.ToString();
+                                        switch (datocelly)
+                                        {
+                                            case "Variable de tipo string":
+
+                                                string f = dgvtabladatos.Rows[j - 1].Cells[4].Value.ToString();
+                                                ManejoErrores("E001", f);
+                                                break;
+                                            case "Variable de tipo int":
+                                                string ff = dgvtabladatos.Rows[j - 1].Cells[4].Value.ToString();
+                                                ManejoErrores("E001", ff);
+                                                break;
+                                            case "Variable de tipo decimal":
+                                                string fg = dgvtabladatos.Rows[j - 1].Cells[4].Value.ToString();
+                                                ManejoErrores("E001", fg);
+                                                break;
+                                        }
                                     }
-                                
+
+                                }
+
                             }
                         }
-
                     }
+
+                }
                 
             }
             int numf = dgvErrores.Rows.Count - 1;
             for (int l = 0; l < numf - 1; l++)
             {
-                string a = dgvErrores.Rows[l].Cells[0].Value.ToString() + dgvErrores.Rows[l].Cells[1].Value.ToString();
+                string a = dgvErrores.Rows[l].Cells[1].Value.ToString() + dgvErrores.Rows[l].Cells[2].Value.ToString();
                 for (int r = 0; r < numf - 1; r++)
                 {
-                    string aa = dgvErrores.Rows[r].Cells[0].Value.ToString() + dgvErrores.Rows[r].Cells[1].Value.ToString();
+                    string aa = dgvErrores.Rows[r].Cells[1].Value.ToString() + dgvErrores.Rows[r].Cells[2].Value.ToString();
                     if (r != l && l < r)
                     {
                         if (a == aa)
                         {
-                            dgvErrores.Rows.RemoveAt(l + 1);
+                            dgvErrores.Rows.RemoveAt(l);
                         }
                     }
                 }
@@ -248,6 +251,7 @@ namespace AnalisisLexico
             
 
         }
+
         private void Reglas ()
         {
             string filePath4 = @"Reglas.txt";
@@ -279,12 +283,11 @@ namespace AnalisisLexico
           
             if (inicio != "comenzar") //comparamos y verificamos que en la fila 1 de la pizarra, este la inicializacion del sistema
             {
-
                 ManejoErrores("E002", "1");
             }
             if (fin != "fin") //comparamos y verificamos que en la ultima fila de la pizarra se encuentre el valor fin, que da fin al programa
             {
-                ManejoErrores("E002", "");
+                ManejoErrores("E003", "");
             }
 
 
@@ -296,7 +299,7 @@ namespace AnalisisLexico
                 {
                     cadena += "<" + celda + ">";
                     celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
-                    if (celda == "Es un Nombre de Variable")
+                    if (celda == "Es un Nombre de Variable ca")
                     {
                         i++;
                         cadena += "<" + celda + ">";
@@ -334,7 +337,7 @@ namespace AnalisisLexico
                                 i++;
                                 cadena += "<" + celda + ">";
                                 celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
-                                if (celda == "Es un valor de variable string")
+                                if (celda == "Es un valor de variable string" || celda== "Es un Nombre de Variable ca")
                                 {
                                     i++;
                                     cadena += "<" + celda + ">";
@@ -406,12 +409,12 @@ namespace AnalisisLexico
                 {
                     entero += "<" + celda + ">";
                     celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
-                    if (celda == "Es un Nombre de Variable")
+                    if (celda == "Es un Nombre de Variable en")
                     {
                         i++;
                         entero += "<" + celda + ">";
                         celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                        if (celda == ";" || celda == ",")
+                        if (celda == ";" || celda == "," || celda == ")")
                         {
                             i++;
                             foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
@@ -444,7 +447,7 @@ namespace AnalisisLexico
                                 i++;
                                 entero += "<" + celda + ">";
                                 celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
-                                if (celda == "Es un número")
+                                if (celda == "Es un número" || celda == "Es un Nombre de Variable en")
                                 {
                                     i++;
                                     entero += "<" + celda + ">";
@@ -471,10 +474,49 @@ namespace AnalisisLexico
                                             erro = "0";
                                             entero = "";
                                         }
+                                    }
+                                    else if (celda == "+" || celda == "-" || celda == "/" || celda == "*")
+                                    {
+                                        celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
+                                        entero += "<" + celda + ">";
+                                        i++;
+                                        celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
+                                        if (celda == "Es un número" || celda == "Es un Nombre de Variable en")
+                                        {
+                                            i++;
+                                            entero += "<" + celda + ">";
+                                            celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
+                                            if (celda == ";" || celda == ",")
+                                            {
+                                                i++;
+                                                foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
+                                                {
+                                                    if (rulle.Key == entero)
+                                                    {
+                                                        erro = rulle.Value;
+                                                    }
+                                                }
 
+                                                if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
+                                                {
+                                                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                                    ManejoErrores("E004", f);
+                                                }
 
-
-
+                                                else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
+                                                {
+                                                    erro = "0";
+                                                    entero = "";
+                                                }
+                                            }
+                                            else
+                                            {
+                                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                                ManejoErrores("E005", f);
+                                                erro = "0";
+                                                entero = "";
+                                            }
+                                        }
                                     }
                                     else
                                     {
@@ -519,7 +561,7 @@ namespace AnalisisLexico
                 {
                     decima += "<" + celda + ">";
                     celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
-                    if (celda == "Es un Nombre de Variable")
+                    if (celda == "Es un Nombre de Variable de")
                     {
                         i++;
                         decima += "<" + celda + ">";
@@ -631,7 +673,7 @@ namespace AnalisisLexico
                 {
                     Validarif();
                 }
-                else if (celda == "Es un Nombre de Variable")
+                else if (celda == "Es un Nombre de Variable en")
                 {
                     cadena += "<" + celda + ">";
                     celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
@@ -640,7 +682,7 @@ namespace AnalisisLexico
                         i++;
                         cadena += "<" + celda + ">";
                         celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
-                        if (celda == "Es un valor de variable string" || celda == "Es un número" || celda == "Es un número decimal")
+                        if (celda == "Es un número" || celda == "Es un Nombre de Variable en")
                         {
                             i++;
                             cadena += "<" + celda + ">";
@@ -668,6 +710,49 @@ namespace AnalisisLexico
                                     cadena = "";
                                 }
 
+                            }
+                            else if (celda == "+" || celda == "-" || celda == "/" || celda == "*")
+                            {
+                                celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
+                                cadena += "<" + celda + ">";
+                                i++;
+                                celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
+                                if (celda == "Es un número" || celda == "Es un Nombre de Variable en")
+                                {
+                                    i++;
+                                    cadena += "<" + celda + ">";
+                                    celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
+                                    if (celda == ";" || celda == ",")
+                                    {
+                                        i++;
+                                        foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
+                                        {
+                                            if (rulle.Key == cadena)
+                                            {
+                                                erro = rulle.Value;
+                                            }
+                                        }
+
+                                        if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
+                                        {
+                                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                            ManejoErrores("E004", f);
+                                        }
+
+                                        else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
+                                        {
+                                            erro = "0";
+                                            cadena = "";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                        ManejoErrores("E005", f);
+                                        erro = "0";
+                                        cadena = "";
+                                    }
+                                }
                             }
                             else
                             {
@@ -687,168 +772,12 @@ namespace AnalisisLexico
                             cadena = "";
                         }
                     }
-                    else if (celda == "signo mayor que")
+                    else if (celda == "signo mayor que" || celda == "signo menor que" || celda == "mayor igual" || celda == "menor igual")
                     {
                         i++;
                         cadena += "<" + celda + ">";
                         celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
-                        if (celda == "Es un número")
-                        {
-                            i++;
-                            cadena += "<" + celda + ">";
-                            celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                            if (celda == ";" || celda == "," || celda == ")")
-                            {
-                                i++;
-                                foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
-                                {
-                                    if (rulle.Key == cadena)
-                                    {
-                                        erro = rulle.Value;
-                                    }
-                                }
-
-                                if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
-                                {
-                                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                    ManejoErrores("E004", f);
-                                }
-
-                                else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
-                                {
-                                    erro = "0";
-                                    cadena = "";
-                                }
-
-                            }
-                            else
-                            {
-                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                ManejoErrores("E005", f);
-                                erro = "0";
-                                cadena = "";
-                            }
-                        }
-                        else
-                        {
-                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                            ManejoErrores("E008", f);
-                            i++;
-                            i++;
-                            erro = "0";
-                            cadena = "";
-                        }
-                    }
-                    else if (celda == "signo menor que")
-                    {
-                        i++;
-                        cadena += "<" + celda + ">";
-                        celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
-                        if (celda == "Es un número")
-                        {
-                            i++;
-                            cadena += "<" + celda + ">";
-                            celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                            if (celda == ";" || celda == "," || celda == ")")
-                            {
-                                i++;
-                                foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
-                                {
-                                    if (rulle.Key == cadena)
-                                    {
-                                        erro = rulle.Value;
-                                    }
-                                }
-
-                                if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
-                                {
-                                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                    ManejoErrores("E004", f);
-                                }
-
-                                else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
-                                {
-                                    erro = "0";
-                                    cadena = "";
-                                }
-
-                            }
-                            else
-                            {
-                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                ManejoErrores("E005", f);
-                                erro = "0";
-                                cadena = "";
-                            }
-                        }
-                        else
-                        {
-                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                            ManejoErrores("E008", f);
-                            i++;
-                            i++;
-                            erro = "0";
-                            cadena = "";
-                        }
-                    }
-                    else if (celda == "mayor igual")
-                    {
-                        i++;
-                        cadena += "<" + celda + ">";
-                        celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
-                        if (celda == "Es un número")
-                        {
-                            i++;
-                            cadena += "<" + celda + ">";
-                            celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                            if (celda == ";" || celda == "," || celda == ")" )
-                            {
-                                i++;
-                                foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
-                                {
-                                    if (rulle.Key == cadena)
-                                    {
-                                        erro = rulle.Value;
-                                    }
-                                }
-
-                                if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
-                                {
-                                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                    ManejoErrores("E004", f);
-                                }
-
-                                else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
-                                {
-                                    erro = "0";
-                                    cadena = "";
-                                }
-
-                            }
-                            else
-                            {
-                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                ManejoErrores("E005", f);
-                                erro = "0";
-                                cadena = "";
-                            }
-                        }
-                        else
-                        {
-                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                            ManejoErrores("E008", f);
-                            i++;
-                            i++;
-                            erro = "0";
-                            cadena = "";
-                        }
-                    }
-                    else if (celda == "menor igual")
-                    {
-                        i++;
-                        cadena += "<" + celda + ">";
-                        celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
-                        if (celda == "Es un número")
+                        if (celda == "Es un número" || celda == "Es un Nombre de Variable en")
                         {
                             i++;
                             cadena += "<" + celda + ">";
@@ -937,7 +866,341 @@ namespace AnalisisLexico
                         i++;
                         cadena += "<" + celda + ">";
                         celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
-                        if (celda == "Es un valor de variable string" || celda == "Es un número")
+                        if (celda == "Es un número" || celda == "Es un Nombre de Variable en")
+                        {
+                            i++;
+                            cadena += "<" + celda + ">";
+                            celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
+                            if (celda == ";" || celda == ")" || celda == ")")
+                            {
+                                i++;
+                                foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
+                                {
+                                    if (rulle.Key == cadena)
+                                    {
+                                        erro = rulle.Value;
+                                    }
+                                }
+
+                                if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
+                                {
+                                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                    ManejoErrores("E004", f);
+                                }
+
+                                else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
+                                {
+                                    erro = "0";
+                                    cadena = "";
+                                }
+
+                            }
+                            else
+                            {
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E005", f);
+                                erro = "0";
+                                cadena = "";
+                            }
+                        }
+                        else
+                        {
+                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                            ManejoErrores("E009", f);
+                            i++;
+                            i++;
+                            erro = "0";
+                            cadena = "";
+                        }
+                    }
+                    else
+                    {
+                        cadena = "";
+                    }
+                }
+                else if (celda == "cout")
+                {
+                    leer += "<" + celda + ">";
+                    celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
+                    if (celda == "Es un Nombre de Variable de" || celda == "Es un Nombre de Variable ca" || celda == "Es un Nombre de Variable en" || celda == "Es un número" || celda == "Es un número decimal" || celda == "Es un valor de variable string")
+                    {
+                        i++;
+                        leer += "<" + celda + ">";
+                        celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
+                        if (celda == ";")
+                        {
+                            i++;
+                            foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
+                            {
+                                if (rulle.Key == leer)
+                                {
+                                    erro = rulle.Value;
+                                }
+                            }
+
+                            if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
+                            {
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E004", f);
+                            }
+
+                            else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
+                            {
+                                erro = "0";
+                                leer = "";
+                            }
+                        }
+                        else
+                        {
+                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                            ManejoErrores("E005", f);
+                            erro = "0";
+
+                        }
+                    }
+                    else
+                    {
+                        string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                        ManejoErrores("E010", f);
+                    }
+                }
+                else if (celda == "cin")
+                {
+                    imprimir += "<" + celda + ">";
+                    celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
+                    if (celda == "Es un Nombre de Variable de" || celda == "Es un Nombre de Variable ca" || celda == "Es un Nombre de Variable en")
+                    {
+                        i++;
+                        imprimir += "<" + celda + ">";
+                        celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
+                        if (celda == ";")
+                        {
+                            i++;
+                            foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
+                            {
+                                if (rulle.Key == imprimir)
+                                {
+                                    erro = rulle.Value;
+                                }
+                            }
+
+                            if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
+                            {
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E004", f);
+                            }
+
+                            else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
+                            {
+                                erro = "0";
+                                imprimir = "";
+                            }
+                        }
+                        else
+                        {
+                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                            ManejoErrores("E005", f);
+                            erro = "0";
+                            imprimir = "";
+
+                        }
+                    }
+                    else
+                    {
+                        string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                        ManejoErrores("E011", f);
+                        imprimir = "";
+                    }
+                }
+                else if (celda == "Ciclo For")
+                {
+                    Validarfor();
+                }
+                else if (celda == "Palabra reservada de inicio")
+                {
+                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                    ManejoErrores("E013", f);
+
+                }
+                else if (celda == "Palabra reservada de Final")
+                {
+                    DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
+                    fila1.Cells[0].Value = "Error: Porque hay 2 Fin ???? xd";
+                    fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                    dgvErrores.Rows.Add(fila1);
+                }
+                else if (celda == "Es un Nombre de Variable ca")
+                {
+                    cadena += "<" + celda + ">";
+                    celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
+                    if (celda == "signo de asignacion")
+                    {
+                        i++;
+                        cadena += "<" + celda + ">";
+                        celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
+                        if (celda == "Es un valor de variable string" || celda == "Es un Nombre de Variable ca")
+                        {
+                            i++;
+                            cadena += "<" + celda + ">";
+                            celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
+                            if (celda == ";" || celda == "," || celda == ")")
+                            {
+                                i++;
+                                foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
+                                {
+                                    if (rulle.Key == cadena)
+                                    {
+                                        erro = rulle.Value;
+                                    }
+                                }
+
+                                if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
+                                {
+                                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                    ManejoErrores("E004", f);
+                                }
+
+                                else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
+                                {
+                                    erro = "0";
+                                    cadena = "";
+                                }
+
+                            }
+                            else
+                            {
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E005", f);
+                                erro = "0";
+                                cadena = "";
+                            }
+                        }
+                        else
+                        {
+                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                            ManejoErrores("E006", f);
+                            i++;
+                            i++;
+                            erro = "0";
+                            cadena = "";
+                        }
+                    }
+                    else if (celda == "signo de comparacion")
+                    {
+                        i++;
+                        cadena += "<" + celda + ">";
+                        celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
+                        if (celda == "Es un valor de variable string" || celda == "Es un Nombre de Variable ca")
+                        {
+                            i++;
+                            cadena += "<" + celda + ">";
+                            celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
+                            if (celda == ";" || celda == ")" || celda == ")")
+                            {
+                                i++;
+                                foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
+                                {
+                                    if (rulle.Key == cadena)
+                                    {
+                                        erro = rulle.Value;
+                                    }
+                                }
+
+                                if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
+                                {
+                                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                    ManejoErrores("E004", f);
+                                }
+
+                                else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
+                                {
+                                    erro = "0";
+                                    cadena = "";
+                                }
+
+                            }
+                            else
+                            {
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E005", f);
+                                erro = "0";
+                                cadena = "";
+                            }
+                        }
+                        else
+                        {
+                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                            ManejoErrores("E009", f);
+                            i++;
+                            i++;
+                            erro = "0";
+                            cadena = "";
+                        }
+                    }
+
+                }
+                else if (celda == "Es un Nombre de Variable de")
+                {
+                    cadena += "<" + celda + ">";
+                    celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
+                    if (celda == "signo de asignacion")
+                    {
+                        i++;
+                        cadena += "<" + celda + ">";
+                        celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
+                        if (celda == "Es un número decimal" || celda == "Es un Nombre de Variable de")
+                        {
+                            i++;
+                            cadena += "<" + celda + ">";
+                            celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
+                            if (celda == ";" || celda == "," || celda == ")")
+                            {
+                                i++;
+                                foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
+                                {
+                                    if (rulle.Key == cadena)
+                                    {
+                                        erro = rulle.Value;
+                                    }
+                                }
+
+                                if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
+                                {
+                                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                    ManejoErrores("E004", f);
+                                }
+
+                                else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
+                                {
+                                    erro = "0";
+                                    cadena = "";
+                                }
+
+                            }
+                            else
+                            {
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E005", f);
+                                erro = "0";
+                                cadena = "";
+                            }
+                        }
+                        else
+                        {
+                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                            ManejoErrores("E006", f);
+                            i++;
+                            i++;
+                            erro = "0";
+                            cadena = "";
+                        }
+                    }
+                    else if (celda == "signo de comparacion")
+                    {
+                        i++;
+                        cadena += "<" + celda + ">";
+                        celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
+                        if (celda == "Es un número decimal" || celda == "Es un Nombre de Variable de")
                         {
                             i++;
                             cadena += "<" + celda + ">";
@@ -985,121 +1248,52 @@ namespace AnalisisLexico
                         }
                     }
                 }
-                else if (celda == "cout")
+                else if (celda == "Es un Nombre de Variable")
                 {
-                    leer += "<" + celda + ">";
-                    celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
-                    if (celda == "Es un Nombre de Variable" || celda == "Es un número" || celda == "Es un número decimal" || celda == "Es un valor de variable string")
-                    {
-                        i++;
-                        leer += "<" + celda + ">";
-                        celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                        if (celda == ";")
-                        {
-                            i++;
-                            foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
-                            {
-                                if (rulle.Key == leer)
-                                {
-                                    erro = rulle.Value;
-                                }
-                            }
-
-                            if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
-                            {
-                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                ManejoErrores("E004", f);
-                            }
-
-                            else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
-                            {
-                                erro = "0";
-                                leer = "";
-                            }
-                        }
-                        else
-                        {
-                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                            ManejoErrores("E005", f);
-                            erro = "0";
-
-                        }
-                    }
-                    else
-                    {
-                        string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                        ManejoErrores("E010", f);
-                    }
-                }
-                else if (celda == "cin")
-                {
-                    imprimir += "<" + celda + ">";
-                    celda = dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString();
-                    if (celda == "Es un Nombre de Variable")
-                    {
-                        i++;
-                        imprimir += "<" + celda + ">";
-                        celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                        if (celda == ";")
-                        {
-                            i++;
-                            foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
-                            {
-                                if (rulle.Key == imprimir)
-                                {
-                                    erro = rulle.Value;
-                                }
-                            }
-
-                            if (erro == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
-                            {
-                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                ManejoErrores("E004", f);
-                            }
-
-                            else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
-                            {
-                                erro = "0";
-                                leer = "";
-                            }
-                        }
-                        else
-                        {
-                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                            ManejoErrores("E005", f);
-                            erro = "0";
-
-                        }
-                    }
-                    else
-                    {
-                        string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                        ManejoErrores("E011", f);
-                    }
-                }
-                else if (celda == "Ciclo For")
-                {
-                    Validarfor();
-                }
-                else if (celda == "Palabra reservada de inicio")
-                {
-                    DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                    fila1.Cells[0].Value = "Error: Hay 2 comenzar";
-                    fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                    dgvErrores.Rows.Add(fila1);
-
-                }
-                else if (celda == "Palabra reservada de Final")
-                {
-                    DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                    fila1.Cells[0].Value = "Error: Porque hay 2 Fin ???? xd";
-                    fila1.Cells[1].Value = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                    dgvErrores.Rows.Add(fila1);
+                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                    ManejoErrores("E016", f);
+                    
                 }
             
             }
 
 
+        }
+
+        public void VarCreada()
+        {
+            int filas = dgvtabladatos.RowCount - 1;
+            string var1 = "";
+            string var2 = "";
+
+            for (int i = 1; i < filas -1; i++)
+            {
+                var1 = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
+                if (var1.StartsWith("_"))
+                {
+                    var2 = dgvtabladatos.Rows[i - 1].Cells[1].Value.ToString();
+                    switch (var2)
+                    {
+                        case "cadena":
+
+                            dgvtabladatos.Rows[i].Cells[0].Value = "Es un Nombre de Variable ca";
+                            break;
+                        case "entero":
+                            dgvtabladatos.Rows[i].Cells[0].Value = "Es un Nombre de Variable en";
+                            break;
+                        case "decimal":
+                            dgvtabladatos.Rows[i].Cells[0].Value = "Es un Nombre de Variable de";
+                            break;
+                        case ",":
+                            string hola = dgvtabladatos.Rows[i - 2].Cells[0].Value.ToString();
+                            if (hola.EndsWith("ca") || hola.EndsWith("en") || hola.EndsWith("de"))
+                            {
+                                dgvtabladatos.Rows[i].Cells[0].Value = hola;
+                            }
+                            break;
+                    }
+                }
+            }
         }
 
         public void Validarif()
@@ -1147,7 +1341,7 @@ namespace AnalisisLexico
                     if (error == "0") //si el valor devuelto sigue siendo el valor con el que inicializamos la variable
                     {
                         string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                        ManejoErrores("E004", f);
+                        ManejoErrores("E015", f);
                     }
                     else
                     {
@@ -1205,7 +1399,7 @@ namespace AnalisisLexico
                             i++;
                             varlorc += "<" + datocell + ">"; //me lo guarda entre < > y me sigue concatenando el componente lexico de la palabra ingresada                    
                             datocell = dgvtabladatos.Rows[i].Cells[0].Value.ToString();
-                            if (datocell == "Es un Nombre de Variable")
+                            if (datocell == "Es un Nombre de Variable en")
                             {
                                 i++;
                                 varlorc += "<" + datocell + ">"; //me lo guarda entre < > y me sigue concatenando el componente lexico de la palabra ingresada                    
@@ -1215,7 +1409,7 @@ namespace AnalisisLexico
                                     i++;
                                     varlorc += "<" + datocell + ">"; //me lo guarda entre < > y me sigue concatenando el componente lexico de la palabra ingresada                    
                                     datocell = dgvtabladatos.Rows[i].Cells[0].Value.ToString();
-                                    if (datocell == "Es un número")
+                                    if (datocell == "Es un número" || datocell == "Es un Nombre de Variable en")
                                     {
                                         i++;
                                         varlorc += "<" + datocell + ">"; //me lo guarda entre < > y me sigue concatenando el componente lexico de la palabra ingresada                    
@@ -1225,8 +1419,8 @@ namespace AnalisisLexico
                                             i++;
                                             varlorc += "<" + datocell + ">"; //me lo guarda entre < > y me sigue concatenando el componente lexico de la palabra ingresada                    
                                             datocell = dgvtabladatos.Rows[i].Cells[0].Value.ToString();
-                                            if (datocell == "Es un Nombre de Variable")
-                                            {
+                                            if (datocell == "Es un Nombre de Variable en")
+                                            { 
                                                 i++;
                                                 varlorc += "<" + datocell + ">"; //me lo guarda entre < > y me sigue concatenando el componente lexico de la palabra ingresada                    
                                                 datocell = dgvtabladatos.Rows[i].Cells[0].Value.ToString();
@@ -1235,7 +1429,7 @@ namespace AnalisisLexico
                                                     i++;
                                                     varlorc += "<" + datocell + ">"; //me lo guarda entre < > y me sigue concatenando el componente lexico de la palabra ingresada                    
                                                     datocell = dgvtabladatos.Rows[i].Cells[0].Value.ToString();
-                                                    if (datocell == "Es un número")
+                                                    if (datocell == "Es un número" || datocell == "Es un Nombre de Variable en")
                                                     {
                                                         i++;
                                                         varlorc += "<" + datocell + ">"; //me lo guarda entre < > y me sigue concatenando el componente lexico de la palabra ingresada                    
@@ -1245,7 +1439,7 @@ namespace AnalisisLexico
                                                             i++;
                                                             varlorc += "<" + datocell + ">"; //me lo guarda entre < > y me sigue concatenando el componente lexico de la palabra ingresada                    
                                                             datocell = dgvtabladatos.Rows[i].Cells[0].Value.ToString();
-                                                            if (datocell == "Es un Nombre de Variable")
+                                                            if (datocell == "Es un Nombre de Variable en")
                                                             {
                                                                 i++;
                                                                 varlorc += "<" + datocell + ">"; //me lo guarda entre < > y me sigue concatenando el componente lexico de la palabra ingresada                    
@@ -1299,100 +1493,76 @@ namespace AnalisisLexico
                                                                         }
                                                                         else
                                                                         {
-                                                                            DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                                                            fila1.Cells[1].Value = "Error: Le falto signo { ";
-                                                                            fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                                                            dgvErrores.Rows.Add(fila1);
+                                                                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                                                            ManejoErrores("E017", f);
                                                                         }
                                                                     }
                                                                     else
                                                                     {
-                                                                        DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                                                        fila1.Cells[1].Value = "Error: Falto signo >> ";
-                                                                        fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                                                        dgvErrores.Rows.Add(fila1);
+                                                                        string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                                                        ManejoErrores("E018", f);
                                                                     }
                                                                 }
                                                                 else
                                                                 {
-                                                                    DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                                                    fila1.Cells[1].Value = "Error: tiene que incrementar la variable";
-                                                                    fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                                                    dgvErrores.Rows.Add(fila1);
+                                                                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                                                    ManejoErrores("E019", f);
                                                                 }
                                                             }
                                                         }
                                                         else
                                                         {
-                                                            DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                                            fila1.Cells[1].Value = "Error: Le falto coma";
-                                                            fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                                            dgvErrores.Rows.Add(fila1);
+                                                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                                            ManejoErrores("E020", f);
                                                         }
                                                     }
                                                     else
                                                     {
-                                                        DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                                        fila1.Cells[1].Value = "Error: Solo se puede compara con numeros enteros";
-                                                        fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                                        dgvErrores.Rows.Add(fila1);
+                                                        string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                                        ManejoErrores("E008", f);
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                                    fila1.Cells[1].Value = "Error: Comparacion no valida";
-                                                    fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                                    dgvErrores.Rows.Add(fila1);
+                                                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                                    ManejoErrores("E009", f);
                                                 }
                                             }
                                         }
                                         else
                                         {
-                                            DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                            fila1.Cells[1].Value = "Error: Le falta la coma ";
-                                            fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                            dgvErrores.Rows.Add(fila1);
+                                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                            ManejoErrores("E020", f);
                                         }
                                     }
                                     else
                                     {
-                                        DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                        fila1.Cells[1].Value = "Error: Valor no valido";
-                                        fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                        dgvErrores.Rows.Add(fila1);
+                                        string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                        ManejoErrores("E006", f);
                                     }
                                 }
                                 else
                                 {
-                                    DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                    fila1.Cells[1].Value = "Error: Debe asiganarle un valor al entero";
-                                    fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                    dgvErrores.Rows.Add(fila1);
+                                    string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                    ManejoErrores("E021", f);
                                 }
                             }
                             else
                             {
-                                DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                                fila1.Cells[1].Value = "Error: Le falto nombrar la variable";
-                                fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                                dgvErrores.Rows.Add(fila1);
+                                string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                                ManejoErrores("E007", f);
                             }
                         }
                         else
                         {
-                            DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                            fila1.Cells[1].Value = "Error: Solamente se pueden crear variables de tipo entero ";
-                            fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                            dgvErrores.Rows.Add(fila1);
+                            string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                            ManejoErrores("E022", f);
                         }
                     }
                     else
                     {
-                        DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone(); //crea una lista y me muestra un error sintactico del mismo
-                        fila1.Cells[1].Value = "Error: Le falto << ";
-                        fila1.Cells[2].Value = "Colm" + dgvtabladatos.Rows[i].Cells[3].Value.ToString() + "FIla" + dgvtabladatos.Rows[i].Cells[4].Value.ToString();
-                        dgvErrores.Rows.Add(fila1);
+                        string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
+                        ManejoErrores("E017", f);
                     }
 
                 }
@@ -1427,6 +1597,8 @@ namespace AnalisisLexico
                     resultado =  itemregla.Value;
                 }
             }
+
+
             DataGridViewRow fila1 = (DataGridViewRow)dgvErrores.Rows[0].Clone();
             fila1.Cells[0].Value = rulles;
             fila1.Cells[1].Value = resultado;
@@ -1436,6 +1608,49 @@ namespace AnalisisLexico
             return resultado;
 
 
+        }
+
+        public void Traduccion()
+        {
+            int filas = dgvtabladatos.RowCount - 1;
+            string palabra = "";
+            for (int i = 0; i < filas; i++)
+            {
+                palabra = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
+                switch (palabra)
+                {
+                    case "comenzar":
+                        DataGridViewRow fila1 = (DataGridViewRow)dgvTraduccion.Rows[0].Clone();
+                        fila1.Cells[0].Value = palabra;
+                        fila1.Cells[1].Value = "int main () {";
+                        dgvTraduccion.Rows.Add(fila1);
+                        break;
+                    case "cadena":
+                        DataGridViewRow fila = (DataGridViewRow)dgvTraduccion.Rows[0].Clone();
+                        fila.Cells[0].Value = palabra;
+                        fila.Cells[1].Value = "string";
+                        dgvTraduccion.Rows.Add(fila);
+                        break;
+                    case "decimal":
+                        DataGridViewRow fila2 = (DataGridViewRow)dgvTraduccion.Rows[0].Clone();
+                        fila2.Cells[0].Value = palabra;
+                        fila2.Cells[1].Value = "float";
+                        dgvTraduccion.Rows.Add(fila2);
+                        break;
+                    case "entero":
+                        DataGridViewRow fila3 = (DataGridViewRow)dgvTraduccion.Rows[0].Clone();
+                        fila3.Cells[0].Value = palabra;
+                        fila3.Cells[1].Value = "int";
+                        dgvTraduccion.Rows.Add(fila3);
+                        break;
+                    case "fin":
+                        DataGridViewRow fila4 = (DataGridViewRow)dgvTraduccion.Rows[0].Clone();
+                        fila4.Cells[0].Value = palabra;
+                        fila4.Cells[1].Value = "return () ; }";
+                        dgvTraduccion.Rows.Add(fila4);
+                        break;
+                }
+            }
         }
 
         public void borrar()

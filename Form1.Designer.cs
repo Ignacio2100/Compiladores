@@ -49,13 +49,17 @@ namespace AnalisisLexico
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sbtnTema = new AnalisisLexico.Clases.SlideButton();
             this.label1 = new System.Windows.Forms.Label();
+            this.sbtnTema = new AnalisisLexico.Clases.SlideButton();
+            this.dgvTraduccion = new System.Windows.Forms.DataGridView();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gboxCodigo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBIcono)).BeginInit();
             this.gboxTabla.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvtabladatos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvErrores)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTraduccion)).BeginInit();
             this.SuspendLayout();
             // 
             // gboxCodigo
@@ -119,7 +123,7 @@ namespace AnalisisLexico
             this.btnBorrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBorrar.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBorrar.ForeColor = System.Drawing.Color.Black;
-            this.btnBorrar.Location = new System.Drawing.Point(689, 356);
+            this.btnBorrar.Location = new System.Drawing.Point(689, 354);
             this.btnBorrar.Name = "btnBorrar";
             this.btnBorrar.Size = new System.Drawing.Size(119, 41);
             this.btnBorrar.TabIndex = 4;
@@ -136,7 +140,7 @@ namespace AnalisisLexico
             this.btnProcesar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnProcesar.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProcesar.ForeColor = System.Drawing.Color.Black;
-            this.btnProcesar.Location = new System.Drawing.Point(564, 357);
+            this.btnProcesar.Location = new System.Drawing.Point(555, 356);
             this.btnProcesar.Name = "btnProcesar";
             this.btnProcesar.Size = new System.Drawing.Size(119, 40);
             this.btnProcesar.TabIndex = 3;
@@ -155,7 +159,7 @@ namespace AnalisisLexico
             this.gboxTabla.ForeColor = System.Drawing.Color.Black;
             this.gboxTabla.Location = new System.Drawing.Point(12, 430);
             this.gboxTabla.Name = "gboxTabla";
-            this.gboxTabla.Size = new System.Drawing.Size(923, 163);
+            this.gboxTabla.Size = new System.Drawing.Size(796, 176);
             this.gboxTabla.TabIndex = 2;
             this.gboxTabla.TabStop = false;
             this.gboxTabla.Text = "Distribucion";
@@ -182,7 +186,7 @@ namespace AnalisisLexico
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
             this.dgvtabladatos.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvtabladatos.RowTemplate.Height = 24;
-            this.dgvtabladatos.Size = new System.Drawing.Size(917, 141);
+            this.dgvtabladatos.Size = new System.Drawing.Size(790, 154);
             this.dgvtabladatos.TabIndex = 1;
             // 
             // Column1
@@ -247,6 +251,15 @@ namespace AnalisisLexico
             this.Column7.Name = "Column7";
             this.Column7.Width = 110;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(36, 290);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(60, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "ERRORES";
+            // 
             // sbtnTema
             // 
             this.sbtnTema.Location = new System.Drawing.Point(813, 356);
@@ -262,14 +275,28 @@ namespace AnalisisLexico
             this.sbtnTema.UseVisualStyleBackColor = true;
             this.sbtnTema.CheckedChanged += new System.EventHandler(this.sbtnTema_CheckedChanged);
             // 
-            // label1
+            // dgvTraduccion
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 290);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "ERRORES";
+            this.dgvTraduccion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTraduccion.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column9,
+            this.Column10});
+            this.dgvTraduccion.Location = new System.Drawing.Point(849, 443);
+            this.dgvTraduccion.Name = "dgvTraduccion";
+            this.dgvTraduccion.Size = new System.Drawing.Size(110, 150);
+            this.dgvTraduccion.TabIndex = 9;
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Palabra Ingresada";
+            this.Column9.Name = "Column9";
+            this.Column9.Width = 150;
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "Traduccion";
+            this.Column10.Name = "Column10";
+            this.Column10.Width = 150;
             // 
             // Form1
             // 
@@ -277,6 +304,7 @@ namespace AnalisisLexico
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(975, 605);
+            this.Controls.Add(this.dgvTraduccion);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.PBIcono);
             this.Controls.Add(this.dgvErrores);
@@ -297,6 +325,7 @@ namespace AnalisisLexico
             this.gboxTabla.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvtabladatos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvErrores)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTraduccion)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -323,6 +352,9 @@ namespace AnalisisLexico
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dgvTraduccion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
     }
 }
 
