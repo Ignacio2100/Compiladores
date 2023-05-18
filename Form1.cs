@@ -294,7 +294,11 @@ namespace AnalisisLexico
             for (int i = 1; i < filas - 1; i++)
             {
                 string celda = dgvtabladatos.Rows[i].Cells[0].Value.ToString();
-
+                cadena = "";
+                entero = "";
+                decima = "";
+                leer = "";
+                imprimir = "";
                 if (celda == "Variable de tipo string")
                 {
                     cadena += "<" + celda + ">";
@@ -304,7 +308,7 @@ namespace AnalisisLexico
                         i++;
                         cadena += "<" + celda + ">";
                         celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                        if (celda == ";")
+                        if (celda == ";" || celda =="&")
                         {
                             i++;
                             foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
@@ -342,7 +346,7 @@ namespace AnalisisLexico
                                     i++;
                                     cadena += "<" + celda + ">";
                                     celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                                    if (celda == ";")
+                                    if (celda == ";" || celda == "&")
                                     {
                                         i++;
                                         foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
@@ -414,7 +418,7 @@ namespace AnalisisLexico
                         i++;
                         entero += "<" + celda + ">";
                         celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                        if (celda == ";" || celda == "," || celda == ")")
+                        if (celda == ";" || celda == "," || celda == ")" || celda== "&")
                         {
                             i++;
                             foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
@@ -486,7 +490,7 @@ namespace AnalisisLexico
                                             i++;
                                             entero += "<" + celda + ">";
                                             celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                                            if (celda == ";" || celda == ",")
+                                            if (celda == ";" || celda == "," || celda == "&")
                                             {
                                                 i++;
                                                 foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
@@ -566,7 +570,7 @@ namespace AnalisisLexico
                         i++;
                         decima += "<" + celda + ">";
                         celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                        if (celda == ";")
+                        if (celda == ";" || celda == "&")
                         {
                             i++;
                             foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
@@ -604,7 +608,7 @@ namespace AnalisisLexico
                                     i++;
                                     decima += "<" + celda + ">";
                                     celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                                    if (celda == ";")
+                                    if (celda == ";" || celda == "&")
                                     {
                                         i++;
                                         foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
@@ -687,7 +691,7 @@ namespace AnalisisLexico
                             i++;
                             cadena += "<" + celda + ">";
                             celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                            if (celda == ";" || celda == "," || celda == ")")
+                            if (celda == ";" || celda == "," || celda == ")" || celda == "&")
                             {
                                 i++;
                                 foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
@@ -722,7 +726,7 @@ namespace AnalisisLexico
                                     i++;
                                     cadena += "<" + celda + ">";
                                     celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                                    if (celda == ";" || celda == ",")
+                                    if (celda == ";" || celda == "," || celda == "&")
                                     {
                                         i++;
                                         foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
@@ -737,6 +741,7 @@ namespace AnalisisLexico
                                         {
                                             string f = dgvtabladatos.Rows[i].Cells[4].Value.ToString();
                                             ManejoErrores("E004", f);
+                                            cadena = "";
                                         }
 
                                         else //si, si trae 1 en la respuesta me vuelve a inicializar las variables 
@@ -1043,7 +1048,7 @@ namespace AnalisisLexico
                             i++;
                             cadena += "<" + celda + ">";
                             celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                            if (celda == ";" || celda == "," || celda == ")")
+                            if (celda == ";" || celda == "," || celda == ")" || celda == "&")
                             {
                                 i++;
                                 foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
@@ -1095,7 +1100,7 @@ namespace AnalisisLexico
                             i++;
                             cadena += "<" + celda + ">";
                             celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                            if (celda == ";" || celda == ")" || celda == ")")
+                            if (celda == ";" || celda == ")" || celda == ")" || celda == "&")
                             {
                                 i++;
                                 foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
@@ -1153,7 +1158,7 @@ namespace AnalisisLexico
                             i++;
                             cadena += "<" + celda + ">";
                             celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                            if (celda == ";" || celda == "," || celda == ")")
+                            if (celda == ";" || celda == "," || celda == ")" || celda == "&")
                             {
                                 i++;
                                 foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
@@ -1205,7 +1210,7 @@ namespace AnalisisLexico
                             i++;
                             cadena += "<" + celda + ">";
                             celda = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
-                            if (celda == ";" || celda == ")" || celda == ")")
+                            if (celda == ";" || celda == ")" || celda == ")" || celda == "&")
                             {
                                 i++;
                                 foreach (KeyValuePair<string, string> rulle in reglas) //recore el diccionario de los simbolos con los datos obtenidos del archivo txt
@@ -1257,7 +1262,7 @@ namespace AnalisisLexico
             
             }
 
-
+            MessageBox.Show("Se Analizo con Exito c:");
         }
 
         public void VarCreada()
@@ -1284,7 +1289,7 @@ namespace AnalisisLexico
                         case "decimal":
                             dgvtabladatos.Rows[i].Cells[0].Value = "Es un Nombre de Variable de";
                             break;
-                        case ",":
+                        case "&":
                             string hola = dgvtabladatos.Rows[i - 2].Cells[0].Value.ToString();
                             if (hola.EndsWith("ca") || hola.EndsWith("en") || hola.EndsWith("de"))
                             {
@@ -1378,7 +1383,6 @@ namespace AnalisisLexico
             string varlorc = "";
             string error = "0";
             string datocell = "";
-            int gg = 0;
 
             for (int i = 0; i < filas - 1; i++)
             {
@@ -1612,45 +1616,79 @@ namespace AnalisisLexico
 
         public void Traduccion()
         {
-            int filas = dgvtabladatos.RowCount - 1;
-            string palabra = "";
-            for (int i = 0; i < filas; i++)
+            string filePath4 = @"Traduccion.txt";
+            StreamReader readerE = new StreamReader(filePath4);
+            Dictionary<string, string> Errores = new Dictionary<string, string>();
+            string resultado = "";
+            string linerrors;
+            while ((linerrors = readerE.ReadLine()) != null)
             {
-                palabra = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
-                switch (palabra)
+
+                string[] parts = linerrors.Split(':');
+
+
+                if (parts.Length == 2)
                 {
-                    case "comenzar":
-                        DataGridViewRow fila1 = (DataGridViewRow)dgvTraduccion.Rows[0].Clone();
-                        fila1.Cells[0].Value = palabra;
-                        fila1.Cells[1].Value = "int main () {";
-                        dgvTraduccion.Rows.Add(fila1);
-                        break;
-                    case "cadena":
-                        DataGridViewRow fila = (DataGridViewRow)dgvTraduccion.Rows[0].Clone();
-                        fila.Cells[0].Value = palabra;
-                        fila.Cells[1].Value = "string";
-                        dgvTraduccion.Rows.Add(fila);
-                        break;
-                    case "decimal":
-                        DataGridViewRow fila2 = (DataGridViewRow)dgvTraduccion.Rows[0].Clone();
-                        fila2.Cells[0].Value = palabra;
-                        fila2.Cells[1].Value = "float";
-                        dgvTraduccion.Rows.Add(fila2);
-                        break;
-                    case "entero":
-                        DataGridViewRow fila3 = (DataGridViewRow)dgvTraduccion.Rows[0].Clone();
-                        fila3.Cells[0].Value = palabra;
-                        fila3.Cells[1].Value = "int";
-                        dgvTraduccion.Rows.Add(fila3);
-                        break;
-                    case "fin":
-                        DataGridViewRow fila4 = (DataGridViewRow)dgvTraduccion.Rows[0].Clone();
-                        fila4.Cells[0].Value = palabra;
-                        fila4.Cells[1].Value = "return () ; }";
-                        dgvTraduccion.Rows.Add(fila4);
-                        break;
+                    Errores.Add(parts[0], parts[1]);
                 }
             }
+
+            foreach (KeyValuePair<string, string> itemregla in Errores)
+            {
+                if (itemregla.Key == "")
+                {
+                    resultado = itemregla.Value;
+                }
+            }
+
+
+            int filas = dgvtabladatos.RowCount - 1;
+            string palabra = "";
+            for (int  i = 0; i < filas;i++)
+            {
+                string token = dgvtabladatos.Rows[i].Cells[0].Value.ToString();
+                if(token.StartsWith("Es un Nombre de Variable "))
+                {
+                    string variable = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
+                    variable = variable.Replace("_", "");
+                    palabra += variable + " ";
+
+                }
+                else if(token =="Es un número")
+                {
+                    string variable = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
+                    palabra += variable + " ";
+                }
+                else if (token =="Es un número decimal")
+                {
+                    string variable = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
+                    palabra += variable + " ";
+                }
+                else if(token=="Es un valor de variable string")
+                {
+                    string variable = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
+                    variable = variable.Replace("-", " ");
+                    variable = variable.Replace("'", "\"");
+                    palabra += variable + " ";
+                }
+                else if(token== "fin de linea")
+                {
+                    string variable = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
+                    palabra += variable + "\r\n";
+                }
+                else
+                {
+                    foreach (KeyValuePair<string, string> itemregla in Errores)
+                    {
+                        if (itemregla.Key == token)
+                        {
+                            palabra += itemregla.Value;
+                        }
+                    }
+                }
+            }
+            txtTraduccion.Text = palabra;
+            
         }
 
         public void borrar()
@@ -1664,7 +1702,6 @@ namespace AnalisisLexico
         {
             SignosNoValidos();//funcion de signos no validos
             validacionvariable(); //funcion de validacion de variable 
-            //personalizado();// funcion del color de la variable 
             enumeracion();//funcion de la enumeracion 
         }
 
@@ -1678,8 +1715,7 @@ namespace AnalisisLexico
             idv = 1;
             borrar(); //funcion que limpia la tabla
             Analisis(); //llamamos la funcion que analiza el codigo de la pizarra
-            //personalizado(); //funcion que agrega los colores 
-            //salvartexto();
+            Traducir.Enabled = true;
         }
 
         // Establece el color de la palabra "ejemplo" en el control RichTextBox1
@@ -1922,23 +1958,7 @@ namespace AnalisisLexico
         }
 
         //Guardar texto ingresado en la pizzara, pense que si se iba a usar pero creo que no -- Arauz
-        public void salvartexto()
-        {
-            SaveFileDialog save = new SaveFileDialog();
-            save.Filter = "Codigo|*.cpp";
-            save.Title = "codigo";
-            save.FileName = "Codigo 1";
-            var resultado = save.ShowDialog();
-            if (resultado == DialogResult.OK)
-            {
-                StreamWriter escribir = new StreamWriter(save.FileName);
-                foreach (object line in Pizarra.Lines)
-                {
-                    escribir.WriteLine(line);
-                }
-                escribir.Close();
-            }
-        }
+        
 
         private void btnBorrar_Click(object sender, EventArgs e) //limpia todo xd
         {
@@ -2223,6 +2243,17 @@ namespace AnalisisLexico
                 btnBorrar.ForeColor = Color.White;
                 PBIcono.Image = imagen;
             }
+        }
+
+        private void gboxTabla_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Traducir_Click(object sender, EventArgs e)
+        {
+            txtTraduccion.Enabled= true;
+            Traduccion();
         }
     }
 }

@@ -1,5 +1,4 @@
 <Variable de tipo string><Es un Nombre de Variable ca>: 1
-
 <Variable de tipo string><Es un Nombre de Variable ca><signo de asignacion><Es un valor de variable string>: 1
 <Variable de tipo string><Es un Nombre de Variable ca><signo de asignacion><Es un Nombre de Variable ca>: 1
 <Es un Nombre de Variable ca><signo de asignacion><Es un valor de variable string>: 1
@@ -28,6 +27,25 @@
 <Es un Nombre de Variable en><signo de asignacion><Es un número>: 1
 <Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en>: 1
 <Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de suma><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de suma><Es un número>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un número><signo de suma><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un número><signo de suma><Es un número>: 1
+
+<Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de resta><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de resta><Es un número>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un número><signo de resta><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un número><signo de resta><Es un número>: 1
+
+<Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de division><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de division><Es un número>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un número><signo de division><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un número><signo de division><Es un número>: 1
+
+<Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de multiplicacion><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de multiplicacion><Es un número>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un número><signo de multiplicacion><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un número><signo de multiplicacion><Es un número>: 1
+
 <Es un Nombre de Variable en><signo de comparacion><Es un número>: 1
 <Es un Nombre de Variable en><signo de comparacion><Es un Nombre de Variable en>: 1
 <Es un Nombre de Variable en><signo mayor que><Es un número>: 1

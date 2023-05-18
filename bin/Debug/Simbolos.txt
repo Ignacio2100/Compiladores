@@ -19,3 +19,4 @@
 ]:fin de if o else
 <<:inicio for
 >>:fin for
+&:separacion var
