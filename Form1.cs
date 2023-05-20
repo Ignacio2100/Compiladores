@@ -1676,6 +1676,14 @@ namespace AnalisisLexico
                     string variable = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
                     palabra += variable + "\r\n";
                 }
+                else if (token == "Palabra reservada de inicio")
+                {
+                    palabra += "#include <iostream>\r\n\r\nusing namespace std;\r\n\r\nint main()\r\n{ \r\n";
+                }
+                else if(token == "Palabra reservada de Final")
+                {
+                    palabra += "return 0;\r\n}";
+                }
                 else
                 {
                     foreach (KeyValuePair<string, string> itemregla in Errores)
@@ -1964,6 +1972,7 @@ namespace AnalisisLexico
         {
             borrar(); // Se llama la funcion para limpiar toda la interfaz
             Pizarra.Clear();
+            txtTraduccion.Clear();
         }
 
         private void SignosNoValidos()
@@ -2254,6 +2263,21 @@ namespace AnalisisLexico
         {
             txtTraduccion.Enabled= true;
             Traduccion();
+        }
+
+        private void txtTraduccion_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvErrores_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
