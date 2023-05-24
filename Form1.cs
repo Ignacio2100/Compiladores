@@ -1262,7 +1262,7 @@ namespace AnalisisLexico
             
             }
 
-            MessageBox.Show("Se Analizo con Exito c:");
+            
         }
 
         public void VarCreada()
@@ -1619,8 +1619,9 @@ namespace AnalisisLexico
             string filePath4 = @"Traduccion.txt";
             StreamReader readerE = new StreamReader(filePath4);
             Dictionary<string, string> Errores = new Dictionary<string, string>();
-            string resultado = "";
+
             string linerrors;
+
             while ((linerrors = readerE.ReadLine()) != null)
             {
 
@@ -1633,20 +1634,12 @@ namespace AnalisisLexico
                 }
             }
 
-            foreach (KeyValuePair<string, string> itemregla in Errores)
-            {
-                if (itemregla.Key == "")
-                {
-                    resultado = itemregla.Value;
-                }
-            }
-
-
             int filas = dgvtabladatos.RowCount - 1;
             string palabra = "";
             for (int  i = 0; i < filas;i++)
             {
                 string token = dgvtabladatos.Rows[i].Cells[0].Value.ToString();
+
                 if(token.StartsWith("Es un Nombre de Variable "))
                 {
                     string variable = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
@@ -1668,7 +1661,10 @@ namespace AnalisisLexico
                 {
                     string variable = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
                     variable = variable.Replace("-", " ");
+
                     variable = variable.Replace("'", "\"");
+
+
                     palabra += variable + " ";
                 }
                 else if(token== "fin de linea")
@@ -1698,11 +1694,117 @@ namespace AnalisisLexico
             txtTraduccion.Text = palabra;
             
         }
+        int t = 1;
+        public void Traduccion2()
+        {
+            t = 1;
+            string filePath4 = @"Traduccion c#.txt";
+            StreamReader readerE = new StreamReader(filePath4);
+            Dictionary<string, string> Errores = new Dictionary<string, string>();
+            string resultado = "";
+            string linerrors;
+            while ((linerrors = readerE.ReadLine()) != null)
+            {
+
+                string[] parts = linerrors.Split(':');
+
+
+                if (parts.Length == 2)
+                {
+                    Errores.Add(parts[0], parts[1]);
+                }
+            }
+
+            foreach (KeyValuePair<string, string> itemregla in Errores)
+            {
+                if (itemregla.Key == "")
+                {
+                    resultado = itemregla.Value;
+                }
+            }
+
+
+            int filas = dgvtabladatos.RowCount - 1;
+            string palabra = "";
+            for (int i = 0; i < filas; i++)
+            {
+                string token = dgvtabladatos.Rows[i].Cells[0].Value.ToString();
+                if (token.StartsWith("Es un Nombre de Variable "))
+                {
+                    string variable = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
+                    variable = variable.Replace("_", "");
+                    palabra += variable + " ";
+
+                }
+                else if (token == "Es un número")
+                {
+                    string variable = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
+                    palabra += variable + " ";
+                }
+                else if (token == "Es un número decimal")
+                {
+                    string variable = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
+                    palabra += variable + " ";
+                }
+                else if (token == "Es un valor de variable string" && dgvtabladatos.Rows[i - 1].Cells[0].Value.ToString() == "cout")
+                {
+                    string variable = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
+                    variable = variable.Replace("-", " ");
+                    variable = variable.Replace("'", "\"");
+                    palabra += variable + ") ";
+                }
+                else if (token == "fin de linea")
+                {
+                    string variable = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
+                    palabra += variable + "\r\n";
+                }
+                else if (token == "Es un valor de variable string")
+                {
+                    string variable = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
+                    variable = variable.Replace("-", " ");
+                    variable = variable.Replace("'", "\"");
+                    palabra += variable + " ";
+                }
+                else if(token== "cin")
+                {
+                    if(dgvtabladatos.Rows[i+1].Cells[0].Value.ToString().EndsWith("en"))
+                    {
+                        
+                        string ayuda = "string apoyo" + t + " = Console.ReadLine() ;";
+                        string variabel = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
+                        i++;
+                        variabel = variabel.Replace("_", "");
+                        palabra += ayuda + "\r\n" + variabel + " = int.TryParse(" + "apoyo"+ t + ")";
+                        t++;
+                    }
+                    else if(dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString().EndsWith("ca"))
+                    {
+                        string variabel = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
+                        i++;
+                        variabel = variabel.Replace("_", "");
+                        palabra += variabel + " = Console.ReadLine()";
+                    }
+                }
+                else
+                {
+                    foreach (KeyValuePair<string, string> itemregla in Errores)
+                    {
+                        if (itemregla.Key == token)
+                        {
+                            palabra += itemregla.Value;
+                        }
+                    }
+                }
+            }
+            txtTraduccion.Text = palabra;
+
+        }
 
         public void borrar()
         {
             this.dgvtabladatos.Rows.Clear(); //se limpia la tabla xd
             this.dgvErrores.Rows.Clear();
+            this.txtTraduccion.Clear();
             idv = 1;
         }
 
@@ -1723,10 +1825,20 @@ namespace AnalisisLexico
             idv = 1;
             borrar(); //funcion que limpia la tabla
             Analisis(); //llamamos la funcion que analiza el codigo de la pizarra
-            Traducir.Enabled = true;
+            
+            if (dgvErrores.Rows[0].Cells[0].Value == null)
+            {
+                MessageBox.Show("Se Analizo con Exito c:");
+                Traducir.Enabled = true;
+                btntraduccionc.Enabled = true;
+            }
+            else
+            {
+                Traducir.Enabled = false;
+                btntraduccionc.Enabled = false;
+            }
         }
 
-        // Establece el color de la palabra "ejemplo" en el control RichTextBox1
         public void personalizado()
         {
             if (sbtnTema.Checked == false) // si la interfaz de usuario es modo claro se agregan esos colores a las palabras reservadas
@@ -1964,15 +2076,15 @@ namespace AnalisisLexico
             }
             
         }
-
-        //Guardar texto ingresado en la pizzara, pense que si se iba a usar pero creo que no -- Arauz
         
 
         private void btnBorrar_Click(object sender, EventArgs e) //limpia todo xd
         {
-            borrar(); // Se llama la funcion para limpiar toda la interfaz
+            borrar(); 
             Pizarra.Clear();
             txtTraduccion.Clear();
+            Traducir.Enabled = false;
+            btntraduccionc.Enabled = false;
         }
 
         private void SignosNoValidos()
@@ -2192,8 +2304,7 @@ namespace AnalisisLexico
                 }
             }
         }
-
-        
+  
         private void enumeracion()
         {
             //ESTO ES PARA LA NUMERACION DE EDITOR DE PIZARRA
@@ -2254,30 +2365,16 @@ namespace AnalisisLexico
             }
         }
 
-        private void gboxTabla_Enter(object sender, EventArgs e)
-        {
-
-        }
-
         private void Traducir_Click(object sender, EventArgs e)
         {
             txtTraduccion.Enabled= true;
             Traduccion();
         }
 
-        private void txtTraduccion_TextChanged(object sender, EventArgs e)
+        private void btntraduccionc_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void dgvErrores_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
-
+            txtTraduccion.Enabled = true;
+            Traduccion2();
         }
     }
 }

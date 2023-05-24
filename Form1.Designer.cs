@@ -55,6 +55,7 @@ namespace AnalisisLexico
             this.sbtnTema = new AnalisisLexico.Clases.SlideButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btntraduccionc = new System.Windows.Forms.Button();
             this.gboxCodigo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBIcono)).BeginInit();
             this.gboxTabla.SuspendLayout();
@@ -164,7 +165,6 @@ namespace AnalisisLexico
             this.gboxTabla.TabStop = false;
             this.gboxTabla.Text = "Distribucion";
             this.gboxTabla.Visible = false;
-            this.gboxTabla.Enter += new System.EventHandler(this.gboxTabla_Enter);
             // 
             // dgvtabladatos
             // 
@@ -234,7 +234,7 @@ namespace AnalisisLexico
             this.dgvErrores.RowHeadersWidth = 20;
             this.dgvErrores.Size = new System.Drawing.Size(562, 120);
             this.dgvErrores.TabIndex = 3;
-            this.dgvErrores.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvErrores_CellContentClick);
+            
             // 
             // Column6
             // 
@@ -273,7 +273,7 @@ namespace AnalisisLexico
             this.txtTraduccion.Name = "txtTraduccion";
             this.txtTraduccion.Size = new System.Drawing.Size(350, 401);
             this.txtTraduccion.TabIndex = 9;
-            this.txtTraduccion.TextChanged += new System.EventHandler(this.txtTraduccion_TextChanged);
+            
             // 
             // Traducir
             // 
@@ -322,7 +322,19 @@ namespace AnalisisLexico
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tabla de Traduccion";
-            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
+            // 
+            // btntraduccionc
+            // 
+            this.btntraduccionc.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btntraduccionc.Enabled = false;
+            this.btntraduccionc.Font = new System.Drawing.Font("Impact", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btntraduccionc.Location = new System.Drawing.Point(770, 474);
+            this.btntraduccionc.Name = "btntraduccionc";
+            this.btntraduccionc.Size = new System.Drawing.Size(146, 47);
+            this.btntraduccionc.TabIndex = 13;
+            this.btntraduccionc.Text = "Traslater to c#";
+            this.btntraduccionc.UseVisualStyleBackColor = false;
+            this.btntraduccionc.Click += new System.EventHandler(this.btntraduccionc_Click);
             // 
             // Form1
             // 
@@ -330,6 +342,7 @@ namespace AnalisisLexico
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(975, 552);
+            this.Controls.Add(this.btntraduccionc);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Traducir);
@@ -385,6 +398,7 @@ namespace AnalisisLexico
         private System.Windows.Forms.Button Traducir;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button btntraduccionc;
     }
 }
 
