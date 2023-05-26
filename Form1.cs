@@ -1746,13 +1746,25 @@ namespace AnalisisLexico
                     string variable = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
                     palabra += variable + " ";
                 }
-                else if (token == "Es un valor de variable string" && dgvtabladatos.Rows[i - 1].Cells[0].Value.ToString() == "cout")
+                else if (token == "cout")
                 {
-                    string variable = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
-                    variable = variable.Replace("-", " ");
-                    variable = variable.Replace("'", "\"");
-                    palabra += variable + ") ";
-                }
+                    if(dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString().EndsWith("en"))
+                    {
+                        string variable = dgvtabladatos.Rows[i+1].Cells[1].Value.ToString();
+                        variable = variable.Replace("_", " ");
+                        palabra += "Console.WriteLine(" + variable + ".ToStrign())";
+                        i++;
+
+                    }
+                    else if(dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString().EndsWith("en"))
+                    {
+                        string variable = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
+                        variable = variable.Replace("_", " ");
+                        palabra += "Console.WriteLine(" + variable + ")";
+                        i++;
+                    }
+                    
+                } 
                 else if (token == "fin de linea")
                 {
                     string variable = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
@@ -1774,7 +1786,7 @@ namespace AnalisisLexico
                         string variabel = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
                         i++;
                         variabel = variabel.Replace("_", "");
-                        palabra += ayuda + "\r\n" + variabel + " = int.TryParse(" + "apoyo"+ t + ")";
+                        palabra += ayuda + "\r\n" + variabel + " = int.Parse(" + "apoyo"+ t + ")";
                         t++;
                     }
                     else if(dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString().EndsWith("ca"))

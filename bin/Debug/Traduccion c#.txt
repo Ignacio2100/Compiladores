@@ -4,7 +4,6 @@ Variable de tipo decimal:float
 Condicion If:if 
 Ciclo For:for 
 Condision else:else 
-cout:Console.WriteLine(
 LLave inicio bloque:{ 
 Llave cierre bloque:} 
 parentesis inicio bloque:( 
