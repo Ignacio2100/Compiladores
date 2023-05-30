@@ -19,3 +19,4 @@ E019:Solo se puede incrementar
 E020:Falta separacion
 E021:Simbolo no valido
 E022:Solo se permiten variables tipo entero en el para
+E023:Palabra Ingresada no encontrada

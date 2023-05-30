@@ -359,7 +359,6 @@ namespace AnalisisLexico
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Compilador UMG";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.gboxCodigo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PBIcono)).EndInit();
             this.gboxTabla.ResumeLayout(false);

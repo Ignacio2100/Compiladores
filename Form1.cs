@@ -121,8 +121,6 @@ namespace AnalisisLexico
 
             return caracterRerpresentado; //retorna el significado del texto que se analizó
         }
-
-
         int idv = 1; //variable para el id de las variables
 
         public void Analisis()
@@ -169,7 +167,18 @@ namespace AnalisisLexico
                     }
                 }
             }
-            //Traduccion();
+
+            int filas = dgvtabladatos.RowCount - 1;
+            for (int a = 0; a <= filas-1; a++)
+            {
+
+                if (dgvtabladatos.Rows[a].Cells[0].Value == "")
+                {
+                    string k = dgvtabladatos.Rows[a+1].Cells[4].Value.ToString();
+                    ManejoErrores("E023", k);
+                }
+            }
+
             VarCreada();
             varrepetidas(); //manda a llamar metodo para verificar variables repetidos
             Reglas();
@@ -1310,10 +1319,7 @@ namespace AnalisisLexico
             string linreglas;
             while ((linreglas = readerReglas.ReadLine()) != null)
             {
-                // Separar la línea en clave y valor utilizando un separador (por ejemplo, ":")
                 string[] parts = linreglas.Split(':');
-
-                // Agregar la clave y valor al diccionario segun la separación anterior
                 if (parts.Length == 2)
                 {
                     reglas.Add(parts[0], parts[1]);
@@ -1611,7 +1617,6 @@ namespace AnalisisLexico
 
             return resultado;
 
-
         }
 
         public void Traduccion()
@@ -1756,12 +1761,21 @@ namespace AnalisisLexico
                         i++;
 
                     }
-                    else if(dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString().EndsWith("en"))
+                    else if(dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString().EndsWith("ca"))
                     {
                         string variable = dgvtabladatos.Rows[i + 1].Cells[1].Value.ToString();
                         variable = variable.Replace("_", " ");
                         palabra += "Console.WriteLine(" + variable + ")";
                         i++;
+                    }
+                    else if(dgvtabladatos.Rows[i + 1].Cells[0].Value.ToString()== "Es un valor de variable string")
+                    {
+                        i++;
+                        string variable = dgvtabladatos.Rows[i].Cells[1].Value.ToString();
+                        variable = variable.Replace("-", " ");
+                        variable = variable.Replace("'", "\"");
+                        palabra += "Console.WriteLine(" + variable + ")";
+
                     }
                     
                 } 
@@ -1827,13 +1841,9 @@ namespace AnalisisLexico
             enumeracion();//funcion de la enumeracion 
         }
 
-        private void Form1_Load(System.Object sender, EventArgs e)
-        {
-
-        }
-
         private void btnProcesar_Click(object sender, EventArgs e)
         {
+            personalizado();
             idv = 1;
             borrar(); //funcion que limpia la tabla
             Analisis(); //llamamos la funcion que analiza el codigo de la pizarra
@@ -2089,7 +2099,6 @@ namespace AnalisisLexico
             
         }
         
-
         private void btnBorrar_Click(object sender, EventArgs e) //limpia todo xd
         {
             borrar(); 
