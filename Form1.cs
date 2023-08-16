@@ -1298,13 +1298,7 @@ namespace AnalisisLexico
                         case "decimal":
                             dgvtabladatos.Rows[i].Cells[0].Value = "Es un Nombre de Variable de";
                             break;
-                        case "&":
-                            string hola = dgvtabladatos.Rows[i - 2].Cells[0].Value.ToString();
-                            if (hola.EndsWith("ca") || hola.EndsWith("en") || hola.EndsWith("de"))
-                            {
-                                dgvtabladatos.Rows[i].Cells[0].Value = hola;
-                            }
-                            break;
+                        
                     }
                 }
             }
