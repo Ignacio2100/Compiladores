@@ -1,0 +1,29 @@
+Variable de tipo string:string 
+Variable de tipo int:int 
+Variable de tipo decimal:float 
+Condicion If:if 
+Ciclo For:for 
+Condision else:else 
+cin:cin>> 
+cout:cout<< 
+LLave inicio bloque:{ 
+Llave cierre bloque:} 
+parentesis inicio bloque:( 
+parentesis cierre bloque:) 
+signo de asignacion:= 
+signo de comparacion:== 
+signo de suma:+ 
+signo de resta:- 
+signo de division:/ 
+signo de multiplicacion:* 
+signo mayor que:> 
+signo menor que:< 
+mayor igual:>= 
+menor igual:<= 
+incremento:++ 
+Inicio de if o else:{ 
+fin de if o else:} 
+inicio for:( 
+fin for:) 
+separacion var:, 
+separacion:;

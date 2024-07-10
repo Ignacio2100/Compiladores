@@ -1,9 +1,96 @@
-<Variable de tipo string><Es un Nombre de Variable>: 1
-<Variable de tipo string><Es un Nombre de Variable><signo de asignacion><Es un valor de variable string>: 1
-<Es un Nombre de Variable><signo de asignacion><Es un valor de variable string>: 1
-<Variable de tipo int><Es un Nombre de Variable>: 1
-<Variable de tipo int><Es un Nombre de Variable><signo de asignacion><Es un número>: 1
-<Es un Nombre de Variable><signo de asignacion><Es un número>: 1
-<Variable de tipo decimal><Es un Nombre de Variable>: 1
-<Variable de tipo decimal><Es un Nombre de Variable><signo de asignacion><Es un número decimal>: 1
-<Es un Nombre de Variable><signo de asignacion><Es un número decimal>: 1
+<Variable de tipo string><Es un Nombre de Variable ca>: 1
+<Variable de tipo string><Es un Nombre de Variable ca><signo de asignacion><Es un valor de variable string>: 1
+<Variable de tipo string><Es un Nombre de Variable ca><signo de asignacion><Es un Nombre de Variable ca>: 1
+<Es un Nombre de Variable ca><signo de asignacion><Es un valor de variable string>: 1
+<Es un Nombre de Variable ca><signo de asignacion><Es un Nombre de Variable ca>: 1
+<Es un Nombre de Variable ca><signo de comparacion><Es un valor de variable string>: 1
+<Es un Nombre de Variable ca><signo de comparacion><Es un Nombre de Variable ca>: 1
+<Variable de tipo int><Es un Nombre de Variable en>: 1
+<Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un número>: 1
+<Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en>: 1
+<Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de suma><Es un número>: 1
+<Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un número><signo de suma><Es un Nombre de Variable en>: 1
+<Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un número><signo de suma><Es un número>: 1
+<Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de suma><Es un Nombre de Variable en>: 1
+<Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de resta><Es un número>: 1
+<Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un número><signo de resta><Es un Nombre de Variable en>: 1
+<Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un número><signo de resta><Es un número>: 1
+<Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de resta><Es un Nombre de Variable en>: 1
+<Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de division><Es un número>: 1
+<Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un número><signo de division><Es un Nombre de Variable en>: 1
+<Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un número><signo de division><Es un número>: 1
+<Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de division><Es un Nombre de Variable en>: 1
+<Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de multiplicacion><Es un número>: 1
+<Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un número><signo de multiplicacion><Es un Nombre de Variable en>: 1
+<Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un número><signo de multiplicacion><Es un número>: 1
+<Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de multiplicacion><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un número>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de suma><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de suma><Es un número>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un número><signo de suma><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un número><signo de suma><Es un número>: 1
+
+<Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de resta><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de resta><Es un número>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un número><signo de resta><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un número><signo de resta><Es un número>: 1
+
+<Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de division><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de division><Es un número>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un número><signo de division><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un número><signo de division><Es un número>: 1
+
+<Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de multiplicacion><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><signo de multiplicacion><Es un número>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un número><signo de multiplicacion><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><signo de asignacion><Es un número><signo de multiplicacion><Es un número>: 1
+
+<Es un Nombre de Variable en><signo de comparacion><Es un número>: 1
+<Es un Nombre de Variable en><signo de comparacion><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><signo mayor que><Es un número>: 1
+<Es un Nombre de Variable en><signo mayor que><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><signo menor que><Es un número>: 1
+<Es un Nombre de Variable en><signo menor que><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><mayor igual><Es un número>: 1
+<Es un Nombre de Variable en><mayor igual><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><menor igual><Es un número>: 1
+<Es un Nombre de Variable en><menor igual><Es un Nombre de Variable en>: 1
+<Es un Nombre de Variable en><incremento>: 1
+<Variable de tipo decimal><Es un Nombre de Variable de>: 1
+<Variable de tipo decimal><Es un Nombre de Variable de><signo de asignacion><Es un número decimal>: 1
+<Variable de tipo decimal><Es un Nombre de Variable de><signo de asignacion><Es un Nombre de Variable de>: 1
+<Es un Nombre de Variable de><signo de asignacion><Es un número decimal>: 1
+<Es un Nombre de Variable de><signo de asignacion><Es un Nombre de Variable de>: 1
+<Es un Nombre de Variable de><signo de comparacion><Es un Nombre de Variable de>: 1
+<Condicion If><parentesis inicio bloque><parentesis cierre bloque><Inicio de if o else><fin de if o else>: 1
+<Condicion If><parentesis inicio bloque><parentesis cierre bloque><Inicio de if o else><fin de if o else><Condision else><Inicio de if o else><fin de if o else>: 1
+<cout><Es un Nombre de Variable ca>: 1
+<cout><Es un Nombre de Variable en>: 1
+<cout><Es un Nombre de Variable de>: 1
+<cout><Es un valor de variable string>: 1
+<cout><Es un número>: 1
+<cout><Es un número decimal>: 1
+<cin><Es un Nombre de Variable ca>: 1
+<cin><Es un Nombre de Variable en>: 1
+<cin><Es un Nombre de Variable de>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un número><separacion><Es un Nombre de Variable en><signo mayor que><Es un número><separacion><Es un Nombre de Variable en><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><separacion><Es un Nombre de Variable en><signo mayor que><Es un número><separacion><Es un Nombre de Variable en><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un número><separacion><Es un Nombre de Variable en><signo mayor que><Es un Nombre de Variable en><separacion><Es un Nombre de Variable en><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><separacion><Es un Nombre de Variable en><signo mayor que><Es un Nombre de Variable en><separacion><Es un Nombre de Variable en><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un número><separacion><Es un Nombre de Variable en><signo menor que><Es un número><separacion><Es un Nombre de Variable en><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><separacion><Es un Nombre de Variable en><signo menor que><Es un número><separacion><Es un Nombre de Variable en><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un número><separacion><Es un Nombre de Variable en><signo menor que><Es un Nombre de Variable en><separacion><Es un Nombre de Variable en><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><separacion><Es un Nombre de Variable en><signo menor que><Es un Nombre de Variable en><separacion><Es un Nombre de Variable en><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un número><separacion><Es un Nombre de Variable en><menor igual><Es un número><separacion><Es un Nombre de Variable en><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><separacion><Es un Nombre de Variable en><menor igual><Es un número><separacion><Es un Nombre de Variable en><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un número><separacion><Es un Nombre de Variable en><menor igual><Es un número><separacion><Es un número><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><separacion><Es un Nombre de Variable en><menor igual><Es un Nombre de Variable en><separacion><Es un Nombre de Variable en><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un número><separacion><Es un Nombre de Variable en><mayor igual><Es un número><separacion><Es un Nombre de Variable en><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><separacion><Es un Nombre de Variable en><mayor igual><Es un número><separacion><Es un Nombre de Variable en><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un número><separacion><Es un Nombre de Variable en><mayor igual><Es un Nombre de Variable en><separacion><Es un Nombre de Variable en><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><separacion><Es un Nombre de Variable en><mayor igual><Es un Nombre de Variable en><separacion><Es un Nombre de Variable en><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un número><separacion><Es un Nombre de Variable en><signo de comparacion><Es un número><separacion><Es un Nombre de Variable en><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><separacion><Es un Nombre de Variable en><signo de comparacion><Es un número><separacion><Es un Nombre de Variable en><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un número><separacion><Es un Nombre de Variable en><signo de comparacion><Es un Nombre de Variable en><separacion><Es un Nombre de Variable en><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
+<Ciclo For><inicio for><Variable de tipo int><Es un Nombre de Variable en><signo de asignacion><Es un Nombre de Variable en><separacion><Es un Nombre de Variable en><signo de comparacion><Es un Nombre de Variable en><separacion><Es un Nombre de Variable en><incremento><fin for><LLave inicio bloque><Llave cierre bloque>: 1
